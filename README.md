@@ -1,7 +1,32 @@
 # Ubuntu MATE Colours
 
-This small script intends to take the existing `ubuntu-mate-artwork`
-theme and icons and switch the green colour to one of your choice.
+![Screenshot of thte 3 themes using custom colours](.github/screenshot.jpg)
+
+This small program take the existing `ubuntu-mate-artwork`
+theme and icons and switches the green colour to one of your choice.
+
+Only these themes are supported:
+
+- Ambiant-MATE
+- Ambiant-MATE-Dark
+- Radiant-MATE
+
+
+> :warning: This program is a work in progress!
+
+
+## Install
+
+Either download this repository and run `generate-ubuntu-mate-colours`, or
+on Ubuntu, add this PPA to the system:
+
+```
+sudo add-apt-repository ppa:lah7/ubuntu-mate-colours
+sudo apt install ubuntu-mate-colours-generator
+```
+
+In future, there will be packages for predefined colours, saving the need to
+acquire the source repositories, with the added bonus of staying up-to-date.
 
 
 ## Usage
@@ -25,12 +50,6 @@ In future, to update this copy without re-downloading everything:
 --name <NAME>         Human readable suffix to identify variant, e.g. 'blue'.
 --src-dir             Path to ubuntu-mate-artwork repository
 ```
-
-The theme must be one of the following:
-
-- Ambiant-MATE
-- Ambiant-MATE-Dark
-- Radiant-MATE
 
 
 #### Optional arguments
@@ -66,9 +85,9 @@ The script by default will create the theme in `~/.local/share/themes` and
 | #D8A200   | Yellow
 
 
-If `zenity` is installed on your system, you can use this to produce a GTK color
-selection box:
+You can use colour picker applications to choose your own colours.
 
+    mate-color-selection
     zenity --color-selection
 
 
