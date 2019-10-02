@@ -69,11 +69,13 @@ if args.theme:
         print("Unrecognised theme: " + THEME)
         exit(1)
 
-    if THEME[-12:] == "Ambiant-MATE":
-        ICON_THEME = "Ambiant-MATE"
-    elif THEME[-12:] == "Radiant-MATE":
-        ICON_THEME = "Radiant-MATE"
+    theme_to_icon_set = {
+        "Ambiant-MATE": "Ambiant-MATE",
+        "Ambiant-MATE-Dark": "Ambiant-MATE",
+        "Radiant-MATE": "Radiant-MATE"
+    }
 
+    ICON_THEME = theme_to_icon_set[THEME]
     TARGET_NAME = THEME + "-"
 
 if args.hex:
