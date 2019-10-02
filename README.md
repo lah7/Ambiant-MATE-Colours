@@ -71,18 +71,18 @@ The script by default will create the theme in `~/.local/share/themes` and
 
 #### Example Hex Codes
 
-| Hex       | Colour          |
-| --------- | --------------- |
-| #2dacd4   | Aqua
-| #5489CF   | Blue
-| #7F441F   | Brown
-| #679816   | Green (alternate)
-| #E66C1E   | Orange
-| #E231A3   | Pink
-| #7E5BC5   | Purple
-| #CE3A3A   | Red
-| #1CB39F   | Teal
-| #D8A200   | Yellow
+| Hex                               | Colour          |
+| --------------------------------- | --------------- |
+| ![](.github/aqua.png) `#2DACD4`   | Aqua
+| ![](.github/blue.png) `#5489CF`   | Blue
+| ![](.github/brown.png) `#7F441F`  | Brown
+| ![](.github/green.png) `#679816`  | Green (alternate)
+| ![](.github/orange.png) `#E66C1E` | Orange
+| ![](.github/pink.png) `#E231A3`   | Pink
+| ![](.github/purple.png) `#7E5BC5` | Purple
+| ![](.github/red.png) `#CE3A3A`    | Red
+| ![](.github/teal.png) `#1CB39F`   | Teal
+| ![](.github/yellow.png) `#D8A200` | Yellow
 
 
 You can use colour picker applications to choose your own colours.
