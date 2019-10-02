@@ -209,6 +209,8 @@ print("Patching theme...")
 
 # --> Metadata
 replace_string("index.theme", THEME, TARGET_NAME)
+replace_string("index.theme", "IconTheme=Ambiant-MATE", "IconTheme=" + TARGET_NAME)
+replace_string("index.theme", "IconTheme=Radiant-MATE", "IconTheme=" + TARGET_NAME)
 replace_string("*.xml", THEME, TARGET_NAME)
 replace_string("index.theme", THEME.replace("-", " "), TARGET_NAME)
 
@@ -313,5 +315,5 @@ print("Assets generated.\n")
 # ------------------------------------------------
 # Finished
 # ------------------------------------------------
-print("\nGeneration of theme '{0}' complete.".format(THEME_NAME))
+print("Generation of theme '{0}' complete.".format(TARGET_NAME))
 exit(0)
