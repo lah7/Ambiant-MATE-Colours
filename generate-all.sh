@@ -3,7 +3,7 @@
 # Generates all the themes - for packaging use only!
 #
 
-CMD="./generate-ubuntu-mate-colours --yes --install-icon-dir=usr/share/icons --install-theme-dir=usr/share/themes --src-dir=ubuntu-mate-artwork"
+CMD="./ubuntu-mate-colours-generator --yes --install-icon-dir=usr/share/icons --install-theme-dir=usr/share/themes --src-dir=ubuntu-mate-artwork"
 
 if [ ! -d "ubuntu-mate-artwork" ]; then
     git clone 'https://github.com/ubuntu-mate/ubuntu-mate-artwork.git' --depth=1
