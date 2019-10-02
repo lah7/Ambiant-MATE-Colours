@@ -117,7 +117,7 @@ print("")
 # ------------------------------------------------
 print("Copying source files...")
 SRC_THEME_PATH = os.path.join(ARTWORK_REPOSITORY, "usr/share/themes/", THEME)
-SRC_ICON_PATH = os.path.join(ARTWORK_REPOSITORY, "usr/share/icons/", THEME)
+SRC_ICON_PATH = os.path.join(ARTWORK_REPOSITORY, "usr/share/icons/", ICON_THEME)
 TARGET_THEME_PATH = os.path.join(TARGET_THEME_DIR, TARGET_NAME)
 TARGET_ICON_PATH = os.path.join(TARGET_ICON_DIR, TARGET_NAME)
 
