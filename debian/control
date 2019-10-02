@@ -1,0 +1,15 @@
+Source: ubuntu-mate-colours
+Section: x11
+Priority: optional
+Maintainer: Luke Horwell <code@horwell.me>
+Build-Depends: debhelper (>= 9),
+               imagemagick
+Homepage: https://github.com/lah7/ubuntu-mate-colours
+
+Package: ubuntu-mate-colours-generator
+Architecture: all
+Depends: python3 (>= 3.4.0),
+         imagemagick
+Description: Utility to recolour Ubuntu MATE Themes
+ A utiliy to generate Ambiant-MATE, Ambiant-MATE-Dark and
+ Radiant-MATE themes from source that use a specific colour.
