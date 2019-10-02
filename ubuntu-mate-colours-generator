@@ -106,6 +106,7 @@ if args.install_theme_dir:
 # Output summary of what's going to happen.
 # ------------------------------------------------
 print("\nNew variant to be generated:\n")
+print("                Name: " + TARGET_NAME)
 print("          Base Theme: " + THEME)
 print("     Base Icon Theme: " + ICON_THEME)
 print("           Hex Value: " + NEW_COLOUR_HEX)
@@ -211,9 +212,10 @@ CUR_DIR = TARGET_THEME_PATH
 print("Patching theme...")
 
 # --> Metadata
+replace_string("index.theme", "-Dark", "")
 replace_string("index.theme", ICON_THEME, TARGET_NAME)
+replace_string("index.theme", "Comment=", "Comment=" + args.name + " ")
 replace_string("*.xml", THEME, TARGET_NAME)
-replace_string("index.theme", THEME.replace("-", " "), TARGET_NAME)
 
 # --> Base colour
 replace_string("*.ini", "#87A752", NEW_COLOUR_HEX)
@@ -245,8 +247,7 @@ CUR_DIR = TARGET_ICON_PATH
 print("Patching icons...")
 
 # --> Metadata
-replace_string("index.theme", THEME, TARGET_NAME)
-replace_string("index.theme", THEME.replace("-", " "), TARGET_NAME)
+replace_string("index.theme", "Name=" + ICON_THEME, "Name=" + TARGET_NAME)
 replace_string("*.svg", "#87A752", NEW_COLOUR_HEX)
 
 # --> General colours and shades
