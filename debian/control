@@ -3,7 +3,9 @@ Section: x11
 Priority: optional
 Maintainer: Luke Horwell <code@horwell.me>
 Build-Depends: debhelper (>= 9),
-               imagemagick
+               git,
+               imagemagick,
+               librsvg2-bin
 Homepage: https://github.com/lah7/ubuntu-mate-colours
 
 Package: ubuntu-mate-colours-generator
@@ -13,3 +15,80 @@ Depends: python3 (>= 3.4.0),
 Description: Utility to recolour Ubuntu MATE Themes
  A utiliy to generate Ambiant-MATE, Ambiant-MATE-Dark and
  Radiant-MATE themes from source that use a specific colour.
+
+Package: ubuntu-mate-colours-all
+Architecture: all
+Depends: ubuntu-mate-colours-aqua,
+         ubuntu-mate-colours-blue,
+         ubuntu-mate-colours-brown,
+         ubuntu-mate-colours-green,
+         ubuntu-mate-colours-orange,
+         ubuntu-mate-colours-pink,
+         ubuntu-mate-colours-purple,
+         ubuntu-mate-colours-red,
+         ubuntu-mate-colours-teal,
+         ubuntu-mate-colours-yellow
+Description: Complete collection of Ubuntu MATE variants
+ Contains all the colour versions of Ambiant-MATE, Ambiant-MATE-Dark
+ and Radiant-MATE theme and icons.
+
+Package: ubuntu-mate-colours-aqua
+Architecture: all
+Description: Aqua variant of Ubuntu MATE themes
+ Contains an aqua coloured version of Ambiant-MATE, Ambiant-MATE-Dark
+ and Radiant-MATE theme and icons.
+
+Package: ubuntu-mate-colours-blue
+Architecture: all
+Description: Blue variant of Ubuntu MATE themes
+ Contains an aqua coloured version of Ambiant-MATE, Ambiant-MATE-Dark
+ and Radiant-MATE theme and icons.
+
+Package: ubuntu-mate-colours-brown
+Architecture: all
+Description: Brown variant of Ubuntu MATE themes
+ Contains an aqua coloured version of Ambiant-MATE, Ambiant-MATE-Dark
+ and Radiant-MATE theme and icons.
+
+Package: ubuntu-mate-colours-green
+Architecture: all
+Description: Green variant of Ubuntu MATE themes
+ Contains an green coloured version of Ambiant-MATE, Ambiant-MATE-Dark
+ and Radiant-MATE theme and icons. This is an alternate colour to
+ Ubuntu MATE's brand.
+
+Package: ubuntu-mate-colours-orange
+Architecture: all
+Description: Orange variant of Ubuntu MATE themes
+ Contains an orange coloured version of Ambiant-MATE, Ambiant-MATE-Dark
+ and Radiant-MATE theme and icons.
+
+Package: ubuntu-mate-colours-pink
+Architecture: all
+Description: Pink variant of Ubuntu MATE themes
+ Contains an pink coloured version of Ambiant-MATE, Ambiant-MATE-Dark
+ and Radiant-MATE theme and icons.
+
+Package: ubuntu-mate-colours-purple
+Architecture: all
+Description: Purple variant of Ubuntu MATE themes
+ Contains an purple coloured version of Ambiant-MATE, Ambiant-MATE-Dark
+ and Radiant-MATE theme and icons.
+
+Package: ubuntu-mate-colours-red
+Architecture: all
+Description: Red variant of Ubuntu MATE themes
+ Contains an red coloured version of Ambiant-MATE, Ambiant-MATE-Dark
+ and Radiant-MATE theme and icons.
+
+Package: ubuntu-mate-colours-teal
+Architecture: all
+Description: Teal variant of Ubuntu MATE themes
+ Contains an teal coloured version of Ambiant-MATE, Ambiant-MATE-Dark
+ and Radiant-MATE theme and icons.
+
+Package: ubuntu-mate-colours-yellow
+Architecture: all
+Description: Yellow variant of Ubuntu MATE themes
+ Contains an yellow coloured version of Ambiant-MATE, Ambiant-MATE-Dark
+ and Radiant-MATE theme and icons.
