@@ -2,8 +2,8 @@
 
 ![Screenshot of thte 3 themes using custom colours](.github/screenshot.jpg)
 
-This small program take the existing `ubuntu-mate-artwork`
-theme and icons and switches the green colour to one of your choice.
+This small program that takes the existing `ubuntu-mate-artwork`
+theme and icons and switches the green to a colour of your choice.
 
 Only these themes are supported:
 
