@@ -301,9 +301,11 @@ for asset in [
 # fixme: not yet implemented
 
 # GTK2 assets
-os.chdir(TARGET_THEME_PATH)
 for filename in ["check-selected.png", "radio-selected.png"]:
-    shutil.copy("gtk-3.0/assets/" + filename, "gtk-2.0/assets/" + filename)
+    src = os.path.join(TARGET_THEME_PATH + "/gtk-3.0/assets/" + filename)
+    dst = os.path.join(TARGET_THEME_PATH + "/gtk-2.0/assets/" + filename)
+    if os.path.exists(dst):
+        shutil.copy(src, dst)
 
 print("Assets generated.\n")
 
