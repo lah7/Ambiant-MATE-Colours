@@ -3,9 +3,11 @@ Section: x11
 Priority: optional
 Maintainer: Luke Horwell <code@horwell.me>
 Build-Depends: debhelper (>= 9),
-               git,
+               python3 (>= 3.4.0),
                imagemagick,
-               librsvg2-bin
+               librsvg2-bin,
+               ubuntu-mate-themes,
+               ubuntu-mate-icon-themes
 Homepage: https://github.com/lah7/ubuntu-mate-colours
 
 Package: ubuntu-mate-colours-generator

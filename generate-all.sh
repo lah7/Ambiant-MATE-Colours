@@ -3,15 +3,7 @@
 # Generates all the themes - for packaging use only!
 #
 
-CMD="./ubuntu-mate-colours-generator --yes --install-icon-dir=usr/share/icons --install-theme-dir=usr/share/themes --src-dir=ubuntu-mate-artwork"
-
-if [ ! -d "ubuntu-mate-artwork" ]; then
-    git clone 'https://github.com/ubuntu-mate/ubuntu-mate-artwork.git' --depth=1
-else
-    cd ubuntu-mate-artwork
-    git pull --rebase origin master
-    cd ..
-fi
+CMD="./ubuntu-mate-colours-generator --yes --install-icon-dir=usr/share/icons --install-theme-dir=usr/share/themes --src-dir=/"
 
 for theme in "Ambiant-MATE" "Ambiant-MATE-Dark" "Radiant-MATE"; do
     $CMD --theme="$theme" --hex="#2DACD4" --name="Aqua"
