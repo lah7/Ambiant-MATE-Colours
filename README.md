@@ -82,7 +82,7 @@ For **hex**, you can use colour picker applications to choose the colour.
 
 For example:
 
-    generate-ubuntu-mate-colours --theme="Ambiant-MATE" --hex="#5489CF" --name="Blue"
+    ubuntu-mate-colours-generator --theme="Ambiant-MATE" --hex="#5489CF" --name="Blue"
 
 The script by default will create the theme in `~/.local/share/themes` and
 `~/.local/share/icons` using the `ubuntu-mate-artwork` repository as a source.

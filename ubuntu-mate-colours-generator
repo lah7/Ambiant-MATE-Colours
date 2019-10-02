@@ -114,6 +114,7 @@ print("    Install theme to: " + TARGET_THEME_DIR)
 print("    Install icons to: " + TARGET_ICON_DIR)
 print("")
 
+
 # ------------------------------------------------
 # Create copy of repository and perform modifications
 # ------------------------------------------------
