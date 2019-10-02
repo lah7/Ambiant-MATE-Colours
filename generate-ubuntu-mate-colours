@@ -1,0 +1,315 @@
+#!/usr/bin/python3
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the temms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+# Copyright (C) 2019 Luke Horwell <code@horwell.me>
+#
+
+import argparse
+import glob
+import os
+import shutil
+import re
+
+# ------------------------------------------------
+# Paths
+# ------------------------------------------------
+THEME = ""
+ICON_THEME = ""
+NEW_COLOUR_HEX = ""
+ARTWORK_REPOSITORY = None
+TARGET_ICON_DIR = os.path.expanduser("~/.icons")
+TARGET_THEME_DIR = os.path.expanduser("~/.themes")
+TARGET_NAME = ""
+
+
+# ------------------------------------------------
+# Check required external software is installed
+# ------------------------------------------------
+if not shutil.which("convert"):
+    print("'convert' command not found. Please install 'imagemagick'")
+    exit(1)
+
+
+#
+# Parse parameters
+#
+parser = argparse.ArgumentParser()
+parser._optionals.title = "Avaliable Arguments"
+parser.add_argument("--theme", help="Required. Ubuntu MATE theme to use, e.g. 'Ambiant-MATE'", action="store", required=True)
+parser.add_argument("--hex", help="Required. Colour value to use, e.g. '#3cabe4'", action="store", required=True)
+parser.add_argument("--name", help="Required. Human readable suffix to identify variant, e.g. 'blue'.", action="store", required=True)
+parser.add_argument("--src-dir", help="Required. Path to ubuntu-mate-artwork repository", action="store", required=True)
+parser.add_argument("--install-icon-dir", help="Path to install coloured icons", action="store")
+parser.add_argument("--install-theme-dir", help="Path to install coloured theme", action="store")
+parser.add_argument("-v", "--verbose", help="Show details of each file being processed", action="store_true")
+parser.add_argument("-y", "--yes", help="Assume yes to replace existing target directory", action="store_true")
+
+args = parser.parse_args()
+
+if not args.theme and not args.hex:
+    print("Missing arguments. See --help.")
+    exit(1)
+
+if args.theme:
+    THEME = args.theme
+
+    if THEME not in ["Ambiant-MATE", "Radiant-MATE", "Ambiant-MATE-Dark"]:
+        print("Unrecognised theme: " + THEME)
+        exit(1)
+
+    if THEME[-12:] == "Ambiant-MATE":
+        ICON_THEME = "Ambiant-MATE"
+    elif THEME[-12:] == "Radiant-MATE":
+        ICON_THEME = "Radiant-MATE"
+
+    TARGET_NAME = THEME + "-"
+
+if args.hex:
+    NEW_COLOUR_HEX = args.hex
+
+if args.name:
+    TARGET_NAME = THEME + "-" + args.name
+
+if args.src_dir:
+    ARTWORK_REPOSITORY = args.src_dir
+
+    if not os.path.exists(args.src_dir):
+        print("Could not find: " + args.src_dir)
+        exit(1)
+
+    if not os.path.exists(os.path.join(ARTWORK_REPOSITORY, "usr/share/themes/", THEME)):
+        print("Could not locate theme: " + THEME)
+        exit(1)
+
+if args.install_icon_dir:
+    TARGET_ICON_DIR = args.install_icon_dir
+
+if args.install_theme_dir:
+    TARGET_THEME_DIR = args.install_theme_dir
+
+
+# ------------------------------------------------
+# Output summary of what's going to happen.
+# ------------------------------------------------
+print("\nNew variant to be generated:\n")
+print("          Base Theme: " + THEME)
+print("     Base Icon Theme: " + ICON_THEME)
+print("           Hex Value: " + NEW_COLOUR_HEX)
+print("              Source: " + ARTWORK_REPOSITORY)
+print("    Install theme to: " + TARGET_THEME_DIR)
+print("    Install icons to: " + TARGET_ICON_DIR)
+print("")
+
+# ------------------------------------------------
+# Create copy of repository and perform modifications
+# ------------------------------------------------
+print("Copying source files...")
+SRC_THEME_PATH = os.path.join(ARTWORK_REPOSITORY, "usr/share/themes/", THEME)
+SRC_ICON_PATH = os.path.join(ARTWORK_REPOSITORY, "usr/share/icons/", THEME)
+TARGET_THEME_PATH = os.path.join(TARGET_THEME_DIR, TARGET_NAME)
+TARGET_ICON_PATH = os.path.join(TARGET_ICON_DIR, TARGET_NAME)
+
+for path in [TARGET_THEME_PATH, TARGET_ICON_PATH]:
+    if os.path.exists(path):
+        if not args.yes:
+            print("\nDirectory exists: " + path)
+            if input("Type 'y' to confirm removal: ") != "y":
+                exit(1)
+
+        shutil.rmtree(path)
+
+shutil.copytree(SRC_THEME_PATH, TARGET_THEME_PATH, symlinks=True)
+shutil.copytree(SRC_ICON_PATH, TARGET_ICON_PATH, symlinks=True)
+print("Source files copied.\n")
+
+
+# ------------------------------------------------
+# Function used for patching the files.
+# ------------------------------------------------
+CUR_DIR = None
+
+def replace_string(expr, before, after):
+    """
+    Opens a file in memory and replaces text.
+    """
+    files = glob.glob(os.path.join(CUR_DIR, "**", expr), recursive=True)
+    for path in files:
+        if not os.path.islink(path):
+            if args.verbose:
+                print("-> {0} ... ('{1}' to '{2}')".format(path, before, after))
+
+            newlines = []
+            with open(path, "r") as f:
+                lines = f.readlines()
+
+            for line in lines:
+                newlines.append(re.sub(before, after, line, flags=re.IGNORECASE))
+
+            with open(path, "w") as f:
+                f.writelines(newlines)
+
+def get_hex_variant(hex_colour, offset=1):
+    """
+    Lightens or darken a hex value by a specified offset. Similar to CSS preprocessing.
+    """
+    rgb_hex = [hex_colour[x:x + 2] for x in [1, 3, 5]]
+    new_rgb_int = [int(hex_value, 16) + offset for hex_value in rgb_hex]
+
+    # New RGB value must be >=0 and <=255.
+    new_rgb_int = [min([255, max([0, i])]) for i in new_rgb_int]
+
+    # Strip unnecessary 0x from Python's hex()
+    return "#" + "".join([hex(i)[2:] for i in new_rgb_int])
+
+def hex_to_rgb(hex_string):
+    """
+    Converts "#RRGGBB" string to rgb() CSS string.
+    """
+    hex_string = hex_string.lstrip("#")
+    rgb = list(int(hex_string[i:i+2], 16) for i in (0, 2 ,4))
+    return "rgb({0}, {1}, {2})".format(rgb[0], rgb[1], rgb[2])
+
+def hex_to_rgba(hex_string):
+    """
+    Converts "#RRGGBB" string to rgba() CSS string.
+    """
+    hex_string = hex_string.lstrip("#")
+    rgb = list(int(hex_string[i:i+2], 16) for i in (0, 2 ,4))
+    return "rgba({0}, {1}, {2})".format(rgb[0], rgb[1], rgb[2])
+
+def export_svg(svg, png, size):
+    """
+    Exports an SVG in new sizes specified in a list.
+    """
+    if args.verbose:
+        print("-> Converting '{0}' to '{1}' at {2}x{2}...".format(svg, png, size))
+
+    svg = os.path.join(CUR_DIR, svg)
+    png = os.path.join(CUR_DIR, png)
+    os.system("convert -density 1200 -background none -resize {2}x{2} {0} {1}".format(svg, png, size))
+
+
+# ------------------------------------------------
+# Patch the theme with new values.
+# ------------------------------------------------
+CUR_DIR = TARGET_THEME_PATH
+print("Patching theme...")
+
+# --> Metadata
+replace_string("index.theme", THEME, TARGET_NAME)
+replace_string("*.xml", THEME, TARGET_NAME)
+replace_string("index.theme", THEME.replace("-", " "), TARGET_NAME)
+
+# --> Base colour
+replace_string("*.ini", "#87A752", NEW_COLOUR_HEX)
+replace_string("*.ini", "#A7BB85", NEW_COLOUR_HEX)
+replace_string("gtkrc", "#87A752", NEW_COLOUR_HEX)
+replace_string("gtkrc", "#A7BB85", NEW_COLOUR_HEX)
+
+replace_string("*.css", "#87A752", NEW_COLOUR_HEX)
+replace_string("*.css", hex_to_rgb("#87A752"), hex_to_rgb(NEW_COLOUR_HEX))
+replace_string("*.css", hex_to_rgba("#87A752"), hex_to_rgba(NEW_COLOUR_HEX))
+replace_string("*.css", "#84b436", NEW_COLOUR_HEX)
+replace_string("*.css", hex_to_rgba("#84b436"), hex_to_rgba(NEW_COLOUR_HEX))
+
+# --> Assets
+replace_string("*.svg", "#87A752", NEW_COLOUR_HEX)
+replace_string("*.svg", "#355404", get_hex_variant(NEW_COLOUR_HEX, -60))
+replace_string("*.svg", "#5a782c", get_hex_variant(NEW_COLOUR_HEX, -40))
+replace_string("*.svg", "#64941c", get_hex_variant(NEW_COLOUR_HEX, -30))
+replace_string("*.svg", "#79a934", get_hex_variant(NEW_COLOUR_HEX, -20))
+replace_string("*.svg", "#87a556", get_hex_variant(NEW_COLOUR_HEX, 10))
+replace_string("*.svg", "#96b565", get_hex_variant(NEW_COLOUR_HEX, 20))
+
+print("Theme patched.\n")
+
+# ------------------------------------------------
+# Patch the icons with new values.
+# ------------------------------------------------
+CUR_DIR = TARGET_ICON_PATH
+print("Patching icons...")
+
+# --> Metadata
+replace_string("index.theme", THEME, TARGET_NAME)
+replace_string("index.theme", THEME.replace("-", " "), TARGET_NAME)
+replace_string("*.svg", "#87A752", NEW_COLOUR_HEX)
+
+# --> General colours and shades
+replace_string("*.svg", "#87A752", NEW_COLOUR_HEX)
+replace_string("*.svg", "#ADC980", get_hex_variant(NEW_COLOUR_HEX, 20))
+replace_string("*.svg", "#688933", get_hex_variant(NEW_COLOUR_HEX, -20))
+replace_string("*.svg", "#4e7752", get_hex_variant(NEW_COLOUR_HEX, -30))
+replace_string("*.svg", "#4A6A17", get_hex_variant(NEW_COLOUR_HEX, -30))
+
+# --> preferences-desktop-theme
+replace_string("*.svg", "#4e6827", get_hex_variant(NEW_COLOUR_HEX, -30))
+replace_string("*.svg", "#617f30", get_hex_variant(NEW_COLOUR_HEX, -15))
+replace_string("*.svg", "#b4c990", get_hex_variant(NEW_COLOUR_HEX, 30))
+replace_string("*.svg", "#87a556", get_hex_variant(NEW_COLOUR_HEX, 10))
+
+# --> preferences-system-network
+replace_string("*.svg", "#4d5e31", get_hex_variant(NEW_COLOUR_HEX, -20))
+replace_string("*.svg", "#abc187", get_hex_variant(NEW_COLOUR_HEX, 10))
+replace_string("*.svg", "#657b40", get_hex_variant(NEW_COLOUR_HEX, -10))
+replace_string("*.svg", "#4a5a2f", get_hex_variant(NEW_COLOUR_HEX, -20))
+
+# --> home
+replace_string("*.svg", "#3b550e", get_hex_variant(NEW_COLOUR_HEX, -30))
+
+print("Icons patched.\n")
+
+
+# ------------------------------------------------
+# Export new PNGs for SVGs in the theme (button border, close, etc)
+# ------------------------------------------------
+print("Generating assets...")
+CUR_DIR = TARGET_THEME_PATH
+
+# GTK3 assets
+for asset in [
+    "check-mixed",
+    "check-mixed-alt",
+    "check-mixed-hover",
+    "check-mixed-hover-alt",
+    "check-selected-alt",
+    "check-selected-hover-alt",
+    "check-selected-hover",
+    "check-selected",
+    "radio-mixed-alt",
+    "radio-mixed-hover-alt",
+    "radio-mixed",
+    "radio-selected-alt",
+    "radio-selected-hover-alt",
+    "radio-selected-hover",
+    "radio-selected"]:
+        export_svg("gtk-3.0/assets/" + asset + ".svg", "gtk-3.0/assets/" + asset + ".png", 16)
+        export_svg("gtk-3.0/assets/" + asset + ".svg", "gtk-3.0/assets/" + asset + "@2.png", 32)
+
+# GTK3 assets that have no SVG for the PNG.
+# fixme: not yet implemented
+
+# GTK2 assets
+os.chdir(TARGET_THEME_PATH)
+for filename in ["check-selected.png", "radio-selected.png"]:
+    shutil.copy("gtk-3.0/assets/" + filename, "gtk-2.0/assets/" + filename)
+
+print("Assets generated.\n")
+
+
+# ------------------------------------------------
+# Finished
+# ------------------------------------------------
+print("\nGeneration of theme '{0}' complete.".format(THEME_NAME))
+exit(0)
