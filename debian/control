@@ -4,7 +4,6 @@ Priority: optional
 Maintainer: Luke Horwell <luke@ubuntu-mate.org>
 Build-Depends: debhelper (>= 9),
                python3 (>= 3.4.0),
-               imagemagick,
                librsvg2-bin,
                ubuntu-mate-themes,
                ubuntu-mate-icon-themes
@@ -13,7 +12,6 @@ Homepage: https://github.com/lah7/ubuntu-mate-colours
 Package: ubuntu-mate-colours-generator
 Architecture: all
 Depends: python3 (>= 3.4.0),
-         imagemagick,
          librsvg2-bin
 Description: Utility to recolour Ubuntu MATE Themes
  A utiliy to generate Ambiant-MATE, Ambiant-MATE-Dark and

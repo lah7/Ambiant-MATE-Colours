@@ -37,8 +37,8 @@ TARGET_NAME = ""
 # ------------------------------------------------
 # Check required external software is installed
 # ------------------------------------------------
-if not shutil.which("convert"):
-    print("'convert' command not found. Please install 'imagemagick'")
+if not shutil.which("rsvg-convert"):
+    print("'rsvg-convert' command not found. Please install 'librsvg2-bin'")
     exit(1)
 
 
@@ -202,7 +202,7 @@ def export_svg(svg, png, size):
 
     svg = os.path.join(CUR_DIR, svg)
     png = os.path.join(CUR_DIR, png)
-    os.system("convert -density 1200 -background none -resize {2}x{2} {0} {1}".format(svg, png, size))
+    os.system("rsvg-convert -w {2} -h {2} -f png -o {1} {0}".format(svg, png, size))
 
 
 # ------------------------------------------------
