@@ -17,12 +17,12 @@ Only these themes are supported:
 
 ## Installation
 
-Packages are avaliable for both the generator and pre-defined colours.
+Packages are available for both the generator and pre-defined colours.
 On Ubuntu, simply add the PPA and install the packages as desired.
 
     sudo add-apt-repository ppa:lah7/ubuntu-mate-colours
 
-The following colours are avaliable:
+The following colours are available:
 
 | Hex                               | Colour          |
 | --------------------------------- | --------------- |
@@ -42,7 +42,7 @@ give you the blue variants of Ambiant-MATE, Ambiant-MATE-Dark and Radiant-MATE.
 
     sudo apt install ubuntu-mate-colours-blue
 
-After installing, the themes/icons will be avaliable to choose from **Appearance** (Look & Feel).
+After installing, the themes/icons will be available to choose from **Appearance** (Look & Feel).
 
 If your desired colour isn't listed, you can create your own using the generator:
 
@@ -53,7 +53,7 @@ There's also the option to install them all, but this may take up a lot of disk 
     sudo apt install ubuntu-mate-colours-all
 
 
-## Usage
+## Generator Usage
 
 First, make sure you have an up-to-date copy of the [`ubuntu-mate-artwork` repository](https://github.com/ubuntu-mate/ubuntu-mate-artwork).
 If you have `git` installed, you can make a clone using this command:
@@ -65,15 +65,18 @@ To update this copy without re-downloading everything in future:
     cd ubuntu-mate-artwork
     git pull --rebase origin master
 
+It is possible to use your currently installed installation of the theme & icons
+by specifying `/` for `--src-dir`, but please be aware this project is designed to
+work with the latest version of the theme & icons.
 
 #### Required arguments
 
-```
---theme <THEME>       Ubuntu MATE theme to use, e.g. 'Ambiant-MATE'
---hex <HEX>           Colour value to use, e.g. '#3cabe4'
---name <NAME>         Human readable suffix to identify variant, e.g. 'blue'.
---src-dir             Path to ubuntu-mate-artwork repository
-```
+| Argument          | Description                                             |
+| ----------------- | ------------------------------------------------------- |
+| `--theme`         | Ubuntu MATE theme to use, such as Ambiant-MATE.
+| `--hex`           | Standard #RRGGBB hex value.
+| `--name`          | A human readable name to describe this colour.
+| `--src-dir`       | Path to the root of the `ubuntu-mate-artwork` repository.
 
 For **hex**, you can use colour picker applications to choose the colour.
 
@@ -82,20 +85,20 @@ For **hex**, you can use colour picker applications to choose the colour.
 
 For example:
 
-    ubuntu-mate-colours-generator --theme="Ambiant-MATE" --hex="#5489CF" --name="Blue"
+    ubuntu-mate-colours-generator --theme="Ambiant-MATE" --hex="#5489CF" --name="Blue" --src-dir=/home/user/ubuntu-mate-artwork
 
 The script by default will create the theme in `~/.local/share/themes` and
-`~/.local/share/icons` using the `ubuntu-mate-artwork` repository as a source.
+`~/.local/share/icons`, making it available to the local user.
 
 
 #### Optional arguments
 
-```
---install-icon-dir    Path to install coloured icons
---install-theme-dir   Path to install coloured theme
--v, --verbose         Show details of each file being processed
--y, --yes             Assume yes to replace existing target directory
-```
+| Argument               | Description                                       |
+| ---------------------- | ------------------------------------------------- |
+| `--install-icon-dir`   | Target path to process/install the new icons.
+| `--install-theme-dir`  | Target path to process/install the new theme.
+| `-v` or `--verbose`    | Show details of each file being processed.
+| `-y` or `--yes`        | Suppress confirmation prompt to replace target path.
 
 
 ## Generated your own?

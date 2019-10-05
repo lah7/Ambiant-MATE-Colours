@@ -47,14 +47,18 @@ if not shutil.which("rsvg-convert"):
 #
 parser = argparse.ArgumentParser()
 parser._optionals.title = "Avaliable Arguments"
+
+# Required
 parser.add_argument("--theme", help="Required. Ubuntu MATE theme to use, e.g. 'Ambiant-MATE'", action="store", required=True)
-parser.add_argument("--hex", help="Required. Colour value to use, e.g. '#3cabe4'", action="store", required=True)
-parser.add_argument("--name", help="Required. Human readable suffix to identify variant, e.g. 'blue'.", action="store", required=True)
+parser.add_argument("--hex", help="Required. Colour value to use, e.g. '#5489CF'", action="store", required=True)
+parser.add_argument("--name", help="Required. Human readable suffix to identify variant, e.g. 'Blue'.", action="store", required=True)
 parser.add_argument("--src-dir", help="Required. Path to ubuntu-mate-artwork repository", action="store", required=True)
+
+# Optional
 parser.add_argument("--install-icon-dir", help="Path to install coloured icons", action="store")
 parser.add_argument("--install-theme-dir", help="Path to install coloured theme", action="store")
 parser.add_argument("-v", "--verbose", help="Show details of each file being processed", action="store_true")
-parser.add_argument("-y", "--yes", help="Assume yes to replace existing target directory", action="store_true")
+parser.add_argument("-y", "--yes", help="Suppress confirmation prompt to replace target path", action="store_true")
 
 args = parser.parse_args()
 
