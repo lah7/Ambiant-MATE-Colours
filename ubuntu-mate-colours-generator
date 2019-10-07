@@ -23,142 +23,139 @@ import shutil
 import re
 
 # ------------------------------------------------
-# Paths
+# Variables
 # ------------------------------------------------
-THEME = ""
-ICON_THEME = ""
-NEW_COLOUR_HEX = ""
-ARTWORK_REPOSITORY = None
-TARGET_ICON_DIR = os.path.expanduser("~/.icons")
-TARGET_THEME_DIR = os.path.expanduser("~/.themes")
-TARGET_NAME = ""
+class Properties(object):
+    def __init__(self):
+        # Source
+        self.base_theme = ""
+        self.base_icon_theme = ""
+        self.src_path = None
+
+        # Destination
+        self.new_name = ""
+        self.new_hex_value = ""
+        self.new_name = ""
+        self.new_theme_name = ""
+        self.new_icon_name = ""
+        self.target_dir_icons = os.path.expanduser("~/.icons")
+        self.target_dir_theme = os.path.expanduser("~/.themes")
+
+        # Build parameters
+        self.verbose = False
+        self.always_override = False
+
+        # Temporary
+        self.current_dir = None
 
 
-# ------------------------------------------------
-# Check required external software is installed
-# ------------------------------------------------
-if not shutil.which("rsvg-convert"):
-    print("'rsvg-convert' command not found. Please install 'librsvg2-bin'")
-    exit(1)
+def parse_arguments():
+    """
+    Processes the parameters (arguments) for command line usage.
+    """
+    parser = argparse.ArgumentParser()
+    parser._optionals.title = "Avaliable Arguments"
 
+    # Required
+    parser.add_argument("--theme", help="Required. Ubuntu MATE theme to use, e.g. 'Ambiant-MATE'", action="store", required=True)
+    parser.add_argument("--hex", help="Required. Colour value to use, e.g. '#5489CF'", action="store", required=True)
+    parser.add_argument("--name", help="Required. Human readable suffix to identify variant, e.g. 'Blue'.", action="store", required=True)
+    parser.add_argument("--src-dir", help="Required. Path to ubuntu-mate-artwork repository", action="store", required=True)
 
-#
-# Parse parameters
-#
-parser = argparse.ArgumentParser()
-parser._optionals.title = "Avaliable Arguments"
+    # Optional
+    parser.add_argument("--install-icon-dir", help="Path to install coloured icons", action="store")
+    parser.add_argument("--install-theme-dir", help="Path to install coloured theme", action="store")
+    parser.add_argument("-v", "--verbose", help="Show details of each file being processed", action="store_true")
+    parser.add_argument("-y", "--yes", help="Suppress confirmation prompt to replace target path", action="store_true")
 
-# Required
-parser.add_argument("--theme", help="Required. Ubuntu MATE theme to use, e.g. 'Ambiant-MATE'", action="store", required=True)
-parser.add_argument("--hex", help="Required. Colour value to use, e.g. '#5489CF'", action="store", required=True)
-parser.add_argument("--name", help="Required. Human readable suffix to identify variant, e.g. 'Blue'.", action="store", required=True)
-parser.add_argument("--src-dir", help="Required. Path to ubuntu-mate-artwork repository", action="store", required=True)
+    args = parser.parse_args()
 
-# Optional
-parser.add_argument("--install-icon-dir", help="Path to install coloured icons", action="store")
-parser.add_argument("--install-theme-dir", help="Path to install coloured theme", action="store")
-parser.add_argument("-v", "--verbose", help="Show details of each file being processed", action="store_true")
-parser.add_argument("-y", "--yes", help="Suppress confirmation prompt to replace target path", action="store_true")
-
-args = parser.parse_args()
-
-if not args.theme and not args.hex:
-    print("Missing arguments. See --help.")
-    exit(1)
-
-if args.theme:
-    THEME = args.theme
-
-    if THEME not in ["Ambiant-MATE", "Radiant-MATE", "Ambiant-MATE-Dark"]:
-        print("Unrecognised theme: " + THEME)
+    if not args.theme and not args.hex:
+        print("Missing arguments. See --help.")
         exit(1)
 
-    theme_to_icon_set = {
-        "Ambiant-MATE": "Ambiant-MATE",
-        "Ambiant-MATE-Dark": "Ambiant-MATE",
-        "Radiant-MATE": "Radiant-MATE"
-    }
+    if args.theme:
+        prop.base_theme = args.theme
 
-    ICON_THEME = theme_to_icon_set[THEME]
-    TARGET_NAME = THEME + "-"
+        if prop.base_theme not in ["Ambiant-MATE", "Radiant-MATE", "Ambiant-MATE-Dark"]:
+            print("Unrecognised theme: " + prop.base_theme)
+            exit(1)
 
-if args.hex:
-    NEW_COLOUR_HEX = args.hex
+        theme_to_icon_set = {
+            "Ambiant-MATE": "Ambiant-MATE",
+            "Ambiant-MATE-Dark": "Ambiant-MATE",
+            "Radiant-MATE": "Radiant-MATE"
+        }
 
-if args.name:
-    TARGET_NAME = THEME + "-" + args.name
+        prop.base_icon_theme = theme_to_icon_set[prop.base_theme]
 
-if args.src_dir:
-    ARTWORK_REPOSITORY = args.src_dir
+    if args.hex:
+        prop.new_hex_value = args.hex
 
-    if not os.path.exists(args.src_dir):
-        print("Could not find: " + args.src_dir)
-        exit(1)
+    if args.name:
+        prop.new_name = args.name
+        prop.new_theme_name = prop.base_theme + "-" + args.name
+        prop.new_icon_name = prop.base_icon_theme + "-" + prop.new_name
 
-    if not os.path.exists(os.path.join(ARTWORK_REPOSITORY, "usr/share/themes/", THEME)):
-        print("Could not locate theme: " + THEME)
-        exit(1)
+    if args.src_dir:
+        prop.src_path = args.src_dir
 
-if args.install_icon_dir:
-    TARGET_ICON_DIR = args.install_icon_dir
+        if not os.path.exists(args.src_dir):
+            print("Could not find: " + args.src_dir)
+            exit(1)
 
-if args.install_theme_dir:
-    TARGET_THEME_DIR = args.install_theme_dir
+        if not os.path.exists(os.path.join(prop.src_path, "usr/share/themes/", prop.base_theme)):
+            print("Could not locate theme: " + prop.base_theme)
+            exit(1)
 
-NAME = args.name
-TARGET_ICON_NAME = ICON_THEME + "-" + NAME
+    if args.install_icon_dir:
+        prop.target_dir_icons = args.install_icon_dir
 
-# ------------------------------------------------
-# Output summary of what's going to happen.
-# ------------------------------------------------
-print("\nNew variant to be generated:\n")
-print("          Base Theme: " + THEME)
-print("     Base Icon Theme: " + ICON_THEME)
-print("           New Theme: " + TARGET_NAME)
-print("           New Icons: " + TARGET_ICON_NAME)
-print("           Hex Value: " + NEW_COLOUR_HEX)
-print("              Source: " + ARTWORK_REPOSITORY)
-print("    Install theme to: " + TARGET_THEME_DIR)
-print("    Install icons to: " + TARGET_ICON_DIR)
-print("")
+    if args.install_theme_dir:
+        prop.target_dir_theme = args.install_theme_dir
+
+    if args.yes:
+        prop.always_override = True
+
+    if args.verbose:
+        prop.verbose = True
 
 
-# ------------------------------------------------
-# Create copy of repository and perform modifications
-# ------------------------------------------------
-print("Copying source files...")
-SRC_THEME_PATH = os.path.join(ARTWORK_REPOSITORY, "usr/share/themes/", THEME)
-SRC_ICON_PATH = os.path.join(ARTWORK_REPOSITORY, "usr/share/icons/", ICON_THEME)
-TARGET_THEME_PATH = os.path.join(TARGET_THEME_DIR, TARGET_NAME)
-TARGET_ICON_PATH = os.path.join(TARGET_ICON_DIR, TARGET_ICON_NAME)
+def prep_targets():
+    """
+    Create copy of repository and perform the modifications.
+    """
+    print("Copying source files...")
+    src_path_theme = os.path.join(prop.src_path, "usr/share/themes/", prop.base_theme)
+    src_path_icons = os.path.join(prop.src_path, "usr/share/icons/", prop.base_icon_theme)
+    dest_path_theme = os.path.join(prop.target_dir_theme, prop.new_theme_name)
+    dest_path_icons = os.path.join(prop.target_dir_icons, prop.new_icon_name)
 
-for path in [TARGET_THEME_PATH, TARGET_ICON_PATH]:
-    if os.path.exists(path):
-        if not args.yes:
-            print("\nDirectory exists: " + path)
-            if input("Type 'y' to confirm removal: ") != "y":
-                exit(1)
+    for path in [dest_path_theme, dest_path_icons]:
+        if os.path.exists(path):
+            if not prop.always_override:
+                print("\nDirectory exists: " + path)
+                if input("Type 'y' to confirm removal: ") != "y":
+                    exit(1)
 
-        shutil.rmtree(path)
+            shutil.rmtree(path)
 
-shutil.copytree(SRC_THEME_PATH, TARGET_THEME_PATH, symlinks=True)
-shutil.copytree(SRC_ICON_PATH, TARGET_ICON_PATH, symlinks=True)
-print("Source files copied.\n")
+    shutil.copytree(src_path_theme, dest_path_theme, symlinks=True)
+    shutil.copytree(src_path_icons, dest_path_icons, symlinks=True)
+    print("Source files copied.\n")
 
 
 # ------------------------------------------------
 # Function used for patching the files.
 # ------------------------------------------------
-CUR_DIR = None
-
-def replace_string(expr, before, after):
+def _replace_string(expr, before, after):
     """
     Opens a file in memory and replaces text.
     """
-    files = glob.glob(os.path.join(CUR_DIR, "**", expr), recursive=True)
+    files = glob.glob(os.path.join(prop.current_dir, "**", expr), recursive=True)
     for path in files:
         if not os.path.islink(path):
-            if args.verbose:
+            if prop.verbose:
                 print("-> {0} ... ('{1}' to '{2}')".format(path, before, after))
 
             newlines = []
@@ -171,7 +168,7 @@ def replace_string(expr, before, after):
             with open(path, "w") as f:
                 f.writelines(newlines)
 
-def get_hex_variant(hex_colour, offset=1):
+def _get_hex_variant(hex_colour, offset=1):
     """
     Lightens or darken a hex value by a specified offset. Similar to CSS preprocessing.
     """
@@ -184,7 +181,8 @@ def get_hex_variant(hex_colour, offset=1):
     # Strip unnecessary 0x from Python's hex()
     return "#" + "".join([hex(i)[2:] for i in new_rgb_int])
 
-def hex_to_rgb(hex_string):
+
+def _hex_to_rgb(hex_string):
     """
     Converts "#RRGGBB" string to rgb() CSS string.
     """
@@ -192,7 +190,8 @@ def hex_to_rgb(hex_string):
     rgb = list(int(hex_string[i:i+2], 16) for i in (0, 2 ,4))
     return "rgb({0}, {1}, {2})".format(rgb[0], rgb[1], rgb[2])
 
-def hex_to_rgba(hex_string):
+
+def _hex_to_rgba(hex_string):
     """
     Converts "#RRGGBB" string to rgba() CSS string.
     """
@@ -200,134 +199,164 @@ def hex_to_rgba(hex_string):
     rgb = list(int(hex_string[i:i+2], 16) for i in (0, 2 ,4))
     return "rgba({0}, {1}, {2})".format(rgb[0], rgb[1], rgb[2])
 
-def export_svg(svg, png, size):
+
+def _export_svg(svg, png, size):
     """
     Exports an SVG in new sizes specified in a list.
     """
-    if args.verbose:
+    if prop.verbose:
         print("-> Converting '{0}' to '{1}' at {2}x{2}...".format(svg, png, size))
 
-    svg = os.path.join(CUR_DIR, svg)
-    png = os.path.join(CUR_DIR, png)
+    svg = os.path.join(prop.current_dir, svg)
+    png = os.path.join(prop.current_dir, png)
     os.system("rsvg-convert -w {2} -h {2} -f png -o {1} {0}".format(svg, png, size))
 
 
-# ------------------------------------------------
-# Patch the theme with new values.
-# ------------------------------------------------
-CUR_DIR = TARGET_THEME_PATH
+def patch_theme():
+    """
+    Search through the theme and replace green with new values.
+    """
+    prop.current_dir = prop.target_dir_theme
 
-print("Patching theme...")
+    print("Patching theme...")
 
-# --> Metadata
-replace_string("index.theme", "Name=" + THEME, "Name=" + TARGET_NAME)
-replace_string("index.theme", "GtkTheme=" + THEME, "GtkTheme=" + TARGET_NAME)
-replace_string("index.theme", "MetacityTheme=" + THEME, "MetacityTheme=" + TARGET_NAME)
-replace_string("index.theme", "IconTheme=" + ICON_THEME, "IconTheme=" + TARGET_ICON_NAME)
-replace_string("index.theme", "Comment=", "Comment=" + NAME + " ")
-replace_string("*.xml", THEME, TARGET_NAME)
+    # --> Metadata
+    _replace_string("index.theme", "Name=" + prop.base_theme, "Name=" + prop.new_theme_name)
+    _replace_string("index.theme", "GtkTheme=" + prop.base_theme, "GtkTheme=" + prop.new_theme_name)
+    _replace_string("index.theme", "MetacityTheme=" + prop.base_theme, "MetacityTheme=" + prop.new_theme_name)
+    _replace_string("index.theme", "IconTheme=" + prop.base_icon_theme, "IconTheme=" + prop.new_icon_name)
+    _replace_string("index.theme", "Comment=", "Comment=" + prop.new_name + " ")
+    _replace_string("*.xml", prop.base_theme, prop.new_theme_name)
 
-# --> Base colour
-replace_string("*.ini", "#87A752", NEW_COLOUR_HEX)
-replace_string("gtkrc", "#87A752", NEW_COLOUR_HEX)
+    # --> Base colour
+    _replace_string("*.ini", "#87A752", prop.new_hex_value)
+    _replace_string("gtkrc", "#87A752", prop.new_hex_value)
 
-replace_string("*.ini", "#A7BB85", get_hex_variant(NEW_COLOUR_HEX, 10))
-replace_string("gtkrc", "#A7BB85", get_hex_variant(NEW_COLOUR_HEX, 10))
-replace_string("*.css", "#A7BB85", get_hex_variant(NEW_COLOUR_HEX, 10))
+    _replace_string("*.ini", "#A7BB85", _get_hex_variant(prop.new_hex_value, 10))
+    _replace_string("gtkrc", "#A7BB85", _get_hex_variant(prop.new_hex_value, 10))
+    _replace_string("*.css", "#A7BB85", _get_hex_variant(prop.new_hex_value, 10))
 
-replace_string("*.css", "#87A752", NEW_COLOUR_HEX)
-replace_string("*.css", hex_to_rgb("#87A752"), hex_to_rgb(NEW_COLOUR_HEX))
-replace_string("*.css", hex_to_rgba("#87A752"), hex_to_rgba(NEW_COLOUR_HEX))
-replace_string("*.css", "#84b436", NEW_COLOUR_HEX)
-replace_string("*.css", hex_to_rgba("#84b436"), hex_to_rgba(NEW_COLOUR_HEX))
+    _replace_string("*.css", "#87A752", prop.new_hex_value)
+    _replace_string("*.css", _hex_to_rgb("#87A752"), _hex_to_rgb(prop.new_hex_value))
+    _replace_string("*.css", _hex_to_rgba("#87A752"), _hex_to_rgba(prop.new_hex_value))
+    _replace_string("*.css", "#84b436", prop.new_hex_value)
+    _replace_string("*.css", _hex_to_rgba("#84b436"), _hex_to_rgba(prop.new_hex_value))
 
-# --> Assets
-replace_string("*.svg", "#87A752", NEW_COLOUR_HEX)
-replace_string("*.svg", "#355404", get_hex_variant(NEW_COLOUR_HEX, -60))
-replace_string("*.svg", "#5a782c", get_hex_variant(NEW_COLOUR_HEX, -40))
-replace_string("*.svg", "#64941c", get_hex_variant(NEW_COLOUR_HEX, -30))
-replace_string("*.svg", "#79a934", get_hex_variant(NEW_COLOUR_HEX, -20))
-replace_string("*.svg", "#87a556", get_hex_variant(NEW_COLOUR_HEX, 10))
-replace_string("*.svg", "#96b565", get_hex_variant(NEW_COLOUR_HEX, 20))
+    # --> Assets
+    _replace_string("*.svg", "#87A752", prop.new_hex_value)
+    _replace_string("*.svg", "#355404", _get_hex_variant(prop.new_hex_value, -60))
+    _replace_string("*.svg", "#5a782c", _get_hex_variant(prop.new_hex_value, -40))
+    _replace_string("*.svg", "#64941c", _get_hex_variant(prop.new_hex_value, -30))
+    _replace_string("*.svg", "#79a934", _get_hex_variant(prop.new_hex_value, -20))
+    _replace_string("*.svg", "#87a556", _get_hex_variant(prop.new_hex_value, 10))
+    _replace_string("*.svg", "#96b565", _get_hex_variant(prop.new_hex_value, 20))
 
-print("Theme patched.\n")
+    print("Theme patched.\n")
+
+    # Export new PNGs for SVGs in the theme (button border, close, etc)
+    print("Generating theme assets...")
+    prop.current_dir = os.path.join(prop.target_dir_theme, prop.new_theme_name)
+
+    # GTK3 assets
+    for asset in [
+        "check-mixed",
+        "check-mixed-alt",
+        "check-mixed-hover",
+        "check-mixed-hover-alt",
+        "check-selected-alt",
+        "check-selected-hover-alt",
+        "check-selected-hover",
+        "check-selected",
+        "radio-mixed-alt",
+        "radio-mixed-hover-alt",
+        "radio-mixed",
+        "radio-selected-alt",
+        "radio-selected-hover-alt",
+        "radio-selected-hover",
+        "radio-selected"]:
+            _export_svg("gtk-3.0/assets/" + asset + ".svg", "gtk-3.0/assets/" + asset + ".png", 16)
+            _export_svg("gtk-3.0/assets/" + asset + ".svg", "gtk-3.0/assets/" + asset + "@2.png", 32)
+
+    # TODO: GTK3 assets that have no SVG for the PNG.
+
+    # GTK2 assets
+    for filename in ["check-selected.png", "radio-selected.png"]:
+        src = os.path.join("/gtk-3.0/assets/" + filename)
+        dst = os.path.join("/gtk-2.0/assets/" + filename)
+        if os.path.exists(dst):
+            shutil.copy(src, dst)
+
+    print("Theme assets generated.\n")
 
 # ------------------------------------------------
 # Patch the icons with new values.
 # ------------------------------------------------
-CUR_DIR = TARGET_ICON_PATH
-print("Patching icons...")
+def patch_icons():
+    """
+    Search through the icons and replace green with new values.
+    """
+    prop.current_dir = prop.target_dir_icons
 
-# --> Metadata
-replace_string("index.theme", "Name=" + ICON_THEME, "Name=" + TARGET_ICON_NAME)
-replace_string("*.svg", "#87A752", NEW_COLOUR_HEX)
+    print("Patching icons...")
 
-# --> General colours and shades
-replace_string("*.svg", "#87A752", NEW_COLOUR_HEX)
-replace_string("*.svg", "#ADC980", get_hex_variant(NEW_COLOUR_HEX, 20))
-replace_string("*.svg", "#688933", get_hex_variant(NEW_COLOUR_HEX, -20))
-replace_string("*.svg", "#4e7752", get_hex_variant(NEW_COLOUR_HEX, -30))
-replace_string("*.svg", "#4A6A17", get_hex_variant(NEW_COLOUR_HEX, -30))
+    # --> Metadata
+    _replace_string("index.theme", "Name=" + prop.base_icon_theme, "Name=" + prop.new_icon_name)
+    _replace_string("*.svg", "#87A752", prop.new_hex_value)
 
-# --> preferences-desktop-theme
-replace_string("*.svg", "#4e6827", get_hex_variant(NEW_COLOUR_HEX, -30))
-replace_string("*.svg", "#617f30", get_hex_variant(NEW_COLOUR_HEX, -15))
-replace_string("*.svg", "#b4c990", get_hex_variant(NEW_COLOUR_HEX, 30))
-replace_string("*.svg", "#87a556", get_hex_variant(NEW_COLOUR_HEX, 10))
+    # --> General colours and shades
+    _replace_string("*.svg", "#87A752", prop.new_hex_value)
+    _replace_string("*.svg", "#ADC980", _get_hex_variant(prop.new_hex_value, 20))
+    _replace_string("*.svg", "#688933", _get_hex_variant(prop.new_hex_value, -20))
+    _replace_string("*.svg", "#4e7752", _get_hex_variant(prop.new_hex_value, -30))
+    _replace_string("*.svg", "#4A6A17", _get_hex_variant(prop.new_hex_value, -30))
 
-# --> preferences-system-network
-replace_string("*.svg", "#4d5e31", get_hex_variant(NEW_COLOUR_HEX, -20))
-replace_string("*.svg", "#abc187", get_hex_variant(NEW_COLOUR_HEX, 10))
-replace_string("*.svg", "#657b40", get_hex_variant(NEW_COLOUR_HEX, -10))
-replace_string("*.svg", "#4a5a2f", get_hex_variant(NEW_COLOUR_HEX, -20))
+    # --> preferences-desktop-theme
+    _replace_string("*.svg", "#4e6827", _get_hex_variant(prop.new_hex_value, -30))
+    _replace_string("*.svg", "#617f30", _get_hex_variant(prop.new_hex_value, -15))
+    _replace_string("*.svg", "#b4c990", _get_hex_variant(prop.new_hex_value, 30))
+    _replace_string("*.svg", "#87a556", _get_hex_variant(prop.new_hex_value, 10))
 
-# --> home
-replace_string("*.svg", "#3b550e", get_hex_variant(NEW_COLOUR_HEX, -30))
+    # --> preferences-system-network
+    _replace_string("*.svg", "#4d5e31", _get_hex_variant(prop.new_hex_value, -20))
+    _replace_string("*.svg", "#abc187", _get_hex_variant(prop.new_hex_value, 10))
+    _replace_string("*.svg", "#657b40", _get_hex_variant(prop.new_hex_value, -10))
+    _replace_string("*.svg", "#4a5a2f", _get_hex_variant(prop.new_hex_value, -20))
 
-print("Icons patched.\n")
+    # --> home
+    _replace_string("*.svg", "#3b550e", _get_hex_variant(prop.new_hex_value, -30))
 
-
-# ------------------------------------------------
-# Export new PNGs for SVGs in the theme (button border, close, etc)
-# ------------------------------------------------
-print("Generating assets...")
-CUR_DIR = TARGET_THEME_PATH
-
-# GTK3 assets
-for asset in [
-    "check-mixed",
-    "check-mixed-alt",
-    "check-mixed-hover",
-    "check-mixed-hover-alt",
-    "check-selected-alt",
-    "check-selected-hover-alt",
-    "check-selected-hover",
-    "check-selected",
-    "radio-mixed-alt",
-    "radio-mixed-hover-alt",
-    "radio-mixed",
-    "radio-selected-alt",
-    "radio-selected-hover-alt",
-    "radio-selected-hover",
-    "radio-selected"]:
-        export_svg("gtk-3.0/assets/" + asset + ".svg", "gtk-3.0/assets/" + asset + ".png", 16)
-        export_svg("gtk-3.0/assets/" + asset + ".svg", "gtk-3.0/assets/" + asset + "@2.png", 32)
-
-# GTK3 assets that have no SVG for the PNG.
-# fixme: not yet implemented
-
-# GTK2 assets
-for filename in ["check-selected.png", "radio-selected.png"]:
-    src = os.path.join(TARGET_THEME_PATH + "/gtk-3.0/assets/" + filename)
-    dst = os.path.join(TARGET_THEME_PATH + "/gtk-2.0/assets/" + filename)
-    if os.path.exists(dst):
-        shutil.copy(src, dst)
-
-print("Assets generated.\n")
+    print("Icons patched.\n")
 
 
 # ------------------------------------------------
-# Finished
+# Showtime!
 # ------------------------------------------------
-print("Generation of theme '{0}' complete.".format(TARGET_NAME))
-exit(0)
+if __name__ == "__main__":
+
+    # Check required external software is installed
+    if not shutil.which("rsvg-convert"):
+        print("'rsvg-convert' command not found. Please install 'librsvg2-bin'")
+        exit(1)
+
+    prop = Properties()
+    parse_arguments()
+
+    # Output summary of what's going to happen.
+    print("\nNew variant to be generated:\n")
+    print("          Base Theme: " + prop.base_theme)
+    print("     Base Icon Theme: " + prop.base_icon_theme)
+    print("           New Theme: " + prop.new_name)
+    print("           New Icons: " + prop.new_icon_name)
+    print("           Hex Value: " + prop.new_hex_value)
+    print("              Source: " + prop.src_path)
+    print("    Install theme to: " + prop.target_dir_theme)
+    print("    Install icons to: " + prop.target_dir_icons)
+    print("")
+
+    # Perform the changes
+    prep_targets()
+    patch_theme()
+    patch_icons()
+
+    print("Generation of theme '{0}' complete.".format(prop.new_theme_name))
+    exit(0)
