@@ -5,6 +5,15 @@
 CUR=0
 TOTAL=$(( 10 * 3 ))
 
+# Clear out existing files first
+if [ -d usr/share/icons ]; then
+    rm -r usr/share/icons
+fi
+
+if [ -d usr/share/themes ]; then
+    rm -r usr/share/themes
+fi
+
 function generate() {
     theme="$1"
     hex="$2"
@@ -13,7 +22,9 @@ function generate() {
     echo "Generating $CUR of $TOTAL..."
     echo "=================================================="
 
-    ./ubuntu-mate-colours-generator --yes \
+    ./ubuntu-mate-colours-generator \
+        --yes \
+        --ignore-existing \
         --install-icon-dir=usr/share/icons \
         --install-theme-dir=usr/share/themes \
         --src-dir=/ \
