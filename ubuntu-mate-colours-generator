@@ -229,9 +229,11 @@ replace_string("*.xml", THEME, TARGET_NAME)
 
 # --> Base colour
 replace_string("*.ini", "#87A752", NEW_COLOUR_HEX)
-replace_string("*.ini", "#A7BB85", NEW_COLOUR_HEX)
 replace_string("gtkrc", "#87A752", NEW_COLOUR_HEX)
-replace_string("gtkrc", "#A7BB85", NEW_COLOUR_HEX)
+
+replace_string("*.ini", "#A7BB85", get_hex_variant(NEW_COLOUR_HEX, 10))
+replace_string("gtkrc", "#A7BB85", get_hex_variant(NEW_COLOUR_HEX, 10))
+replace_string("*.css", "#A7BB85", get_hex_variant(NEW_COLOUR_HEX, 10))
 
 replace_string("*.css", "#87A752", NEW_COLOUR_HEX)
 replace_string("*.css", hex_to_rgb("#87A752"), hex_to_rgb(NEW_COLOUR_HEX))
