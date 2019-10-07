@@ -99,6 +99,7 @@ The script by default will create the theme in `~/.local/share/themes` and
 | `--install-theme-dir`  | Target path to process/install the new theme.
 | `-v` or `--verbose`    | Show details of each file being processed.
 | `-y` or `--yes`        | Suppress confirmation prompt to replace target path.
+| `--ignore-existing`    | Ignore theme/icons files if they already exist.
 
 
 ## Generated your own?

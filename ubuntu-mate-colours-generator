@@ -44,6 +44,9 @@ class Properties(object):
         # Build parameters
         self.verbose = False
         self.always_override = False
+        self.ignore_existing = False
+        self.build_theme = True
+        self.build_icons = True
 
         # Temporary
         self.current_dir = None
@@ -67,6 +70,7 @@ def parse_arguments():
     parser.add_argument("--install-theme-dir", help="Path to install coloured theme", action="store")
     parser.add_argument("-v", "--verbose", help="Show details of each file being processed", action="store_true")
     parser.add_argument("-y", "--yes", help="Suppress confirmation prompt to replace target path", action="store_true")
+    parser.add_argument( "--ignore-existing", help="Ignore target folders that already exist", action="store_true")
 
     args = parser.parse_args()
 
@@ -120,28 +124,49 @@ def parse_arguments():
     if args.verbose:
         prop.verbose = True
 
+    if args.ignore_existing:
+        prop.ignore_existing = True
+
 
 def prep_targets():
     """
     Create copy of repository and perform the modifications.
     """
-    print("Copying source files...")
-    src_path_theme = os.path.join(prop.src_path, "usr/share/themes/", prop.base_theme)
-    src_path_icons = os.path.join(prop.src_path, "usr/share/icons/", prop.base_icon_theme)
-    dest_path_theme = os.path.join(prop.target_dir_theme, prop.new_theme_name)
-    dest_path_icons = os.path.join(prop.target_dir_icons, prop.new_icon_name)
 
-    for path in [dest_path_theme, dest_path_icons]:
-        if os.path.exists(path):
+    def _copy_tree(item, src, dst):
+        print("Copying {0} files...".format(item))
+
+        if prop.verbose:
+            print("          Source: " + src)
+            print("     Destination: " + dst)
+
+        if os.path.exists(dst):
+            if prop.ignore_existing and item == "theme":
+                prop.build_theme = False
+                print("Skipped as target exists.\n")
+                return
+
+            if prop.ignore_existing and item == "icons":
+                prop.build_icons = False
+                print("Skipped as target exists.\n")
+                return
+
             if not prop.always_override:
-                print("\nDirectory exists: " + path)
+                print("\nDirectory exists: " + dst)
                 if input("Type 'y' to confirm removal: ") != "y":
                     exit(1)
 
-            shutil.rmtree(path)
+            shutil.rmtree(dst)
 
-    shutil.copytree(src_path_theme, dest_path_theme, symlinks=True)
-    shutil.copytree(src_path_icons, dest_path_icons, symlinks=True)
+        shutil.copytree(src, dst, symlinks=True)
+        print("Copied.\n")
+
+    _copy_tree("theme", os.path.join(prop.src_path, "usr/share/themes/", prop.base_theme),
+        os.path.join(prop.target_dir_theme, prop.new_theme_name))
+
+    _copy_tree("icons", os.path.join(prop.src_path, "usr/share/icons/", prop.base_icon_theme),
+        os.path.join(prop.target_dir_icons, prop.new_icon_name))
+
     print("Source files copied.\n")
 
 
@@ -217,6 +242,9 @@ def patch_theme():
     Search through the theme and replace green with new values.
     """
     prop.current_dir = prop.target_dir_theme
+
+    if not prop.build_theme:
+        return
 
     print("Patching theme...")
 
@@ -296,6 +324,9 @@ def patch_icons():
     Search through the icons and replace green with new values.
     """
     prop.current_dir = prop.target_dir_icons
+
+    if not prop.build_icons:
+        return
 
     print("Patching icons...")
 
