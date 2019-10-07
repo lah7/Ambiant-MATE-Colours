@@ -105,14 +105,17 @@ if args.install_icon_dir:
 if args.install_theme_dir:
     TARGET_THEME_DIR = args.install_theme_dir
 
+NAME = args.name
+TARGET_ICON_NAME = ICON_THEME + "-" + NAME
 
 # ------------------------------------------------
 # Output summary of what's going to happen.
 # ------------------------------------------------
 print("\nNew variant to be generated:\n")
-print("                Name: " + TARGET_NAME)
 print("          Base Theme: " + THEME)
 print("     Base Icon Theme: " + ICON_THEME)
+print("           New Theme: " + TARGET_NAME)
+print("           New Icons: " + TARGET_ICON_NAME)
 print("           Hex Value: " + NEW_COLOUR_HEX)
 print("              Source: " + ARTWORK_REPOSITORY)
 print("    Install theme to: " + TARGET_THEME_DIR)
@@ -127,7 +130,7 @@ print("Copying source files...")
 SRC_THEME_PATH = os.path.join(ARTWORK_REPOSITORY, "usr/share/themes/", THEME)
 SRC_ICON_PATH = os.path.join(ARTWORK_REPOSITORY, "usr/share/icons/", ICON_THEME)
 TARGET_THEME_PATH = os.path.join(TARGET_THEME_DIR, TARGET_NAME)
-TARGET_ICON_PATH = os.path.join(TARGET_ICON_DIR, TARGET_NAME)
+TARGET_ICON_PATH = os.path.join(TARGET_ICON_DIR, TARGET_ICON_NAME)
 
 for path in [TARGET_THEME_PATH, TARGET_ICON_PATH]:
     if os.path.exists(path):
@@ -213,12 +216,15 @@ def export_svg(svg, png, size):
 # Patch the theme with new values.
 # ------------------------------------------------
 CUR_DIR = TARGET_THEME_PATH
+
 print("Patching theme...")
 
 # --> Metadata
-replace_string("index.theme", "-Dark", "")
-replace_string("index.theme", ICON_THEME, TARGET_NAME)
-replace_string("index.theme", "Comment=", "Comment=" + args.name + " ")
+replace_string("index.theme", "Name=" + THEME, "Name=" + TARGET_NAME)
+replace_string("index.theme", "GtkTheme=" + THEME, "GtkTheme=" + TARGET_NAME)
+replace_string("index.theme", "MetacityTheme=" + THEME, "MetacityTheme=" + TARGET_NAME)
+replace_string("index.theme", "IconTheme=" + ICON_THEME, "IconTheme=" + TARGET_ICON_NAME)
+replace_string("index.theme", "Comment=", "Comment=" + NAME + " ")
 replace_string("*.xml", THEME, TARGET_NAME)
 
 # --> Base colour
@@ -251,7 +257,7 @@ CUR_DIR = TARGET_ICON_PATH
 print("Patching icons...")
 
 # --> Metadata
-replace_string("index.theme", "Name=" + ICON_THEME, "Name=" + TARGET_NAME)
+replace_string("index.theme", "Name=" + ICON_THEME, "Name=" + TARGET_ICON_NAME)
 replace_string("*.svg", "#87A752", NEW_COLOUR_HEX)
 
 # --> General colours and shades
