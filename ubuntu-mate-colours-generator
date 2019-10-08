@@ -483,7 +483,7 @@ if __name__ == "__main__":
     print("\nNew variant to be generated:\n")
     if prop.build_theme:
         print("          Base Theme: " + prop.base_theme)
-        print("           New Theme: " + prop.new_name)
+        print("           New Theme: " + prop.new_theme_name)
     print("           Hex Value: " + prop.new_hex_value)
     if prop.build_icons:
         print("     Base Icon Theme: " + prop.base_icon_theme)
