@@ -288,17 +288,17 @@ def patch_theme():
     _replace_string("*.css", "#87A752", prop.new_hex_value)
     _replace_string("*.css", _hex_to_rgb("#87A752"), _hex_to_rgb(prop.new_hex_value))
     _replace_string("*.css", _hex_to_rgba("#87A752"), _hex_to_rgba(prop.new_hex_value))
-    _replace_string("*.css", "#84b436", prop.new_hex_value)
+    _replace_string("*.css", "#84b436", _get_hex_variant(prop.new_hex_value, 8))
     _replace_string("*.css", _hex_to_rgba("#84b436"), _hex_to_rgba(prop.new_hex_value))
 
     # --> Assets
     _replace_string("*.svg", "#87A752", prop.new_hex_value)
-    _replace_string("*.svg", "#355404", _get_hex_variant(prop.new_hex_value, -60))
-    _replace_string("*.svg", "#5a782c", _get_hex_variant(prop.new_hex_value, -40))
-    _replace_string("*.svg", "#64941c", _get_hex_variant(prop.new_hex_value, -30))
-    _replace_string("*.svg", "#79a934", _get_hex_variant(prop.new_hex_value, -20))
-    _replace_string("*.svg", "#87a556", _get_hex_variant(prop.new_hex_value, 10))
-    _replace_string("*.svg", "#96b565", _get_hex_variant(prop.new_hex_value, 20))
+    _replace_string("*.svg", "#355404", _get_hex_variant(prop.new_hex_value, -25))
+    _replace_string("*.svg", "#5a782c", _get_hex_variant(prop.new_hex_value, -15))
+    _replace_string("*.svg", "#64941c", _get_hex_variant(prop.new_hex_value, -10))
+    _replace_string("*.svg", "#79a934", _get_hex_variant(prop.new_hex_value, -5))
+    _replace_string("*.svg", "#87a556", _get_hex_variant(prop.new_hex_value, 2))
+    _replace_string("*.svg", "#96b565", _get_hex_variant(prop.new_hex_value, 10))
 
     # --> Close button (normal)
     _replace_string("*.svg", "#de4c19", _get_hex_variant(prop.new_hex_value, 8))
@@ -453,25 +453,25 @@ def patch_icons():
 
     # --> General colours and shades
     _replace_string("*.svg", "#87A752", prop.new_hex_value)
-    _replace_string("*.svg", "#ADC980", _get_hex_variant(prop.new_hex_value, 20))
-    _replace_string("*.svg", "#688933", _get_hex_variant(prop.new_hex_value, -20))
-    _replace_string("*.svg", "#4e7752", _get_hex_variant(prop.new_hex_value, -30))
-    _replace_string("*.svg", "#4A6A17", _get_hex_variant(prop.new_hex_value, -30))
+    _replace_string("*.svg", "#ADC980", _get_hex_variant(prop.new_hex_value, 15))
+    _replace_string("*.svg", "#688933", _get_hex_variant(prop.new_hex_value, -10))
+    _replace_string("*.svg", "#4e7752", _get_hex_variant(prop.new_hex_value, -20))
+    _replace_string("*.svg", "#4A6A17", _get_hex_variant(prop.new_hex_value, -18))
 
     # --> preferences-desktop-theme
-    _replace_string("*.svg", "#4e6827", _get_hex_variant(prop.new_hex_value, -30))
-    _replace_string("*.svg", "#617f30", _get_hex_variant(prop.new_hex_value, -15))
-    _replace_string("*.svg", "#b4c990", _get_hex_variant(prop.new_hex_value, 30))
-    _replace_string("*.svg", "#87a556", _get_hex_variant(prop.new_hex_value, 10))
+    _replace_string("*.svg", "#4e6827", _get_hex_variant(prop.new_hex_value, -18))
+    _replace_string("*.svg", "#617f30", _get_hex_variant(prop.new_hex_value, -16))
+    _replace_string("*.svg", "#87a556", _get_hex_variant(prop.new_hex_value, -1))
+    _replace_string("*.svg", "#b4c990", _get_hex_variant(prop.new_hex_value, 20))
 
     # --> preferences-system-network
     _replace_string("*.svg", "#4d5e31", _get_hex_variant(prop.new_hex_value, -20))
-    _replace_string("*.svg", "#abc187", _get_hex_variant(prop.new_hex_value, 10))
+    _replace_string("*.svg", "#abc187", _get_hex_variant(prop.new_hex_value, 15))
     _replace_string("*.svg", "#657b40", _get_hex_variant(prop.new_hex_value, -10))
-    _replace_string("*.svg", "#4a5a2f", _get_hex_variant(prop.new_hex_value, -20))
+    _replace_string("*.svg", "#4a5a2f", _get_hex_variant(prop.new_hex_value, -16))
 
     # --> home
-    _replace_string("*.svg", "#3b550e", _get_hex_variant(prop.new_hex_value, -30))
+    _replace_string("*.svg", "#3b550e", _get_hex_variant(prop.new_hex_value, -20))
 
     print("Icons patched.\n")
 
