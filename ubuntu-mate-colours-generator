@@ -161,11 +161,11 @@ def prep_targets():
         shutil.copytree(src, dst, symlinks=True)
         print("Copied.\n")
 
-    _copy_tree("theme", os.path.join(prop.src_path, "usr/share/themes/", prop.base_theme),
-        os.path.join(prop.target_dir_theme, prop.new_theme_name))
+    prop.target_dir_theme = os.path.join(prop.target_dir_theme, prop.new_theme_name)
+    prop.target_dir_icons = os.path.join(prop.target_dir_icons, prop.new_icon_name)
 
-    _copy_tree("icons", os.path.join(prop.src_path, "usr/share/icons/", prop.base_icon_theme),
-        os.path.join(prop.target_dir_icons, prop.new_icon_name))
+    _copy_tree("theme", os.path.join(prop.src_path, "usr/share/themes/", prop.base_theme), prop.target_dir_theme)
+    _copy_tree("icons", os.path.join(prop.src_path, "usr/share/icons/", prop.base_icon_theme), prop.target_dir_icons)
 
     print("Source files copied.\n")
 
@@ -175,23 +175,42 @@ def prep_targets():
 # ------------------------------------------------
 def _replace_string(expr, before, after):
     """
-    Opens a file in memory and replaces text.
+    Scans the directory for expression and performs a string replacement.
     """
-    files = glob.glob(os.path.join(prop.current_dir, "**", expr), recursive=True)
-    for path in files:
-        if not os.path.islink(path):
-            if prop.verbose:
-                print("-> {0} ... ('{1}' to '{2}')".format(path, before, after))
+    def __do_replacement(path, before, after):
+        """
+        Opens a file in memory, replaces text and saves again.
+        """
+        if prop.verbose:
+            print("-> {0} ... ('{1}' to '{2}')".format(path, before, after))
 
-            newlines = []
-            with open(path, "r") as f:
-                lines = f.readlines()
+        newlines = []
+        with open(path, "r") as f:
+            lines = f.readlines()
 
-            for line in lines:
-                newlines.append(re.sub(before, after, line, flags=re.IGNORECASE))
+        for line in lines:
+            newlines.append(re.sub(before, after, line, flags=re.IGNORECASE))
 
-            with open(path, "w") as f:
-                f.writelines(newlines)
+        with open(path, "w") as f:
+            f.writelines(newlines)
+
+    subpaths = glob.glob(prop.current_dir + "/*")
+    for subpath in subpaths:
+        if os.path.islink(subpath):
+            continue
+
+        if os.path.isfile(subpath):
+            __do_replacement(subpath, before, after)
+
+        if os.path.isdir(subpath):
+            files = glob.glob(os.path.join(prop.current_dir, subpath, "**", expr), recursive=True)
+            for path in files:
+                if os.path.islink(path):
+                    continue
+
+                if os.path.isfile(path):
+                    __do_replacement(path, before, after)
+
 
 def _get_hex_variant(hex_colour, offset=1):
     """
@@ -241,7 +260,7 @@ def patch_theme():
     """
     Search through the theme and replace green with new values.
     """
-    prop.current_dir = prop.target_dir_theme
+    prop.current_dir = os.path.realpath(prop.target_dir_theme)
 
     if not prop.build_theme:
         return
@@ -283,7 +302,7 @@ def patch_theme():
 
     # Export new PNGs for SVGs in the theme (button border, close, etc)
     print("Generating theme assets...")
-    prop.current_dir = os.path.join(prop.target_dir_theme, prop.new_theme_name)
+    prop.current_dir = os.path.realpath(prop.target_dir_theme)
 
     # GTK3 assets
     for asset in [
@@ -309,8 +328,8 @@ def patch_theme():
 
     # GTK2 assets
     for filename in ["check-selected.png", "radio-selected.png"]:
-        src = os.path.join("/gtk-3.0/assets/" + filename)
-        dst = os.path.join("/gtk-2.0/assets/" + filename)
+        src = os.path.join(prop.target_dir_theme, "gtk-3.0/assets/" + filename)
+        dst = os.path.join(prop.target_dir_theme, "gtk-2.0/assets/" + filename)
         if os.path.exists(dst):
             shutil.copy(src, dst)
 
@@ -323,7 +342,7 @@ def patch_icons():
     """
     Search through the icons and replace green with new values.
     """
-    prop.current_dir = prop.target_dir_icons
+    prop.current_dir = os.path.realpath(prop.target_dir_icons)
 
     if not prop.build_icons:
         return
@@ -374,14 +393,18 @@ if __name__ == "__main__":
 
     # Output summary of what's going to happen.
     print("\nNew variant to be generated:\n")
-    print("          Base Theme: " + prop.base_theme)
-    print("     Base Icon Theme: " + prop.base_icon_theme)
-    print("           New Theme: " + prop.new_name)
-    print("           New Icons: " + prop.new_icon_name)
+    if prop.build_theme:
+        print("          Base Theme: " + prop.base_theme)
+        print("           New Theme: " + prop.new_name)
     print("           Hex Value: " + prop.new_hex_value)
+    if prop.build_icons:
+        print("     Base Icon Theme: " + prop.base_icon_theme)
+        print("           New Icons: " + prop.new_icon_name)
     print("              Source: " + prop.src_path)
-    print("    Install theme to: " + prop.target_dir_theme)
-    print("    Install icons to: " + prop.target_dir_icons)
+    if prop.build_theme:
+        print("    Install theme to: " + prop.target_dir_theme)
+    if prop.build_icons:
+        print("    Install icons to: " + prop.target_dir_icons)
     print("")
 
     # Perform the changes
