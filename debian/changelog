@@ -1,6 +1,13 @@
 ubuntu-mate-colours (19.10.10) eoan; urgency=low
 
   * New upstream ubuntu-mate-artwork release.
+  * Add colour to window close button.
+  * Add colour to UI controls.
+  * Add colour to links.
+  * Fix uncoloured radio checkbox hover.
+  * Reduced theme size by removing unmodified files.
+  * Add addiional optional parameters to generator.
+  * Refactored generator code.
 
  -- Luke Horwell <luke@ubuntu-mate.org>  Mon, 07 Oct 2019 20:48:48 +0100
 
