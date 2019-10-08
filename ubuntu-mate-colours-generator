@@ -358,6 +358,9 @@ def patch_theme():
         "close"]:
             _export_svg("unity/" + asset + ".svg", "metacity-1/" + asset + ".png", 19)
 
+    # Remove unity assets as unused
+    shutil.rmtree(prop.target_dir_theme + "/unity/")
+
     print("Theme assets generated.\n")
 
 # ------------------------------------------------
