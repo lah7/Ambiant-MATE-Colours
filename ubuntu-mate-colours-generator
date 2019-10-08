@@ -350,6 +350,10 @@ def patch_theme():
         if os.path.exists(dst):
             shutil.copy(src, dst)
 
+    # For some reason, Radiant-MATE has a different filename for "close_focused_normal"
+    if prop.base_icon_theme == "Radiant-MATE":
+        shutil.copy(prop.current_dir + "/unity/close_focused.svg", prop.current_dir + "/unity/close_focused_normal.svg")
+
     # Metacity assets
     for asset in [
         "close_focused_normal",
