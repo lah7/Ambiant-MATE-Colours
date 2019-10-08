@@ -23,7 +23,7 @@ function generate() {
     echo "=================================================="
 
     ./ubuntu-mate-colours-generator \
-        --yes \
+        --overwrite \
         --ignore-existing \
         --install-icon-dir=usr/share/icons \
         --install-theme-dir=usr/share/themes \

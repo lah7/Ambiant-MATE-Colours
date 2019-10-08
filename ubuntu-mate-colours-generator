@@ -43,7 +43,7 @@ class Properties(object):
 
         # Build parameters
         self.verbose = False
-        self.always_override = False
+        self.always_overwrite = False
         self.ignore_existing = False
         self.build_theme = True
         self.build_icons = True
@@ -69,7 +69,7 @@ def parse_arguments():
     parser.add_argument("--install-icon-dir", help="Path to install coloured icons", action="store")
     parser.add_argument("--install-theme-dir", help="Path to install coloured theme", action="store")
     parser.add_argument("-v", "--verbose", help="Show details of each file being processed", action="store_true")
-    parser.add_argument("-y", "--yes", help="Suppress confirmation prompt to replace target path", action="store_true")
+    parser.add_argument("-y", "--overwrite", help="Suppress confirmation prompt to replace target path", action="store_true")
     parser.add_argument( "--ignore-existing", help="Ignore target folders that already exist", action="store_true")
 
     args = parser.parse_args()
@@ -118,8 +118,8 @@ def parse_arguments():
     if args.install_theme_dir:
         prop.target_dir_theme = args.install_theme_dir
 
-    if args.yes:
-        prop.always_override = True
+    if args.overwrite:
+        prop.always_overwrite = True
 
     if args.verbose:
         prop.verbose = True
@@ -151,7 +151,7 @@ def prep_targets():
                 print("Skipped as target exists.\n")
                 return
 
-            if not prop.always_override:
+            if not prop.always_overwrite:
                 print("\nDirectory exists: " + dst)
                 if input("Type 'y' to confirm removal: ") != "y":
                     exit(1)
