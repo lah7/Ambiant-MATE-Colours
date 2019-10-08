@@ -428,6 +428,10 @@ def optimise_icon_size():
         if os.path.isdir(src) or os.path.isdir(dest):
             return False
 
+        # Keep files that end with "-panel.svg"
+        if dest[-10:] == "-panel.svg":
+            return False
+
         with open(src, "rb") as f:
             src_bin = f.read()
             src_hash = hashlib.md5(src_bin).hexdigest()
