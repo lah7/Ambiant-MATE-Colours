@@ -315,6 +315,7 @@ def patch_theme():
         "check-selected-hover",
         "check-selected",
         "radio-mixed-alt",
+        "radio-mixed-hover",
         "radio-mixed-hover-alt",
         "radio-mixed",
         "radio-selected-alt",
