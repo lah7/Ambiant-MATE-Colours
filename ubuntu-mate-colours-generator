@@ -379,7 +379,8 @@ def patch_icons():
 
     # --> Metadata
     _replace_string("index.theme", "Name=" + prop.base_icon_theme, "Name=" + prop.new_icon_name)
-    _replace_string("index.theme", "Inherits=", "Inherits={0},".format(prop.base_icon_theme))
+    _replace_string("index.theme", "Inherits=ubuntu-mono-dark,", "Inherits=ubuntu-mono-dark,{0},".format(prop.base_icon_theme))
+    _replace_string("index.theme", "Inherits=ubuntu-mono-light,", "Inherits=ubuntu-mono-light,{0},".format(prop.base_icon_theme))
     _replace_string("*.svg", "#87A752", prop.new_hex_value)
 
     # --> General colours and shades
