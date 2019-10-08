@@ -162,8 +162,8 @@ def prep_targets():
         shutil.copytree(src, dst, symlinks=True)
         print("Copied.\n")
 
-    prop.target_dir_theme = os.path.join(prop.target_dir_theme, prop.new_theme_name)
-    prop.target_dir_icons = os.path.join(prop.target_dir_icons, prop.new_icon_name)
+    prop.target_dir_theme = os.path.realpath(os.path.join(prop.target_dir_theme, prop.new_theme_name))
+    prop.target_dir_icons = os.path.realpath(os.path.join(prop.target_dir_icons, prop.new_icon_name))
 
     _copy_tree("theme", os.path.join(prop.src_path, "usr/share/themes/", prop.base_theme), prop.target_dir_theme)
     _copy_tree("icons", os.path.join(prop.src_path, "usr/share/icons/", prop.base_icon_theme), prop.target_dir_icons)
@@ -341,8 +341,6 @@ def patch_theme():
             _export_svg("gtk-3.0/assets/" + asset + ".svg", "gtk-3.0/assets/" + asset + ".png", 16)
             _export_svg("gtk-3.0/assets/" + asset + ".svg", "gtk-3.0/assets/" + asset + "@2.png", 32)
 
-    # TODO: GTK3 assets that have no SVG for the PNG.
-
     # GTK2 assets
     for filename in ["check-selected.png", "radio-selected.png"]:
         src = os.path.join(prop.target_dir_theme, "gtk-3.0/assets/" + filename)
@@ -364,6 +362,72 @@ def patch_theme():
 
     # Remove unity assets as unused
     shutil.rmtree(prop.target_dir_theme + "/unity/")
+
+    # Generate colourised variants of PNGs - bit dirty, but it seems to work.
+    # These do not have an SVG. See issue #1.
+    prop.current_dir = prop.target_dir_theme + "/gtk-3.0/assets/"
+    os.chdir(prop.current_dir)
+    for asset in [
+        "button-active-focused@2.png",
+        "button-active-hover@2.png",
+        "button-active-focused-hover@2.png",
+        "button-focused@2.png",
+        "button-focused-hover@2.png",
+        "button-default-focused-hover@2.png",
+        "button-default-focused@2.png",
+        "button-toolbar-active-focused@2.png",
+        "button-toolbar-focused@2.png",
+        "combobox-button-focused@2.png",
+        "combobox-button-pressed-focused@2.png",
+        "combobox-entry-focused@2.png",
+        "entry-focused@2.png",
+        "entry-toolbar-focused@2.png",
+        "progressbar-horizontal-fill@2.png",
+        "progressbar-vertical-fill@2.png",
+        "radiance-button-toolbar-active-focused@2.png",
+        "radiance-button-toolbar-focused@2.png",
+        "radiance-combobox-button-toolbar-focused.png",     # No @2 file
+        "radiance-entry-toolbar-focused@2.png",
+        "scale-horizontal-fill@2.png",
+        "scale-vertical-fill@2.png",
+        "slider-horizontal-focused-hover@2.png",
+        "slider-horizontal-focused@2.png",
+        "slider-vertical-focused-hover@2.png",
+        "slider-vertical-focused@2.png",
+        "switch-button-on@2.png",
+        "switch-trough-focused@2.png",
+        "switch-trough-on@2.png",
+        "switch-trough-toolbar-on@2.png"]:
+            if prop.verbose:
+                print("-> " + os.path.join(prop.current_dir, asset))
+
+            # tmp_ is used as temporary files
+            # Also use '@2' versions first.
+            os.rename(os.path.join(prop.current_dir, asset),
+                os.path.join(prop.current_dir, "tmp_" + asset))
+
+            os.system("convert {dir}{input} -colorspace gray {dir}{output}".format(
+                dir=prop.current_dir,
+                input="tmp_" + asset,
+                output="tmp_grey_" + asset))
+
+            os.system("convert {dir}{input} -background white -fill '{hex}' -tint 100 {dir}{output}".format(
+                dir=prop.current_dir,
+                input="tmp_grey_" + asset,
+                output=asset,
+                hex=prop.new_hex_value))
+
+            # Generate 1x if 2x was processed.
+            if asset.find("@2") != -1:
+                if prop.verbose:
+                    print("-> " + os.path.join(prop.current_dir, asset.replace("@2", "")))
+                os.system("convert {dir}{input} -resize 50% {dir}{output}".format(
+                    dir=prop.current_dir,
+                    input=asset,
+                    output=asset.replace("@2", "")))
+
+            os.remove("tmp_" + asset)
+            os.remove("tmp_grey_" + asset)
 
     print("Theme assets generated.\n")
 
@@ -478,6 +542,10 @@ if __name__ == "__main__":
     # Check required external software is installed
     if not shutil.which("rsvg-convert"):
         print("'rsvg-convert' command not found. Please install 'librsvg2-bin'")
+        exit(1)
+
+    if not shutil.which("convert"):
+        print("'convert' command not found. Please install 'imagemagick'")
         exit(1)
 
     prop = Properties()
