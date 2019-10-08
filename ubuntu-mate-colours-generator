@@ -200,11 +200,12 @@ def _replace_string(expr, before, after):
         if os.path.islink(subpath):
             continue
 
-        if os.path.isfile(subpath):
-            __do_replacement(subpath, before, after)
+        if not os.path.isdir(subpath):
+            if subpath[-11:] == "index.theme":
+                __do_replacement(subpath, before, after)
 
         if os.path.isdir(subpath):
-            files = glob.glob(os.path.join(prop.current_dir, subpath, "**", expr), recursive=True)
+            files = glob.glob(os.path.join(prop.current_dir, subpath, "**/" + expr), recursive=True)
             for path in files:
                 if os.path.islink(path):
                     continue
@@ -274,7 +275,7 @@ def patch_theme():
     _replace_string("index.theme", "MetacityTheme=" + prop.base_theme, "MetacityTheme=" + prop.new_theme_name)
     _replace_string("index.theme", "IconTheme=" + prop.base_icon_theme, "IconTheme=" + prop.new_icon_name)
     _replace_string("index.theme", "Comment=", "Comment=" + prop.new_name + " ")
-    _replace_string("*.xml", prop.base_theme, prop.new_theme_name)
+    _replace_string("metacity-theme-1.xml", "<name>{0}</name>".format(prop.base_theme), "<name>{0}</name>".format(prop.new_theme_name))
 
     # --> Base colour
     _replace_string("*.ini", "#87A752", prop.new_hex_value)
