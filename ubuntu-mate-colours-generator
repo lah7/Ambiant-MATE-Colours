@@ -300,19 +300,33 @@ def patch_theme():
     _replace_string("*.svg", "#87a556", _get_hex_variant(prop.new_hex_value, 2))
     _replace_string("*.svg", "#96b565", _get_hex_variant(prop.new_hex_value, 10))
 
-    # --> Close button (normal)
+    # --> Ambiant-MATE: Close button (normal)
     _replace_string("*.svg", "#de4c19", _get_hex_variant(prop.new_hex_value, 8))
     _replace_string("*.svg", "#e55e30", _get_hex_variant(prop.new_hex_value, 12))
     _replace_string("*.svg", "#f58d6e", _get_hex_variant(prop.new_hex_value, 16))
 
-    # --> Close button (prelight)
+    # --> Ambiant-MATE: Close button (prelight)
     _replace_string("*.svg", "#e24f1b", _get_hex_variant(prop.new_hex_value, 20))
     _replace_string("*.svg", "#f17750", _get_hex_variant(prop.new_hex_value, 24))
     _replace_string("*.svg", "#fba992", _get_hex_variant(prop.new_hex_value, 28))
 
-    # --> Close button (pressed)
+    # --> Ambiant-MATE: Close button (pressed)
     _replace_string("*.svg", "#ec6e44", _get_hex_variant(prop.new_hex_value, -4))
     _replace_string("*.svg", "#e76b41", _get_hex_variant(prop.new_hex_value, 0))
+
+    # --> Radiant-MATE: Close button (normal)
+    _replace_string("*.svg", "#e77041", _get_hex_variant(prop.new_hex_value, 8))
+    _replace_string("*.svg", "#f17d4e", _get_hex_variant(prop.new_hex_value, 12))
+    _replace_string("*.svg", "#f9b39c", _get_hex_variant(prop.new_hex_value, 16))
+
+    # --> Radiant-MATE: Close button (prelight)
+    _replace_string("*.svg", "#e67144", _get_hex_variant(prop.new_hex_value, 20))
+    _replace_string("*.svg", "#ed8b67", _get_hex_variant(prop.new_hex_value, 24))
+    _replace_string("*.svg", "#f9cbbd", _get_hex_variant(prop.new_hex_value, 28))
+
+    # --> Radiant-MATE: Close button (pressed)
+    _replace_string("*.svg", "#f08054", _get_hex_variant(prop.new_hex_value, -4))
+    _replace_string("*.svg", "#f07c4e", _get_hex_variant(prop.new_hex_value, 0))
 
     print("Theme patched.\n")
 
