@@ -1,4 +1,4 @@
-ubuntu-mate-colours (19.10.10~rebuild1) eoan; urgency=low
+ubuntu-mate-colours (19.10.10.1) eoan; urgency=low
 
   * Update theme colours for brown, orange and yellow.
   * Drop green colour.

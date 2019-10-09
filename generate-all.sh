@@ -3,7 +3,7 @@
 # Generates all the themes - for packaging use only!
 #
 CUR=0
-TOTAL=$(( 10 * 3 ))
+TOTAL=$(( 9 * 3 ))
 
 # Clear out existing files first
 if [ -d usr/share/icons ]; then

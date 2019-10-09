@@ -3,8 +3,6 @@
 %:
 	dh $@
 
-clean:
+override_dh_auto_build:
 	if [ -d usr/ ]; then rm -r usr/; fi
-
-build:
 	./generate-all.sh
