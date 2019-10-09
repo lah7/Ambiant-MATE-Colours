@@ -246,10 +246,15 @@ def _hex_to_rgba(hex_string):
     return "rgba({0}, {1}, {2})".format(rgb[0], rgb[1], rgb[2])
 
 
-def _export_svg(svg, png, size):
+def _export_svg(svg, png):
     """
-    Exports an SVG in new sizes specified in a list.
+    Exports an SVG to a PNG file.
     """
+
+    # Determine the size of the PNG file in the source theme
+    png_path = os.path.join(prop.src_path, "usr/share/themes/", prop.base_theme, png)
+    size = os.popen("identify -format '%w' {0}".format(png_path)).readlines()[0]
+
     if prop.verbose:
         print("-> Converting '{0}' to '{1}' at {2}x{2}...".format(svg, png, size))
 
@@ -352,8 +357,8 @@ def patch_theme():
         "radio-selected-hover-alt",
         "radio-selected-hover",
         "radio-selected"]:
-            _export_svg("gtk-3.0/assets/" + asset + ".svg", "gtk-3.0/assets/" + asset + ".png", 16)
-            _export_svg("gtk-3.0/assets/" + asset + ".svg", "gtk-3.0/assets/" + asset + "@2.png", 32)
+            _export_svg("gtk-3.0/assets/" + asset + ".svg", "gtk-3.0/assets/" + asset + ".png")
+            _export_svg("gtk-3.0/assets/" + asset + ".svg", "gtk-3.0/assets/" + asset + "@2.png")
 
     # GTK2 assets
     for filename in ["check-selected.png", "radio-selected.png"]:
@@ -372,7 +377,7 @@ def patch_theme():
         "close_focused_prelight",
         "close_focused_pressed",
         "close"]:
-            _export_svg("unity/" + asset + ".svg", "metacity-1/" + asset + ".png", 19)
+            _export_svg("unity/" + asset + ".svg", "metacity-1/" + asset + ".png")
 
     # Remove unity assets as unused
     shutil.rmtree(prop.target_dir_theme + "/unity/")
