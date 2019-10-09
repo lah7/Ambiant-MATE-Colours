@@ -22,6 +22,18 @@ These themes are not considered final yet, please test and
 an issue to help out with.
 
 
+## Versioning
+
+This project works with the latest upstream release of `ubuntu-mate-artwork`, which
+is normally tested for the latest Ubuntu version. As a result, older (and LTS)
+releases may include theme & icon updates not found in
+`ubuntu-mate-themes` and `ubuntu-mate-icon-themes` packages for that release.
+
+Updates to `ubuntu-mate-colours` are represented by the fourth decimal, for example:
+
+> 19.10.5.**2** = **2**nd build based on 19.10.5.
+
+
 ## Installation
 
 Packages are available for both the generator and pre-defined colours.
