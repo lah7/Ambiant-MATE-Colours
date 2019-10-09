@@ -11,8 +11,15 @@ Only these themes are supported:
 - Ambiant-MATE-Dark
 - Radiant-MATE
 
+These versions are supported:
 
-> :warning: This is a work in progress!
+* Ubuntu MATE 18.04 LTS
+* Ubuntu MATE 19.04
+* Ubuntu MATE 19.10
+
+These themes are not considered final yet, please test and
+[report issues here](https://github.com/lah7/ubuntu-mate-colours/issues) or find
+an issue to help out with.
 
 
 ## Installation
