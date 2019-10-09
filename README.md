@@ -1,6 +1,6 @@
 # Ubuntu MATE Colours
 
-![Screenshot of thte 3 themes using custom colours](.github/screenshot.jpg)
+![Screenshot of thte 3 themes using custom colours](.github/screenshot@2x.jpg)
 
 A small program that takes `ubuntu-mate-artwork` (theme & icons)
 and swaps out the green to a colour of your choice.
