@@ -27,7 +27,6 @@ Depends: ubuntu-mate-colours-generator,
          ubuntu-mate-colours-aqua,
          ubuntu-mate-colours-blue,
          ubuntu-mate-colours-brown,
-         ubuntu-mate-colours-green,
          ubuntu-mate-colours-orange,
          ubuntu-mate-colours-pink,
          ubuntu-mate-colours-purple,
@@ -61,15 +60,6 @@ Depends: ubuntu-mate-themes,
 Description: Brown variant Ambiant/Radiant-MATE themes
  Contains a brown coloured version of Ambiant-MATE, Ambiant-MATE-Dark
  and Radiant-MATE theme and icons.
-
-Package: ubuntu-mate-colours-green
-Architecture: all
-Depends: ubuntu-mate-themes,
-         ubuntu-mate-icon-themes
-Description: Green variant Ambiant/Radiant-MATE themes
- Contains a green coloured version of Ambiant-MATE, Ambiant-MATE-Dark
- and Radiant-MATE theme and icons. This is an alternate colour to
- Ubuntu MATE's brand.
 
 Package: ubuntu-mate-colours-orange
 Architecture: all

@@ -37,12 +37,11 @@ function generate() {
 for theme in "Ambiant-MATE" "Ambiant-MATE-Dark" "Radiant-MATE"; do
     generate "$theme" "#2DACD4" "Aqua"
     generate "$theme" "#5489CF" "Blue"
-    generate "$theme" "#7F441F" "Brown"
-    generate "$theme" "#679816" "Green"
-    generate "$theme" "#E66C1E" "Orange"
+    generate "$theme" "#965024" "Brown"
+    generate "$theme" "#E95420" "Orange"
     generate "$theme" "#E231A3" "Pink"
     generate "$theme" "#7E5BC5" "Purple"
     generate "$theme" "#CE3A3A" "Red"
     generate "$theme" "#1CB39F" "Teal"
-    generate "$theme" "#D8A200" "Yellow"
+    generate "$theme" "#DFCA25" "Yellow"
 done

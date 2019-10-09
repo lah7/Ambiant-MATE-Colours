@@ -28,14 +28,13 @@ The following colours are available:
 | --------------------------------- | --------------- |
 | ![](.github/aqua.png) `#2DACD4`   | Aqua
 | ![](.github/blue.png) `#5489CF`   | Blue
-| ![](.github/brown.png) `#7F441F`  | Brown
-| ![](.github/green.png) `#679816`  | Green (alternate)
-| ![](.github/orange.png) `#E66C1E` | Orange
+| ![](.github/brown.png) `#965024`  | Brown
+| ![](.github/orange.png) `#E95420` | Orange
 | ![](.github/pink.png) `#E231A3`   | Pink
 | ![](.github/purple.png) `#7E5BC5` | Purple
 | ![](.github/red.png) `#CE3A3A`    | Red
 | ![](.github/teal.png) `#1CB39F`   | Teal
-| ![](.github/yellow.png) `#D8A200` | Yellow
+| ![](.github/yellow.png) `#DFCA25` | Yellow
 
 Packages are split by colour, so installing `ubuntu-mate-colours-blue` will
 give you the blue variants of Ambiant-MATE, Ambiant-MATE-Dark and Radiant-MATE.
