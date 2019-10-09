@@ -3,5 +3,8 @@
 %:
 	dh $@
 
-override_dh_prep:
+clean:
+	if [ -d usr/ ]; then rm -r usr/; fi
+
+build:
 	./generate-all.sh
