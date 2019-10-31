@@ -215,17 +215,19 @@ def _replace_string(expr, before, after):
                     __do_replacement(path, before, after)
 
 
-def _get_hex_variant(string, offset): 
+def _get_hex_variant(string, offset):
     """
     Converts hex input #RRGGBB to RGB and HLS to increase lightness independently
     """
     string = string.lstrip("#")
     rgb = list(int(string[i:i+2], 16) for i in (0, 2 ,4))
+
     # colorsys module converts to HLS to brighten/darken
     hls = colorsys.rgb_to_hls(rgb[0], rgb[1], rgb[2])
     newbright = hls[1] + offset
-    newbright = min([255, max([0, newbright])]) 
+    newbright = min([255, max([0, newbright])])
     hls = (hls[0], newbright, hls[2])
+
     # reconvert to rgb and hex
     newrgb = colorsys.hls_to_rgb(hls[0], hls[1], hls[2])
 
@@ -490,7 +492,7 @@ def patch_icons():
     _replace_string("*.svg", "#688933", _get_hex_variant(prop.new_hex_value, -12))
     _replace_string("*.svg", "#4e7752", _get_hex_variant(prop.new_hex_value, -10))
     _replace_string("*.svg", "#4A6A17", _get_hex_variant(prop.new_hex_value, -24))
-    
+
     #--> actions (go-home)
     _replace_string("*.svg", "#d9edb9", _get_hex_variant(prop.new_hex_value, 34))
     _replace_string("*.svg", "#f6daae", _get_hex_variant(prop.new_hex_value, 33))
@@ -506,7 +508,7 @@ def patch_icons():
     _replace_string("*.svg", "#abc187", _get_hex_variant(prop.new_hex_value, 15))
     _replace_string("*.svg", "#657b40", _get_hex_variant(prop.new_hex_value, -12))
     _replace_string("*.svg", "#4a5a2f", _get_hex_variant(prop.new_hex_value, -22))
-    
+
     #--> system-file-manager
     _replace_string("*.svg", "#2e4705", _get_hex_variant(prop.new_hex_value, -34))
 
