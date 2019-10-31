@@ -228,7 +228,16 @@ def _get_hex_variant(string, offset):
     hls = (hls[0], newbright, hls[2])
     # reconvert to rgb and hex
     newrgb = colorsys.hls_to_rgb(hls[0], hls[1], hls[2])
-    newrgb = [int(newrgb[0]), int(newrgb[1]), int(newrgb[2])]
+
+    def _validate(value):
+        value = int(value)
+        if value > 255:
+            return 255
+        elif value < 0:
+            return 0
+        return value
+
+    newrgb = [_validate(newrgb[0]), _validate(newrgb[1]), _validate(newrgb[2])]
     newhex = '#%02x%02x%02x' % (newrgb[0], newrgb[1], newrgb[2])
     return newhex
 
