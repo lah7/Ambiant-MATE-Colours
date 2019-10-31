@@ -22,6 +22,7 @@ import hashlib
 import os
 import shutil
 import re
+import colorsys
 
 # ------------------------------------------------
 # Variables
@@ -214,18 +215,22 @@ def _replace_string(expr, before, after):
                     __do_replacement(path, before, after)
 
 
-def _get_hex_variant(hex_colour, offset=1):
+def _get_hex_variant(string, offset): 
     """
-    Lightens or darken a hex value by a specified offset. Similar to CSS preprocessing.
+    Converts hex input #RRGGBB to RGB and HLS to increase lightness independently
     """
-    rgb_hex = [hex_colour[x:x + 2] for x in [1, 3, 5]]
-    new_rgb_int = [int(hex_value, 16) + offset for hex_value in rgb_hex]
-
-    # New RGB value must be >=0 and <=255.
-    new_rgb_int = [min([255, max([0, i])]) for i in new_rgb_int]
-
-    # Strip unnecessary 0x from Python's hex()
-    return "#" + "".join([hex(i)[2:] for i in new_rgb_int])
+    string = string.lstrip("#")
+    rgb = list(int(string[i:i+2], 16) for i in (0, 2 ,4))
+    # colorsys module converts to HLS to brighten/darken
+    hls = colorsys.rgb_to_hls(rgb[0], rgb[1], rgb[2])
+    newbright = hls[1] + offset
+    newbright = min([255, max([0, newbright])]) 
+    hls = (hls[0], newbright, hls[2])
+    # reconvert to rgb and hex
+    newrgb = colorsys.hls_to_rgb(hls[0], hls[1], hls[2])
+    newrgb = [int(newrgb[0]), int(newrgb[1]), int(newrgb[2])]
+    newhex = '#%02x%02x%02x' % (newrgb[0], newrgb[1], newrgb[2])
+    return newhex
 
 
 def _hex_to_rgb(hex_string):
@@ -286,24 +291,24 @@ def patch_theme():
     _replace_string("*.ini", "#87A752", prop.new_hex_value)
     _replace_string("gtkrc", "#87A752", prop.new_hex_value)
 
-    _replace_string("*.ini", "#A7BB85", _get_hex_variant(prop.new_hex_value, 10))
-    _replace_string("gtkrc", "#A7BB85", _get_hex_variant(prop.new_hex_value, 10))
-    _replace_string("*.css", "#A7BB85", _get_hex_variant(prop.new_hex_value, 10))
+    _replace_string("*.ini", "#A7BB85", _get_hex_variant(prop.new_hex_value, -21))
+    _replace_string("gtkrc", "#A7BB85", _get_hex_variant(prop.new_hex_value, -21))
+    _replace_string("*.css", "#A7BB85", _get_hex_variant(prop.new_hex_value, -21))
 
     _replace_string("*.css", "#87A752", prop.new_hex_value)
     _replace_string("*.css", _hex_to_rgb("#87A752"), _hex_to_rgb(prop.new_hex_value))
     _replace_string("*.css", _hex_to_rgba("#87A752"), _hex_to_rgba(prop.new_hex_value))
-    _replace_string("*.css", "#84b436", _get_hex_variant(prop.new_hex_value, 8))
+    _replace_string("*.css", "#84b436", _get_hex_variant(prop.new_hex_value, 5))
     _replace_string("*.css", _hex_to_rgba("#84b436"), _hex_to_rgba(prop.new_hex_value))
 
     # --> Assets
     _replace_string("*.svg", "#87A752", prop.new_hex_value)
-    _replace_string("*.svg", "#355404", _get_hex_variant(prop.new_hex_value, -25))
-    _replace_string("*.svg", "#5a782c", _get_hex_variant(prop.new_hex_value, -15))
-    _replace_string("*.svg", "#64941c", _get_hex_variant(prop.new_hex_value, -10))
-    _replace_string("*.svg", "#79a934", _get_hex_variant(prop.new_hex_value, -5))
-    _replace_string("*.svg", "#87a556", _get_hex_variant(prop.new_hex_value, 2))
-    _replace_string("*.svg", "#96b565", _get_hex_variant(prop.new_hex_value, 10))
+    _replace_string("*.svg", "#355404", _get_hex_variant(prop.new_hex_value, -32))
+    _replace_string("*.svg", "#5a782c", _get_hex_variant(prop.new_hex_value, -17))
+    _replace_string("*.svg", "#64941c", _get_hex_variant(prop.new_hex_value, -14))
+    _replace_string("*.svg", "#79a934", _get_hex_variant(prop.new_hex_value, -6))
+    _replace_string("*.svg", "#87a556", _get_hex_variant(prop.new_hex_value, 1))
+    _replace_string("*.svg", "#96b565", _get_hex_variant(prop.new_hex_value, 6))
 
     # --> Ambiant-MATE: Close button (normal)
     _replace_string("*.svg", "#de4c19", _get_hex_variant(prop.new_hex_value, 8))
@@ -472,25 +477,32 @@ def patch_icons():
 
     # --> General colours and shades
     _replace_string("*.svg", "#87A752", prop.new_hex_value)
-    _replace_string("*.svg", "#ADC980", _get_hex_variant(prop.new_hex_value, 15))
-    _replace_string("*.svg", "#688933", _get_hex_variant(prop.new_hex_value, -10))
-    _replace_string("*.svg", "#4e7752", _get_hex_variant(prop.new_hex_value, -20))
-    _replace_string("*.svg", "#4A6A17", _get_hex_variant(prop.new_hex_value, -18))
+    _replace_string("*.svg", "#ADC980", _get_hex_variant(prop.new_hex_value, 16))
+    _replace_string("*.svg", "#688933", _get_hex_variant(prop.new_hex_value, -12))
+    _replace_string("*.svg", "#4e7752", _get_hex_variant(prop.new_hex_value, -10))
+    _replace_string("*.svg", "#4A6A17", _get_hex_variant(prop.new_hex_value, -24))
+    
+    #--> actions (go-home)
+    _replace_string("*.svg", "#d9edb9", _get_hex_variant(prop.new_hex_value, 34))
+    _replace_string("*.svg", "#f6daae", _get_hex_variant(prop.new_hex_value, 33))
 
     # --> preferences-desktop-theme
-    _replace_string("*.svg", "#4e6827", _get_hex_variant(prop.new_hex_value, -18))
-    _replace_string("*.svg", "#617f30", _get_hex_variant(prop.new_hex_value, -16))
+    _replace_string("*.svg", "#4e6827", _get_hex_variant(prop.new_hex_value, -21))
+    _replace_string("*.svg", "#617f30", _get_hex_variant(prop.new_hex_value, -15))
     _replace_string("*.svg", "#87a556", _get_hex_variant(prop.new_hex_value, -1))
-    _replace_string("*.svg", "#b4c990", _get_hex_variant(prop.new_hex_value, 20))
+    _replace_string("*.svg", "#b4c990", _get_hex_variant(prop.new_hex_value, 19))
 
     # --> preferences-system-network
-    _replace_string("*.svg", "#4d5e31", _get_hex_variant(prop.new_hex_value, -20))
+    _replace_string("*.svg", "#4d5e31", _get_hex_variant(prop.new_hex_value, -21))
     _replace_string("*.svg", "#abc187", _get_hex_variant(prop.new_hex_value, 15))
-    _replace_string("*.svg", "#657b40", _get_hex_variant(prop.new_hex_value, -10))
-    _replace_string("*.svg", "#4a5a2f", _get_hex_variant(prop.new_hex_value, -16))
+    _replace_string("*.svg", "#657b40", _get_hex_variant(prop.new_hex_value, -12))
+    _replace_string("*.svg", "#4a5a2f", _get_hex_variant(prop.new_hex_value, -22))
+    
+    #--> system-file-manager
+    _replace_string("*.svg", "#2e4705", _get_hex_variant(prop.new_hex_value, -34))
 
     # --> home
-    _replace_string("*.svg", "#3b550e", _get_hex_variant(prop.new_hex_value, -20))
+    _replace_string("*.svg", "#3b550e", _get_hex_variant(prop.new_hex_value, -30))
 
     print("Icons patched.\n")
 
