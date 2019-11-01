@@ -6,3 +6,6 @@ debian/*.substvars
 debian/ubuntu-mate-colours*
 ubuntu-mate-artwork/
 usr/
+
+# Misc
+.directory
