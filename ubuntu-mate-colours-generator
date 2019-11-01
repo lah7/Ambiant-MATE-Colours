@@ -542,6 +542,10 @@ def optimise_icon_size():
         if dest[-10:] == "-panel.svg":
             return False
 
+        # Keep files that start with "bluetooth-" (#18)
+        if os.path.basename(dest)[:4] == "blue":
+            return False
+
         with open(src, "rb") as f:
             src_bin = f.read()
             src_hash = hashlib.md5(src_bin).hexdigest()
