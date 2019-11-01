@@ -178,6 +178,12 @@ def prep_targets():
 def _replace_string(expr, before, after):
     """
     Scans the directory for expression and performs a string replacement.
+
+    Params:
+    - expr      (str)   Expression to glob. E.g. *.svg for all SVG files.
+                (list)  Alternately, multiple expressions to glob.
+    - before    (str)   Hash to change from.
+    - after     (str)   Hash to change to.
     """
     def __do_replacement(path, before, after):
         """
@@ -196,23 +202,30 @@ def _replace_string(expr, before, after):
         with open(path, "w") as f:
             f.writelines(newlines)
 
-    subpaths = glob.glob(prop.current_dir + "/*")
-    for subpath in subpaths:
-        if os.path.islink(subpath):
-            continue
+    expressions = []
+    if type(expr) == str:
+        expressions.append(expr)
+    elif type(expr) == list:
+        expressions = expr
 
-        if not os.path.isdir(subpath):
-            if subpath[-11:] == "index.theme":
-                __do_replacement(subpath, before, after)
+    for expr in expressions:
+        subpaths = glob.glob(prop.current_dir + "/*")
+        for subpath in subpaths:
+            if os.path.islink(subpath):
+                continue
 
-        if os.path.isdir(subpath):
-            files = glob.glob(os.path.join(prop.current_dir, subpath, "**/" + expr), recursive=True)
-            for path in files:
-                if os.path.islink(path):
-                    continue
+            if not os.path.isdir(subpath):
+                if subpath[-11:] == "index.theme":
+                    __do_replacement(subpath, before, after)
 
-                if os.path.isfile(path):
-                    __do_replacement(path, before, after)
+            if os.path.isdir(subpath):
+                files = glob.glob(os.path.join(prop.current_dir, subpath, "**/" + expr), recursive=True)
+                for path in files:
+                    if os.path.islink(path):
+                        continue
+
+                    if os.path.isfile(path):
+                        __do_replacement(path, before, after)
 
 
 def _get_hex_variant(string, offset):
@@ -299,12 +312,8 @@ def patch_theme():
     _replace_string("metacity-theme-1.xml", "<name>{0}</name>".format(prop.base_theme), "<name>{0}</name>".format(prop.new_theme_name))
 
     # --> Base colour
-    _replace_string("*.ini", "#87A752", prop.new_hex_value)
-    _replace_string("gtkrc", "#87A752", prop.new_hex_value)
-
-    _replace_string("*.ini", "#A7BB85", _get_hex_variant(prop.new_hex_value, -21))
-    _replace_string("gtkrc", "#A7BB85", _get_hex_variant(prop.new_hex_value, -21))
-    _replace_string("*.css", "#A7BB85", _get_hex_variant(prop.new_hex_value, -21))
+    _replace_string(["*.ini", "gtkrc"], "#87A752", prop.new_hex_value)
+    _replace_string(["*.ini", "gtkrc", "*.css"], "#A7BB85", _get_hex_variant(prop.new_hex_value, -21))
 
     _replace_string("*.css", "#87A752", prop.new_hex_value)
     _replace_string("*.css", _hex_to_rgb("#87A752"), _hex_to_rgb(prop.new_hex_value))
@@ -484,7 +493,6 @@ def patch_icons():
     _replace_string("index.theme", "Name=" + prop.base_icon_theme, "Name=" + prop.new_icon_name)
     _replace_string("index.theme", "Inherits=ubuntu-mono-dark,", "Inherits=ubuntu-mono-dark,{0},".format(prop.base_icon_theme))
     _replace_string("index.theme", "Inherits=ubuntu-mono-light,", "Inherits=ubuntu-mono-light,{0},".format(prop.base_icon_theme))
-    _replace_string("*.svg", "#87A752", prop.new_hex_value)
 
     # --> General colours and shades
     _replace_string("*.svg", "#87A752", prop.new_hex_value)
@@ -599,6 +607,7 @@ def apply_icon_patches():
     os.symlink("audio-volume-medium-panel.svg", "audio-volume-medium.svg")
     os.symlink("audio-volume-low-panel.svg", "audio-volume-low.svg")
     os.symlink("audio-volume-muted-panel.svg", "audio-volume-muted.svg")
+
 
 # ------------------------------------------------
 # Showtime!
