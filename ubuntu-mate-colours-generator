@@ -588,6 +588,18 @@ def optimise_icon_size():
 
     print("Finished cleaning up icons.\n")
 
+
+def apply_icon_patches():
+    """
+    Perform some modifications that are different to upstream ubuntu-mate-icon-themes.
+    """
+    # We like the monochrome volume pop-up that's been used for years (#14)
+    os.chdir(os.path.join(prop.target_dir_icons, "status", "24"))
+    os.symlink("audio-volume-high-panel.svg", "audio-volume-high.svg")
+    os.symlink("audio-volume-medium-panel.svg", "audio-volume-medium.svg")
+    os.symlink("audio-volume-low-panel.svg", "audio-volume-low.svg")
+    os.symlink("audio-volume-muted-panel.svg", "audio-volume-muted.svg")
+
 # ------------------------------------------------
 # Showtime!
 # ------------------------------------------------
@@ -626,6 +638,7 @@ if __name__ == "__main__":
     patch_theme()
     patch_icons()
     optimise_icon_size()
+    apply_icon_patches()
 
     print("Generation of theme '{0}' complete.".format(prop.new_theme_name))
     exit(0)
