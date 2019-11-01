@@ -1,4 +1,15 @@
-ubuntu-mate-colours (19.10.10.1) eoan; urgency=low
+ubuntu-mate-colours (19.10.10.3) eoan; urgency=low
+
+  * Brightness determined by HSL, not RGB.
+  * Include indicator SVGs in icon themes.
+  * Fix bluetooth panel icon misalignment (#18)
+  * Fix close icon on buttons (#11)
+  * Use mono icons for volume control OSD (#14)
+  * Fix wrong close colour on CSD windows (#10)
+
+ -- Luke Horwell <luke@ubuntu-mate.org>  Fri, 01 Nov 2019 12:25:18 +0100
+
+ubuntu-mate-colours (19.10.10.2) eoan; urgency=low
 
   * Update theme colours for brown, orange and yellow.
   * Drop green colour.
