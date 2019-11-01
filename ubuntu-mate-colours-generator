@@ -601,6 +601,9 @@ def apply_icon_patches():
     """
     Perform some modifications that are different to upstream ubuntu-mate-icon-themes.
     """
+    if not prop.build_icons:
+        return
+
     # We like the monochrome volume pop-up that's been used for years (#14)
     os.chdir(os.path.join(prop.target_dir_icons, "status", "24"))
     os.symlink("audio-volume-high-panel.svg", "audio-volume-high.svg")
