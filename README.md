@@ -16,10 +16,7 @@ These versions are supported:
 * Ubuntu MATE 18.04 LTS
 * Ubuntu MATE 19.04
 * Ubuntu MATE 19.10
-
-These themes are not considered final yet, please test and
-[report issues here](https://github.com/lah7/ubuntu-mate-colours/issues) or find
-an issue to help out with.
+* Ubuntu MATE 20.04 LTS (in development)
 
 
 ## Versioning
@@ -29,7 +26,7 @@ is normally tested for the latest Ubuntu version. As a result, older (and LTS)
 releases may include theme & icon updates not found in
 `ubuntu-mate-themes` and `ubuntu-mate-icon-themes` packages for that release.
 
-Updates to `ubuntu-mate-colours` are represented by the fourth decimal, for example:
+Rebuilds to `ubuntu-mate-colours` are represented by the fourth decimal, for example:
 
 > 19.10.5.**2** = **2**nd build based on 19.10.5.
 
@@ -60,18 +57,18 @@ give you the blue variants of Ambiant-MATE, Ambiant-MATE-Dark and Radiant-MATE.
 
     sudo apt install ubuntu-mate-colours-blue
 
-After installing, the themes/icons will be available to choose from **Appearance** (Look & Feel).
-
-If your desired colour isn't listed, you can create your own using the generator:
-
-    sudo apt install ubuntu-mate-colours-generator
-
-There's also the option to install them all, but this may take up a lot of disk space!
+Want them all? This may take up to 550 MB of disk space!
 
     sudo apt install ubuntu-mate-colours-all
 
+After installing, themes/icons will be available from **Appearance** (Look & Feel).
+
 
 ## Generator Usage
+
+Got a different colour in mind? Create your own using the generator:
+
+    sudo apt install ubuntu-mate-colours-generator
 
 First, make sure you have an up-to-date copy of the [`ubuntu-mate-artwork` repository](https://github.com/ubuntu-mate/ubuntu-mate-artwork).
 If you have `git` installed, you can make a clone using this command:
