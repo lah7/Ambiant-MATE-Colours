@@ -606,10 +606,15 @@ def apply_icon_patches():
 
     # We like the monochrome volume pop-up that's been used for years (#14)
     os.chdir(os.path.join(prop.target_dir_icons, "status", "24"))
-    os.symlink("audio-volume-high-panel.svg", "audio-volume-high.svg")
-    os.symlink("audio-volume-medium-panel.svg", "audio-volume-medium.svg")
-    os.symlink("audio-volume-low-panel.svg", "audio-volume-low.svg")
-    os.symlink("audio-volume-muted-panel.svg", "audio-volume-muted.svg")
+    for path in [
+        ["audio-volume-high-panel.svg", "audio-volume-high.svg"],
+        ["audio-volume-medium-panel.svg", "audio-volume-medium.svg"],
+        ["audio-volume-low-panel.svg", "audio-volume-low.svg"],
+        ["audio-volume-muted-panel.svg", "audio-volume-muted.svg"]
+    ]:
+        if os.path.exists(path[1]):
+            os.remove(path[1])
+        os.symlink(path[0], path[1])
 
 
 # ------------------------------------------------
