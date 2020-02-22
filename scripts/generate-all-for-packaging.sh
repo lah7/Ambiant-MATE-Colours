@@ -5,7 +5,7 @@
 CUR=0
 TOTAL=$(( 9 * 3 ))
 
-# Clear out existing files first
+# Clear out any existing build
 if [ -d usr/share/icons ]; then
     rm -r usr/share/icons
 fi
@@ -13,6 +13,9 @@ fi
 if [ -d usr/share/themes ]; then
     rm -r usr/share/themes
 fi
+
+# Ensure a copy of the latest ubuntu-mate-artwork
+git clone "https://github.com/ubuntu-mate/ubuntu-mate-artwork.git" --depth=1 ubuntu-mate-artwork-src
 
 function generate() {
     theme="$1"
@@ -28,10 +31,15 @@ function generate() {
         --ignore-existing \
         --install-icon-dir=usr/share/icons \
         --install-theme-dir=usr/share/themes \
-        --src-dir=/ \
+        --src-dir=ubuntu-mate-artwork-src/ \
         --theme="$theme" \
         --hex="$hex" \
         --name="$name"
+
+    if [ $? != 0 ]; then
+        echo "Build unsuccessful!"
+        exit 1
+    fi
 }
 
 for theme in "Ambiant-MATE" "Ambiant-MATE-Dark" "Radiant-MATE"; do
@@ -45,3 +53,6 @@ for theme in "Ambiant-MATE" "Ambiant-MATE-Dark" "Radiant-MATE"; do
     generate "$theme" "#1CB39F" "Teal"
     generate "$theme" "#DFCA25" "Yellow"
 done
+
+# Clean up
+rm -rf ubuntu-mate-artwork-src
