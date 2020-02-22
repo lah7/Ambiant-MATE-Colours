@@ -2,6 +2,9 @@
 #
 # Generates all the themes - for packaging use only!
 #
+# The package needs to be generated on the latest Ubuntu, and then have the
+# copy the binaries backported to older releases.
+#
 CUR=0
 TOTAL=$(( 9 * 3 ))
 
@@ -14,8 +17,12 @@ if [ -d usr/share/themes ]; then
     rm -r usr/share/themes
 fi
 
-# Ensure a copy of the latest ubuntu-mate-artwork
-git clone "https://github.com/ubuntu-mate/ubuntu-mate-artwork.git" --depth=1 ubuntu-mate-artwork-src
+# Show versions of packages being processed
+echo -e "\n=================================================="
+echo "Versions"
+echo "=================================================="
+echo -n "Themes: " && apt-cache show ubuntu-mate-icon-themes
+echo -n "Icon Themes: " && apt-cache show ubuntu-mate-themes
 
 function generate() {
     theme="$1"
@@ -31,7 +38,7 @@ function generate() {
         --ignore-existing \
         --install-icon-dir=usr/share/icons \
         --install-theme-dir=usr/share/themes \
-        --src-dir=ubuntu-mate-artwork-src/ \
+        --src-dir=/ \
         --theme="$theme" \
         --hex="$hex" \
         --name="$name"
@@ -53,6 +60,3 @@ for theme in "Ambiant-MATE" "Ambiant-MATE-Dark" "Radiant-MATE"; do
     generate "$theme" "#1CB39F" "Teal"
     generate "$theme" "#DFCA25" "Yellow"
 done
-
-# Clean up
-rm -rf ubuntu-mate-artwork-src
