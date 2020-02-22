@@ -1,5 +1,7 @@
 # Ubuntu MATE Colours
 
+![CI](https://github.com/lah7/ubuntu-mate-colours/workflows/CI/badge.svg)
+
 ![Screenshot of thte 3 themes using custom colours](.github/screenshot@2x.jpg)
 
 A small program that takes `ubuntu-mate-artwork` (theme & icons)
