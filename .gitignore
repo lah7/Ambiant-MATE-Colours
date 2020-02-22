@@ -3,7 +3,6 @@ debian/files
 debian/*.log
 debian/*.debhelper
 debian/*.substvars
-debian/ubuntu-mate-colours*
 ubuntu-mate-artwork/
 usr/
 
