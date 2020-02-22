@@ -1,6 +1,6 @@
 name: CI
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build:
@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - uses: actions/checkout@v2
     - name: Install Dependencies
       run: sudo apt-get install python3 librsvg2-bin imagemagick
 
@@ -15,31 +16,10 @@ jobs:
       run: git clone https://github.com/ubuntu-mate/ubuntu-mate-artwork.git --depth=1
 
     - name: Test Build of Ambiant-MATE
-      run: >-
-        ./ubuntu-mate-colours-generator \
-        --install-icon-dir=usr/share/icons \
-        --install-theme-dir=usr/share/themes \
-        --src-dir=ubuntu-mate-artwork/ \
-        --theme="Ambiant-MATE" \
-        --hex="#2DACD4" \
-        --name="Aqua-Test"
+      run: ./ubuntu-mate-colours-generator --ignore-existing --install-icon-dir=usr/share/icons --install-theme-dir=usr/share/themes --src-dir=ubuntu-mate-artwork/ --theme="Ambiant-MATE" --hex="#2DACD4" --name="Aqua-Test"
 
     - name: Test Build of Ambiant-MATE-Dark
-      run: >-
-        ./ubuntu-mate-colours-generator \
-        --install-icon-dir=usr/share/icons \
-        --install-theme-dir=usr/share/themes \
-        --src-dir=ubuntu-mate-artwork/ \
-        --theme="Ambiant-MATE-Dark" \
-        --hex="#2DACD4" \
-        --name="Aqua-Test"
+      run: ./ubuntu-mate-colours-generator --ignore-existing --install-icon-dir=usr/share/icons --install-theme-dir=usr/share/themes --src-dir=ubuntu-mate-artwork/ --theme="Ambiant-MATE-Dark" --hex="#2DACD4"  --name="Aqua-Test"
 
     - name: Test Build of Radiant-MATE
-      run: >-
-        ./ubuntu-mate-colours-generator \
-        --install-icon-dir=usr/share/icons \
-        --install-theme-dir=usr/share/themes \
-        --src-dir=ubuntu-mate-artwork/ \
-        --theme="Radiant-MATE" \
-        --hex="#2DACD4" \
-        --name="Aqua-Test"
+      run: ./ubuntu-mate-colours-generator --ignore-existing --install-icon-dir=usr/share/icons --install-theme-dir=usr/share/themes --src-dir=ubuntu-mate-artwork/ --theme="Radiant-MATE" --hex="#2DACD4" --name="Aqua-Test"
