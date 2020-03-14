@@ -312,17 +312,22 @@ def patch_theme():
     _replace_string("metacity-theme-1.xml", "<name>{0}</name>".format(prop.base_theme), "<name>{0}</name>".format(prop.new_theme_name))
 
     # --> Base colour
-    _replace_string(["*.ini", "gtkrc"], "#87A752", prop.new_hex_value)
+    _replace_string(["*.ini", "gtkrc"], "#87A752", prop.new_hex_value) # <= 19.10
+    _replace_string(["*.ini", "gtkrc"], "#87A556", prop.new_hex_value) # >= 20.04 (Official)
     _replace_string(["*.ini", "gtkrc", "*.css"], "#A7BB85", _get_hex_variant(prop.new_hex_value, -21))
 
-    _replace_string("*.css", "#87A752", prop.new_hex_value)
-    _replace_string("*.css", _hex_to_rgb("#87A752"), _hex_to_rgb(prop.new_hex_value))
-    _replace_string("*.css", _hex_to_rgba("#87A752"), _hex_to_rgba(prop.new_hex_value))
+    _replace_string("*.css", "#87A752", prop.new_hex_value) # <= 19.10
+    _replace_string("*.css", "#87A556", prop.new_hex_value) # >= 20.04 (Official)
+    _replace_string("*.css", _hex_to_rgb("#87A752"), _hex_to_rgb(prop.new_hex_value)) # <= 19.10
+    _replace_string("*.css", _hex_to_rgb("#87A556"), _hex_to_rgb(prop.new_hex_value)) # >= 20.04 (Official)
+    _replace_string("*.css", _hex_to_rgba("#87A752"), _hex_to_rgba(prop.new_hex_value)) # <= 19.10
+    _replace_string("*.css", _hex_to_rgba("#87A556"), _hex_to_rgba(prop.new_hex_value)) # >= 20.04 (Official)
     _replace_string("*.css", "#84b436", _get_hex_variant(prop.new_hex_value, 5))
     _replace_string("*.css", _hex_to_rgba("#84b436"), _hex_to_rgba(prop.new_hex_value))
 
     # --> Assets
-    _replace_string("*.svg", "#87A752", prop.new_hex_value)
+    _replace_string("*.svg", "#87A752", prop.new_hex_value) # <= 19.10
+    _replace_string("*.svg", "#87A556", prop.new_hex_value) # >= 20.04 (Official)
     _replace_string("*.svg", "#355404", _get_hex_variant(prop.new_hex_value, -32))
     _replace_string("*.svg", "#5a782c", _get_hex_variant(prop.new_hex_value, -17))
     _replace_string("*.svg", "#64941c", _get_hex_variant(prop.new_hex_value, -14))
@@ -495,7 +500,8 @@ def patch_icons():
     _replace_string("index.theme", "Inherits=ubuntu-mono-light,", "Inherits=ubuntu-mono-light,{0},".format(prop.base_icon_theme))
 
     # --> General colours and shades
-    _replace_string("*.svg", "#87A752", prop.new_hex_value)
+    _replace_string("*.svg", "#87A752", prop.new_hex_value) # <= 19.10
+    _replace_string("*.svg", "#87A556", prop.new_hex_value) # >= 20.04 (Official)
     _replace_string("*.svg", "#ADC980", _get_hex_variant(prop.new_hex_value, 16))
     _replace_string("*.svg", "#688933", _get_hex_variant(prop.new_hex_value, -12))
     _replace_string("*.svg", "#4e7752", _get_hex_variant(prop.new_hex_value, -10))
