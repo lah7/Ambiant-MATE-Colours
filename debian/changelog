@@ -1,3 +1,9 @@
+ubuntu-mate-colours (20.04.2) eoan; urgency=low
+
+  * New upstream ubuntu-mate-artwork release.
+
+ -- Luke Horwell <luke@ubuntu-mate.org>  Mon, 23 Mar 2020 11:00:00 +0100
+
 ubuntu-mate-colours (20.04.0) eoan; urgency=low
 
   * New upstream ubuntu-mate-artwork release.
