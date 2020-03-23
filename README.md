@@ -1,6 +1,7 @@
 # Ubuntu MATE Colours
 
-![CI](https://github.com/lah7/ubuntu-mate-colours/workflows/CI/badge.svg)
+[![CI](https://github.com/lah7/ubuntu-mate-colours/workflows/CI/badge.svg)](https://github.com/lah7/ubuntu-mate-colours/actions?query=workflow%3ACI)
+[![Release](https://img.shields.io/github/release/lah7/ubuntu-mate-colours.svg)](https://github.com/lah7/ubuntu-mate-colours/releases)
 
 ![Screenshot of thte 3 themes using custom colours](.github/screenshot@2x.jpg)
 
@@ -19,6 +20,8 @@ These versions are supported:
 * Ubuntu MATE 19.10
 * Ubuntu MATE 20.04 LTS
 
+Ubuntu MATE users can conveniently access this feature via **Welcome** on 18.04
+(and later)!
 
 ## Versioning
 
