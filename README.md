@@ -44,17 +44,10 @@ On Ubuntu, simply add the PPA and install the packages as desired.
 
 The following colours are available:
 
-| Hex                               | Colour          |
-| --------------------------------- | --------------- |
-| ![](.github/aqua.png) `#2DACD4`   | Aqua
-| ![](.github/blue.png) `#5489CF`   | Blue
-| ![](.github/brown.png) `#965024`  | Brown
-| ![](.github/orange.png) `#E95420` | Orange
-| ![](.github/pink.png) `#E231A3`   | Pink
-| ![](.github/purple.png) `#7E5BC5` | Purple
-| ![](.github/red.png) `#CE3A3A`    | Red
-| ![](.github/teal.png) `#1CB39F`   | Teal
-| ![](.github/yellow.png) `#DFCA25` | Yellow
+| Aqua                  | Blue                  | Brown                  | Orange                  | Pink                  | Purple                  | Red                  | Teal                  | Yellow                  |
+| :-------------------: | :-------------------: | :--------------------: | :---------------------: | :-------------------: | :---------------------: | :------------------: | :-------------------: | :---------------------: |
+| ![](.github/aqua.png) | ![](.github/blue.png) | ![](.github/brown.png) | ![](.github/orange.png) | ![](.github/pink.png) | ![](.github/purple.png) | ![](.github/red.png) | ![](.github/teal.png) | ![](.github/yellow.png) |
+| `#2DACD4`             | `#5489CF`             | `#965024`              | `#E95420`               | `#E231A3`             | `#7E5BC5`               | `#CE3A3A`            | `#1CB39F`             | `#DFCA25`               |
 
 Packages are split by colour, so installing `ubuntu-mate-colours-blue` will
 give you the blue variants of Ambiant-MATE, Ambiant-MATE-Dark and Radiant-MATE.
