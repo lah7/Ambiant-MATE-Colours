@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE wallpapers SYSTEM "mate-wp-list.dtd">
+<wallpapers>
+    <wallpaper deleted="false">
+        <name>Ubuntu MATE Purple Splash</name>
+        <filename>/usr/share/backgrounds/ubuntu-mate-purple/Ubuntu-MATE-Purple-Splash.jpg</filename>
+        <options>zoom</options>
+        <artist>Martin Wimpress</artist>
+    </wallpaper>
+    <wallpaper deleted="false">
+        <name>Ubuntu MATE Purple Jazz</name>
+        <filename>/usr/share/backgrounds/ubuntu-mate-purple/Purple-Jazz.jpg</filename>
+        <options>zoom</options>
+        <artist>Roberto Perico</artist>
+    </wallpaper>
+    <wallpaper deleted="false">
+        <name>Purple Wall (Logo)</name>
+        <filename>/usr/share/backgrounds/ubuntu-mate-purple/Purple-Wall-Logo.png</filename>
+        <options>zoom</options>
+        <artist>Roberto Perico</artist>
+    </wallpaper>
+    <wallpaper deleted="false">
+        <name>Purple Wall (Logo and Text)</name>
+        <filename>/usr/share/backgrounds/ubuntu-mate-purple/Purple-Wall-Logo-Text.png</filename>
+        <options>zoom</options>
+        <artist>Roberto Perico</artist>
+    </wallpaper>
+    <wallpaper deleted="false">
+        <name>Purple Wall</name>
+        <filename>/usr/share/backgrounds/ubuntu-mate-purple/Purple-Wall.png</filename>
+        <options>zoom</options>
+        <artist>Roberto Perico</artist>
+    </wallpaper>
+</wallpapers>
