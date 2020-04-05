@@ -5,5 +5,5 @@ usr/share/themes/Radiant-MATE-Yellow usr/share/themes/
 usr/share/icons/Ambiant-MATE-Yellow usr/share/icons/
 usr/share/icons/Radiant-MATE-Yellow usr/share/icons/
 
-usr/share/backgrounds/ubuntu-mate-yellow
-usr/share/mate-background-properties/ubuntu-mate-yellow.xml
+backgrounds/ubuntu-mate-yellow usr/share/backgrounds/ubuntu-mate-yellow
+mate-background-properties/ubuntu-mate-yellow.xml /usr/share/mate-background-properties/

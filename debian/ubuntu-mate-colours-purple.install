@@ -5,5 +5,5 @@ usr/share/themes/Radiant-MATE-Purple usr/share/themes/
 usr/share/icons/Ambiant-MATE-Purple usr/share/icons/
 usr/share/icons/Radiant-MATE-Purple usr/share/icons/
 
-usr/share/backgrounds/ubuntu-mate-purple
-usr/share/mate-background-properties/ubuntu-mate-purple.xml
+backgrounds/ubuntu-mate-purple usr/share/backgrounds/ubuntu-mate-purple
+mate-background-properties/ubuntu-mate-purple.xml /usr/share/mate-background-properties/

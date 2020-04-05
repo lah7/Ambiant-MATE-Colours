@@ -4,6 +4,7 @@ debian/*.log
 debian/*.debhelper
 debian/*.substvars
 ubuntu-mate-artwork/
+usr/
 
 # Misc
 .directory

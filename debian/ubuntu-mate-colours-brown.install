@@ -5,5 +5,5 @@ usr/share/themes/Radiant-MATE-Brown usr/share/themes/
 usr/share/icons/Ambiant-MATE-Brown usr/share/icons/
 usr/share/icons/Radiant-MATE-Brown usr/share/icons/
 
-usr/share/backgrounds/ubuntu-mate-brown
-usr/share/mate-background-properties/ubuntu-mate-brown.xml
+backgrounds/ubuntu-mate-brown usr/share/backgrounds/ubuntu-mate-brown
+mate-background-properties/ubuntu-mate-brown.xml /usr/share/mate-background-properties/
