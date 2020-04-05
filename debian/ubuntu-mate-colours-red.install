@@ -1,9 +1,9 @@
-usr/shared/themes/Ambiant-MATE-Red usr/shared/themes/
-usr/shared/themes/Ambiant-MATE-Dark-Red usr/shared/themes/
-usr/shared/themes/Radiant-MATE-Red usr/shared/themes/
+usr/share/themes/Ambiant-MATE-Red usr/share/themes/
+usr/share/themes/Ambiant-MATE-Dark-Red usr/share/themes/
+usr/share/themes/Radiant-MATE-Red usr/share/themes/
 
-usr/shared/icons/Ambiant-MATE-Red usr/shared/icons/
-usr/shared/icons/Radiant-MATE-Red usr/shared/icons/
+usr/share/icons/Ambiant-MATE-Red usr/share/icons/
+usr/share/icons/Radiant-MATE-Red usr/share/icons/
 
 backgrounds/ubuntu-mate-red usr/share/backgrounds/ubuntu-mate-red
 mate-background-properties/ubuntu-mate-red.xml /usr/share/mate-background-properties/
