@@ -1,6 +1,6 @@
 # Ubuntu MATE Colours
 
-[![CI](https://github.com/lah7/ubuntu-mate-colours/workflows/CI/badge.svg)](https://github.com/lah7/ubuntu-mate-colours/actions?query=workflow%3ACI)
+[![CI](https://github.com/lah7/ubuntu-mate-colours/workflows/CI/badge.svg?branch=master&event=push)](https://github.com/lah7/ubuntu-mate-colours/actions?query=workflow%3ACI)
 [![Release](https://img.shields.io/github/release/lah7/ubuntu-mate-colours.svg)](https://github.com/lah7/ubuntu-mate-colours/releases)
 
 ![Screenshot of thte 3 themes using custom colours](.github/screenshot@2x.jpg)
