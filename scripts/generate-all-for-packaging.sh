@@ -17,12 +17,17 @@ if [ -d usr/share/themes ]; then
     rm -r usr/share/themes
 fi
 
+if [ -d usr/share/backgrounds ]; then
+    rm -r usr/share/backgrounds
+fi
+
 # Show versions of packages being processed
 echo -e "\n=================================================="
 echo "Versions"
 echo "=================================================="
 echo -n "Themes: " && apt-cache show ubuntu-mate-icon-themes
 echo -n "Icon Themes: " && apt-cache show ubuntu-mate-themes
+echo -n "Wallpapers: " && apt-cache show ubuntu-mate-wallpapers-common
 
 function generate() {
     theme="$1"
@@ -38,6 +43,7 @@ function generate() {
         --ignore-existing \
         --install-icon-dir=usr/share/icons \
         --install-theme-dir=usr/share/themes \
+        --install-wallpapers-dir=usr/share/wallpapers \
         --src-dir=/ \
         --theme="$theme" \
         --hex="$hex" \
