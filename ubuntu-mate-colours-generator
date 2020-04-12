@@ -107,7 +107,7 @@ def parse_arguments():
         prop.new_name = args.name
         prop.new_theme_name = prop.base_theme + "-" + args.name
         prop.new_icon_name = prop.base_icon_theme + "-" + prop.new_name
-        prop.new_wallpaper_names = prop.base_wallpapers + "-" + prop.new_name
+        prop.new_wallpaper_names = prop.base_wallpapers + "Ubuntu-MATE-Colours-" + prop.new_name
 
     if args.src_dir:
         prop.src_path = args.src_dir
@@ -184,6 +184,14 @@ def prep_targets():
     _copy_tree("theme", os.path.join(prop.src_path, "usr/share/themes/", prop.base_theme), prop.target_dir_theme)
     _copy_tree("icons", os.path.join(prop.src_path, "usr/share/icons/", prop.base_icon_theme), prop.target_dir_icons)
     _copy_tree("wallpapers", os.path.join(prop.src_path, "usr/share/backgrounds/ubuntu-mate-common", prop.base_wallpapers), prop.target_dir_wallpapers)
+
+    # Remove the grey images from wallpapers
+    os.chdir(prop.target_dir_wallpapers)
+    greyfiles = glob.glob("*Grey*")
+    print("Grey files to be removed: " + str(greyfiles))
+    print(prop.target_dir_wallpapers)
+    for g in greyfiles:
+        os.remove(g)
 
     print("Source files copied.\n")
 
@@ -289,7 +297,6 @@ def _hex_to_rgba(hex_string):
     hex_string = hex_string.lstrip("#")
     rgb = list(int(hex_string[i:i+2], 16) for i in (0, 2 ,4))
     return "rgba({0}, {1}, {2})".format(rgb[0], rgb[1], rgb[2])
-
 
 def _export_svg(svg, png):
     """
@@ -614,7 +621,7 @@ def optimise_icon_size():
         if os.path.isdir(path):
             if len(os.listdir(path)) == 0:
                 if prop.verbose:
-                os.rmdir(path)
+                    os.rmdir(path)
 
     print("Finished cleaning up icons.\n")
 
@@ -642,6 +649,27 @@ def apply_icon_patches():
 # Colorize wallpapers
 # -----------------------------------------------
 
+def color_wallpapers():
+
+    os.chdir(prop.target_dir_wallpapers)
+
+    # Fetch list of wallpaper names
+    wallnames = ["Green-Jazz.jpg",
+    "Green-Wall-Logo-Text.png",
+    "Green-Wall-Logo.png",
+    "Green-Wall.png",
+    "Ubuntu-MATE-Splash.jpg"]
+
+    for w in wallnames:
+        # Get the specific file name and image format
+        fname, fext = os.path.splitext(w)
+        tfile = "output." + fext
+        os.system("convert " + w + " -colorspace gray " + tfile)
+        # To avoid confliction with next step, remove the file we turned grey
+        os.remove(w)
+        os.system("convert " + tfile + " -background white -fill '" + prop.new_hex_value + "' -tint 100 " + prop.new_wallpaper_names + "-" + w)
+        # Remove the temporary gray file we made
+        os.remove(tfile)
 
 
 # ------------------------------------------------
@@ -683,6 +711,7 @@ if __name__ == "__main__":
     patch_icons()
     optimise_icon_size()
     apply_icon_patches()
+    color_wallpapers()
 
     print("Generation of theme '{0}' complete.".format(prop.new_theme_name))
     exit(0)
