@@ -17,6 +17,10 @@ if [ -d usr/share/themes ]; then
     rm -r usr/share/themes
 fi
 
+if [ -d usr/share/backgrounds ]; then
+    rm -r usr/share/backgrounds
+fi
+
 # Show versions of packages being processed
 echo -e "\n=================================================="
 echo "Versions"
@@ -39,10 +43,13 @@ function generate() {
         --ignore-existing \
         --install-icon-dir=usr/share/icons \
         --install-theme-dir=usr/share/themes \
+        --install-wallpapers-dir=usr/share/backgrounds \
+        --install-wallpapers-xml-dir=usr/share/mate-background-properties \
         --src-dir=/ \
         --theme="$theme" \
         --hex="$hex" \
-        --name="$name"
+        --name="$name" \
+        --packaging
 
     if [ $? != 0 ]; then
         echo "Build unsuccessful!"

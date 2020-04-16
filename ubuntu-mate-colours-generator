@@ -32,16 +32,21 @@ class Properties(object):
         # Source
         self.base_theme = ""
         self.base_icon_theme = ""
+        self.base_wallpapers = ""
         self.src_path = None
 
-        # Destination
+        # Names
         self.new_name = ""
         self.new_hex_value = ""
-        self.new_name = ""
         self.new_theme_name = ""
         self.new_icon_name = ""
+        self.new_wallpaper_dirname = ""
+
+        # Destination paths
         self.target_dir_icons = os.path.expanduser("~/.icons")
         self.target_dir_theme = os.path.expanduser("~/.themes")
+        self.target_dir_wallpapers = os.path.expanduser("~/.local/share/backgrounds")
+        self.target_wallpapers_xml = os.path.expanduser("~/.local/share/mate-background-properties")
 
         # Build parameters
         self.verbose = False
@@ -49,6 +54,8 @@ class Properties(object):
         self.ignore_existing = False
         self.build_theme = True
         self.build_icons = True
+        self.build_wallpapers = True
+        self.packaging = False
 
         # Temporary
         self.current_dir = None
@@ -70,9 +77,14 @@ def parse_arguments():
     # Optional
     parser.add_argument("--install-icon-dir", help="Path to install coloured icons", action="store")
     parser.add_argument("--install-theme-dir", help="Path to install coloured theme", action="store")
+    parser.add_argument("--install-wallpapers-dir", help="Path to install coloured wallpapers", action="store")
+    parser.add_argument("--install-wallpapers-xml-dir", help="Path to install XML file for wallpapers", action="store")
     parser.add_argument("-v", "--verbose", help="Show details of each file being processed", action="store_true")
     parser.add_argument("-y", "--overwrite", help="Suppress confirmation prompt to replace target path", action="store_true")
     parser.add_argument( "--ignore-existing", help="Ignore target folders that already exist", action="store_true")
+
+    # Special consideration for packaging use only
+    parser.add_argument( "--packaging", help=argparse.SUPPRESS, action="store_true")
 
     args = parser.parse_args()
 
@@ -102,6 +114,7 @@ def parse_arguments():
         prop.new_name = args.name
         prop.new_theme_name = prop.base_theme + "-" + args.name
         prop.new_icon_name = prop.base_icon_theme + "-" + prop.new_name
+        prop.new_wallpaper_dirname = "ubuntu-mate-colours-" + prop.new_name.lower()
 
     if args.src_dir:
         prop.src_path = args.src_dir
@@ -119,6 +132,15 @@ def parse_arguments():
 
     if args.install_theme_dir:
         prop.target_dir_theme = args.install_theme_dir
+
+    if args.install_wallpapers_dir:
+        prop.target_dir_wallpapers = args.install_wallpapers_dir
+
+    if args.install_wallpapers_xml_dir:
+        prop.target_wallpapers_xml = args.install_wallpapers_xml_dir
+
+    if args.packaging:
+        prop.packaging = True
 
     if args.overwrite:
         prop.always_overwrite = True
@@ -145,12 +167,12 @@ def prep_targets():
         if os.path.exists(dst):
             if prop.ignore_existing and item == "theme":
                 prop.build_theme = False
-                print("Skipped as target exists.\n")
+                print("Skipped as target theme exists.\n")
                 return
 
             if prop.ignore_existing and item == "icons":
                 prop.build_icons = False
-                print("Skipped as target exists.\n")
+                print("Skipped as target icon exists.\n")
                 return
 
             if not prop.always_overwrite:
@@ -165,9 +187,31 @@ def prep_targets():
 
     prop.target_dir_theme = os.path.realpath(os.path.join(prop.target_dir_theme, prop.new_theme_name))
     prop.target_dir_icons = os.path.realpath(os.path.join(prop.target_dir_icons, prop.new_icon_name))
+    prop.target_dir_wallpapers = os.path.realpath(os.path.join(prop.target_dir_wallpapers, prop.new_wallpaper_dirname))
+    prop.target_wallpapers_xml = os.path.realpath(os.path.join(prop.target_wallpapers_xml, prop.new_wallpaper_dirname + ".xml"))
 
     _copy_tree("theme", os.path.join(prop.src_path, "usr/share/themes/", prop.base_theme), prop.target_dir_theme)
     _copy_tree("icons", os.path.join(prop.src_path, "usr/share/icons/", prop.base_icon_theme), prop.target_dir_icons)
+
+    # Check wallpaper directory/XML file as these process the source files directly.
+    if os.path.exists(prop.target_dir_wallpapers):
+        if prop.ignore_existing:
+            print("Skipping wallpaper generation as target exists.\n")
+            prop.build_wallpapers = False
+
+        elif prop.always_overwrite:
+            print("\nDirectory exists: " + prop.target_dir_wallpapers)
+            shutil.rmtree(prop.target_dir_wallpapers)
+            if os.path.exists(prop.target_wallpapers_xml):
+                os.remove(prop.target_wallpapers_xml)
+
+    if not os.path.exists(prop.target_dir_wallpapers):
+        print("Created wallpaper directory.\n")
+        os.makedirs(prop.target_dir_wallpapers)
+
+    if not os.path.exists(os.path.dirname(prop.target_wallpapers_xml)):
+        print("Created mate-background-properties directory.\n")
+        os.makedirs(os.path.dirname(prop.target_wallpapers_xml))
 
     print("Source files copied.\n")
 
@@ -480,6 +524,7 @@ def patch_theme():
 
     print("Theme assets generated.\n")
 
+
 # ------------------------------------------------
 # Patch the icons with new values.
 # ------------------------------------------------
@@ -623,6 +668,98 @@ def apply_icon_patches():
         os.symlink(path[0], path[1])
 
 
+def colour_wallpapers():
+    """
+    Create colourised versions of the common Ubuntu MATE wallpapers.
+    """
+    if not prop.build_wallpapers:
+        return
+
+    wallpapers_src = [
+        [
+            "usr/share/backgrounds/ubuntu-mate-common/Green-Jazz.jpg",
+            prop.new_name + " Ubuntu MATE Jazz",
+            "Roberto Perico"
+        ],
+        [
+            "usr/share/backgrounds/ubuntu-mate-common/Green-Wall-Logo-Text.png",
+            prop.new_name + " Wall (Logo and Text)",
+            "Roberto Perico"
+        ],
+        [
+            "usr/share/backgrounds/ubuntu-mate-common/Green-Wall-Logo.png",
+            prop.new_name + " Wall (Logo)",
+            "Roberto Perico"
+        ],
+        [
+            "usr/share/backgrounds/ubuntu-mate-common/Green-Wall.png",
+            prop.new_name + " Wall",
+            "Roberto Perico"
+        ],
+        [
+            "usr/share/backgrounds/ubuntu-mate-common/Ubuntu-MATE-Splash.jpg",
+            prop.new_name + " Ubuntu MATE Splash",
+            "Martin Wimpress"
+        ]
+    ]
+
+    print("Generating wallpapers...")
+
+    xml = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<!DOCTYPE wallpapers SYSTEM "mate-wp-list.dtd">',
+        '<wallpapers>'
+    ]
+
+    for wallpaper in wallpapers_src:
+        path = wallpaper[0]
+        display_name = wallpaper[1]
+        artist = wallpaper[2]
+
+        original = os.path.realpath(os.path.join(prop.src_path, path))
+        new_filename = os.path.basename(os.path.splitext(original)[0]).replace("Green", prop.new_name) + os.path.splitext(original)[1]
+
+        tmp_path = os.path.join("/tmp/" + new_filename)
+        new_path = os.path.join(prop.target_dir_wallpapers, new_filename)
+
+        if not os.path.exists(original):
+            print("\nWallpaper no longer exists: " + original)
+            exit(1)
+
+        if prop.verbose:
+            print("--> " + new_path)
+
+        os.system("convert {input} -colorspace gray {output}".format(input=original, output=tmp_path))
+        if not os.path.exists(tmp_path):
+            print("\nFailed to generate: " + tmp_path)
+            exit(1)
+
+        os.system("convert {input} -background white -fill '{hex}' -tint 100 {output}".format(input=tmp_path, hex=prop.new_hex_value, output=new_path))
+        if not os.path.exists(new_path):
+            print("\nFailed to generate: " + new_path)
+            exit(1)
+
+        # Clean up temporary files
+        os.remove(tmp_path)
+
+        # Add wallpaper to XML file
+        if prop.packaging:
+            new_path = "/usr/share/backgrounds/ubuntu-mate-colours-{colour}/{filename}".format(
+                colour=prop.new_name.lower(),
+                filename=new_filename)
+
+        xml.append('    <wallpaper deleted="false">'),
+        xml.append('      <name>' + display_name + '</name>')
+        xml.append('      <filename>' + new_path + '</filename>')
+        xml.append('      <options>zoom</options>')
+        xml.append('      <artist>' + artist + '</artist>')
+        xml.append('    </wallpaper>')
+
+    # Finish XML output
+    xml.append('</wallpapers>')
+    with open(prop.target_wallpapers_xml, "w") as f:
+        f.writelines("\n".join(xml))
+
 # ------------------------------------------------
 # Showtime!
 # ------------------------------------------------
@@ -654,6 +791,9 @@ if __name__ == "__main__":
         print("    Install theme to: " + prop.target_dir_theme)
     if prop.build_icons:
         print("    Install icons to: " + prop.target_dir_icons)
+    if prop.build_wallpapers:
+        print("   New wallpapers to: " + prop.target_dir_wallpapers)
+        print("      Wallpapers XML: " + prop.target_wallpapers_xml)
     print("")
 
     # Perform the changes
@@ -662,6 +802,7 @@ if __name__ == "__main__":
     patch_icons()
     optimise_icon_size()
     apply_icon_patches()
+    colour_wallpapers()
 
     print("Generation of theme '{0}' complete.".format(prop.new_theme_name))
     exit(0)
