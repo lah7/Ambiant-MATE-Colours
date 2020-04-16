@@ -2,6 +2,7 @@
 
 [![CI](https://github.com/lah7/ubuntu-mate-colours/workflows/CI/badge.svg?branch=master&event=push)](https://github.com/lah7/ubuntu-mate-colours/actions?query=workflow%3ACI)
 [![Release](https://img.shields.io/github/release/lah7/ubuntu-mate-colours.svg)](https://github.com/lah7/ubuntu-mate-colours/releases)
+[![Upstream](https://img.shields.io/github/release/ubuntu-mate/ubuntu-mate-artwork.svg?label=upstream)](https://github.com/ubuntu-mate/ubuntu-mate-artwork/releases)
 
 ![Screenshot of thte 3 themes using custom colours](.github/screenshot@2x.jpg)
 
@@ -10,9 +11,9 @@ and swaps out the green to a colour of your choice.
 
 Only these themes are supported:
 
-- Ambiant-MATE
-- Ambiant-MATE-Dark
-- Radiant-MATE
+* Ambiant-MATE
+* Ambiant-MATE-Dark
+* Radiant-MATE
 
 These versions are supported:
 
@@ -20,8 +21,19 @@ These versions are supported:
 * Ubuntu MATE 19.10
 * Ubuntu MATE 20.04 LTS
 
+New default wallpapers are generated too:
+
+* Green Ubuntu MATE Jazz
+* Green Wall (Logo and Text)
+* Green Wall (Logo)
+* Green Wall
+* Ubuntu MATE Splash
+
 Ubuntu MATE users can conveniently access this feature via **Welcome** on 18.04
 (and later)!
+
+![Screenshot of Colour Selection in Ubuntu MATE Welcome](.github/welcome.png)
+
 
 ## Versioning
 
@@ -54,7 +66,7 @@ give you the blue variants of Ambiant-MATE, Ambiant-MATE-Dark and Radiant-MATE.
 
     sudo apt install ubuntu-mate-colours-blue
 
-Want them all? This may take up to 550 MB of disk space!
+Want them all? This may take at least 600 MB of disk space!
 
     sudo apt install ubuntu-mate-colours-all
 
