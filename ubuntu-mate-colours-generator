@@ -186,12 +186,12 @@ def prep_targets():
     _copy_tree("wallpapers", os.path.join(prop.src_path, "usr/share/backgrounds/ubuntu-mate-common", prop.base_wallpapers), prop.target_dir_wallpapers)
 
     # Remove the grey images from wallpapers
-    os.chdir(prop.target_dir_wallpapers)
-    greyfiles = glob.glob("*Grey*")
-    print("Grey files to be removed: " + str(greyfiles))
-    print(prop.target_dir_wallpapers)
-    for g in greyfiles:
-        os.remove(g)
+    #os.chdir(prop.target_dir_wallpapers)
+    #greyfiles = glob.glob("*Grey*")
+    #print("Grey files to be removed: " + str(greyfiles))
+    #print(prop.target_dir_wallpapers)
+    #for g in greyfiles:
+    #    os.remove(g)
 
     print("Source files copied.\n")
 
@@ -651,26 +651,31 @@ def apply_icon_patches():
 
 def color_wallpapers():
 
-    os.chdir(prop.target_dir_wallpapers)
+    if "Dark" not in prop.base_theme:
+        os.chdir(prop.target_dir_wallpapers)
 
-    # Fetch list of wallpaper names
-    wallnames = ["Green-Jazz.jpg",
-    "Green-Wall-Logo-Text.png",
-    "Green-Wall-Logo.png",
-    "Green-Wall.png",
-    "Ubuntu-MATE-Splash.jpg"]
+        # Fetch list of wallpaper names
+        wallnames = ["Green-Jazz.jpg",
+        "Green-Wall-Logo-Text.png",
+        "Green-Wall-Logo.png",
+        "Green-Wall.png",
+        "Ubuntu-MATE-Splash.jpg"]
 
-    for w in wallnames:
-        # Get the specific file name and image format
-        fname, fext = os.path.splitext(w)
-        tfile = "output." + fext
-        os.system("convert " + w + " -colorspace gray " + tfile)
-        # To avoid confliction with next step, remove the file we turned grey
-        os.remove(w)
-        os.system("convert " + tfile + " -background white -fill '" + prop.new_hex_value + "' -tint 100 " + prop.new_wallpaper_names + "-" + w)
-        # Remove the temporary gray file we made
-        os.remove(tfile)
+        for w in wallnames:
+            # Get the specific file name and image format
+            fname, fext = os.path.splitext(w)
+            tfile = "output" + fext
+            os.system("convert " + w + " -colorspace gray " + tfile)
+            os.system("convert " + tfile + " -background white -fill '" + prop.new_hex_value + "' -tint 100 " + prop.new_wallpaper_names + "-" + w)
 
+            # Activate script for generating xml
+            os.chdir(owd)
+            os.chdir("files")
+            shutil.copy("generate_image_xml.sh", prop.target_dir_wallpapers)
+
+            # Invoke the generate image xml script
+            os.chdir(prop.target_dir_wallpapers)
+            os.system("bash generate_image_xml.sh /usr/share/Ubuntu-MATE-Colours-" + prop.new_name + " " + prop.new_name + " " + "ubuntu-mate-colours-" + prop.new_name.lower() + ".xml")
 
 # ------------------------------------------------
 # Showtime!
@@ -704,6 +709,9 @@ if __name__ == "__main__":
     if prop.build_icons:
         print("    Install icons to: " + prop.target_dir_icons)
     print("")
+
+    # Find the current working directory-this will be helpful later
+    owd = os.getcwd()
 
     # Perform the changes
     prep_targets()

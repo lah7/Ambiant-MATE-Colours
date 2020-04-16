@@ -5,4 +5,4 @@
 
 override_dh_auto_build:
 	if [ -d usr/ ]; then rm -r usr/; fi
-	./scripts/generate-all-for-packaging.sh
+	./files/generate-all-for-packaging.sh

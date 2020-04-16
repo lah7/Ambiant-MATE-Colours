@@ -53,6 +53,9 @@ function generate() {
         echo "Build unsuccessful!"
         exit 1
     fi
+
+    #rm usr/share/wallpapers/Ubuntu-MATE-Colours-$name/*Grey*
+    #rm usr/share/wallpapers/Ubuntu-MATE-Colours-$name/Green*
 }
 
 for theme in "Ambiant-MATE" "Ambiant-MATE-Dark" "Radiant-MATE"; do
