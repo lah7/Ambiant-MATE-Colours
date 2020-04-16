@@ -1,3 +1,9 @@
+ubuntu-mate-colours (20.04.2.1) focal; urgency=low
+
+  * Add colourized wallpapers. Thanks Joshua Peisach! (#20)
+
+ -- Luke Horwell <luke@ubuntu-mate.org>  Thu, 16 Apr 2020 14:28:30 +0100
+
 ubuntu-mate-colours (20.04.2) focal; urgency=low
 
   * New upstream ubuntu-mate-artwork release.
