@@ -117,7 +117,7 @@ def parse_arguments():
         prop.new_wallpaper_dirname = "ubuntu-mate-colours-" + prop.new_name.lower()
 
     if args.src_dir:
-        prop.src_path = args.src_dir
+        prop.src_path = os.path.realpath(args.src_dir)
 
         if not os.path.exists(args.src_dir):
             print("Could not find: " + args.src_dir)
