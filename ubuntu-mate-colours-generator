@@ -264,7 +264,9 @@ def _replace_string(expr, before, after):
         Opens a file in memory, replaces text and saves again.
         """
         if prop.verbose:
-            print("-> {0} ... ('{1}' to '{2}')".format(path, before, after))
+            print("\033[K-> {0}".format(path))
+            print("\033[K   '{0}' -> '{1}'".format(before, after), end="\r")
+            print("\033[F\033[F")
 
         newlines = []
         with open(path, "r") as f:
@@ -437,6 +439,9 @@ def patch_theme():
     _replace_string(["*.svg", "gtk-widgets.css"], "#f08054", _get_hex_variant(prop.new_hex_value, -4))
     _replace_string(["*.svg", "gtk-widgets.css"], "#f07c4e", _get_hex_variant(prop.new_hex_value, 0))
 
+    if prop.verbose:
+        print("\033[K")
+        print("\033[K", end="\r")
     print("Theme patched.\n")
 
     # Export new PNGs for SVGs in the theme (button border, close, etc)
@@ -604,6 +609,9 @@ def patch_icons():
     # --> home
     _replace_string("*.svg", "#3b550e", _get_hex_variant(prop.new_hex_value, -30))
 
+    if prop.verbose:
+        print("\033[K")
+        print("\033[K", end="\r")
     print("Icons patched.\n")
 
 
