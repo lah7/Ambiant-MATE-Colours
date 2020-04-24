@@ -56,6 +56,7 @@ class Properties(object):
         self.build_icons = True
         self.build_wallpapers = True
         self.packaging = False
+        self.tweaks = []
 
         # Temporary
         self.current_dir = None
@@ -69,27 +70,39 @@ def parse_arguments():
     parser._optionals.title = "Avaliable Arguments"
 
     # Required
-    parser.add_argument("--theme", help="Required. Ubuntu MATE theme to use, e.g. 'Ambiant-MATE'", action="store", required=True)
-    parser.add_argument("--hex", help="Required. Colour value to use, e.g. '#5489CF'", action="store", required=True)
-    parser.add_argument("--name", help="Required. Human readable suffix to identify variant, e.g. 'Blue'.", action="store", required=True)
-    parser.add_argument("--src-dir", help="Required. Path to ubuntu-mate-artwork repository", action="store", required=True)
+    parser.add_argument("--theme", metavar="NAME", help="Required. Ubuntu MATE theme to use, e.g. 'Ambiant-MATE'", action="store")
+    parser.add_argument("--hex", metavar="CODE", help="Required. Colour value to use, e.g. '#5489CF'", action="store")
+    parser.add_argument("--name", metavar="NAME", help="Required. Human readable suffix to identify variant, e.g. 'Blue'.", action="store")
+    parser.add_argument("--src-dir", metavar="PATH", help="Required. Path to ubuntu-mate-artwork repository", action="store")
 
     # Optional
-    parser.add_argument("--install-icon-dir", help="Path to install coloured icons", action="store")
-    parser.add_argument("--install-theme-dir", help="Path to install coloured theme", action="store")
-    parser.add_argument("--install-wallpapers-dir", help="Path to install coloured wallpapers", action="store")
-    parser.add_argument("--install-wallpapers-xml-dir", help="Path to install XML file for wallpapers", action="store")
+    parser.add_argument("--install-icon-dir", metavar="PATH", help="Path to install coloured icons", action="store")
+    parser.add_argument("--install-theme-dir", metavar="PATH",help="Path to install coloured theme", action="store")
+    parser.add_argument("--install-wallpapers-dir", metavar="PATH",help="Path to install coloured wallpapers", action="store")
+    parser.add_argument("--install-wallpapers-xml-dir", metavar="PATH",help="Path to install XML file for wallpapers", action="store")
     parser.add_argument("-v", "--verbose", help="Show details of each file being processed", action="store_true")
-    parser.add_argument("-y", "--overwrite", help="Suppress confirmation prompt to replace target path", action="store_true")
-    parser.add_argument( "--ignore-existing", help="Ignore target folders that already exist", action="store_true")
+    parser.add_argument("-y", "--overwrite", help="Suppress confirmation prompt if target exists", action="store_true")
+    parser.add_argument("-i", "--ignore-existing", help="Ignore target folders that already exist", action="store_true")
+    parser.add_argument("--list-tweaks", help="List available modifications", action="store_true")
+    parser.add_argument("--tweaks", help="Apply additional modifications, comma separated", action="store")
 
     # Special consideration for packaging use only
     parser.add_argument( "--packaging", help=argparse.SUPPRESS, action="store_true")
 
     args = parser.parse_args()
 
-    if not args.theme and not args.hex:
-        print("Missing arguments. See --help.")
+    if args.list_tweaks:
+        print("Available Tweaks")
+        print("-----------------------  -----------------------------------------------------")
+        for tweak in tweaks.tweaks.keys():
+            description = tweaks.tweaks[tweak][1]
+            print("                         " + description, end="")
+            print("\r" + tweak)
+        exit(0)
+
+    if None in [args.theme, args.hex, args.name, args.src_dir]:
+        print("Missing one of the required arguments: --theme, --hex, --name, --src-dir")
+        print("See --help for details.")
         exit(1)
 
     if args.theme:
@@ -150,6 +163,18 @@ def parse_arguments():
 
     if args.ignore_existing:
         prop.ignore_existing = True
+
+    if args.tweaks:
+        prop.tweaks = args.tweaks.split(",")
+
+        # Validate for any invalid tweaks
+        for tweak in prop.tweaks:
+            try:
+                tweaks.tweaks[tweak]
+            except KeyError:
+                print("Invalid tweak name: " + tweak)
+                print("Use --list-tweaks to review available options.")
+                exit(1)
 
 
 def prep_targets():
@@ -648,26 +673,57 @@ def optimise_icon_size():
     print("Finished cleaning up icons.\n")
 
 
-def apply_icon_patches():
+# ------------------------------------------------
+# Optional Tweaks
+# ------------------------------------------------
+class Tweaks(object):
     """
-    Perform some modifications that are different to upstream ubuntu-mate-icon-themes.
+    Performs some modifications that are different to the original theme/icons
+    or compliments the newly generated colour theme/icons.
     """
-    if not prop.build_icons:
-        return
+    def __init__(self):
+        """
+        Stores a list of optional tweaks to perform in addition to the colours.
 
-    # We like the monochrome volume pop-up that's been used for years (#14)
-    os.chdir(os.path.join(prop.target_dir_icons, "status", "24"))
-    for path in [
-        ["audio-volume-high-panel.svg", "audio-volume-high.svg"],
-        ["audio-volume-medium-panel.svg", "audio-volume-medium.svg"],
-        ["audio-volume-low-panel.svg", "audio-volume-low.svg"],
-        ["audio-volume-muted-panel.svg", "audio-volume-muted.svg"]
-    ]:
-        if os.path.exists(path[1]):
-            os.remove(path[1])
-        os.symlink(path[0], path[1])
+        "tweak_id": [<function>, "description"]
+        """
+        self.tweaks = {
+            "mono-osd-icons": [self.mono_osd_icons, "Use mono icons for the OSD volume pop up"]
+        }
+
+    def perform_tweaks(self):
+        """
+        Run through the tweaks, if any.
+        """
+        for tweak in prop.tweaks:
+            self.tweaks[tweak][0]()
+
+    def mono_osd_icons(self):
+        """
+        Use the monochrome icons for the volume pop-up that's been used for years (#14)
+
+        This was changed upstream (ubuntu-mate-artwork) as the icon interfered
+        with some apps, so this         restores the monochrome icon which will
+        be used in the OSD.
+        """
+        if not prop.build_icons:
+            return
+
+        os.chdir(os.path.join(prop.target_dir_icons, "status", "24"))
+        for path in [
+            ["audio-volume-high-panel.svg", "audio-volume-high.svg"],
+            ["audio-volume-medium-panel.svg", "audio-volume-medium.svg"],
+            ["audio-volume-low-panel.svg", "audio-volume-low.svg"],
+            ["audio-volume-muted-panel.svg", "audio-volume-muted.svg"]
+        ]:
+            if os.path.exists(path[1]):
+                os.remove(path[1])
+            os.symlink(path[0], path[1])
 
 
+# ------------------------------------------------
+# Coloured Wallpapers
+# ------------------------------------------------
 def colour_wallpapers():
     """
     Create colourised versions of the common Ubuntu MATE wallpapers.
@@ -775,6 +831,7 @@ if __name__ == "__main__":
         exit(1)
 
     prop = Properties()
+    tweaks = Tweaks()
     parse_arguments()
 
     # Output summary of what's going to happen.
@@ -794,6 +851,8 @@ if __name__ == "__main__":
     if prop.build_wallpapers:
         print("   New wallpapers to: " + prop.target_dir_wallpapers)
         print("      Wallpapers XML: " + prop.target_wallpapers_xml)
+    if len(prop.tweaks) > 0:
+        print("              Tweaks: " + ", ".join(prop.tweaks))
     print("")
 
     # Perform the changes
@@ -801,8 +860,8 @@ if __name__ == "__main__":
     patch_theme()
     patch_icons()
     optimise_icon_size()
-    apply_icon_patches()
     colour_wallpapers()
+    tweaks.perform_tweaks()
 
     print("Generation of theme '{0}' complete.".format(prop.new_theme_name))
     exit(0)

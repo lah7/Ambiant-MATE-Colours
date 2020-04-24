@@ -33,6 +33,7 @@ function generate() {
     theme="$1"
     hex="$2"
     name="$3"
+    tweaks="$4"
     CUR=$(( CUR + 1 ))
     echo -e "\n=================================================="
     echo "Generating $CUR of $TOTAL..."
@@ -49,6 +50,7 @@ function generate() {
         --theme="$theme" \
         --hex="$hex" \
         --name="$name" \
+        --tweaks=mono_osd_icons \
         --packaging
 
     if [ $? != 0 ]; then

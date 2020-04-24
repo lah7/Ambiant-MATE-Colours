@@ -124,6 +124,20 @@ The script by default will create the theme in `~/.local/share/themes` and
 | `-v` or `--verbose`    | Show details of each file being processed.
 | `-y` or `--overwrite`  | Suppress confirmation prompt to replace target path.
 | `--ignore-existing`    | Ignore theme/icons files if they already exist.
+| `--list-tweaks`        | List optional modifications that can be made.
+| `--tweaks`             | Comma separated list of tweaks to use.
+
+
+#### Tweaks
+
+After generating the coloured theme, you may wish to optionally modify the theme
+further:
+
+| Tweak Name             | Description                                       |
+| ---------------------- | ------------------------------------------------- |
+| `mono-osd-icons`       | [Use monochrome icons for OSD volume pop up (#14)](https://github.com/lah7/ubuntu-mate-colours/issues/14)
+
+These are passed as a comma separated parameter to `--tweaks`.
 
 
 ## Generated your own?
