@@ -221,7 +221,7 @@ def prep_targets():
     prop.target_wallpapers_xml = os.path.realpath(os.path.join(prop.target_wallpapers_xml, prop.new_wallpaper_dirname + ".xml"))
 
     _copy_tree("theme", os.path.join(prop.src_path, "usr/share/themes/", prop.base_theme), prop.target_dir_theme)
-    _copy_tree("icons", os.path.join(prop.src_path, "usr/share/icons/", prop.base_icon_theme), prop.target_dir_icons)
+    _copy_tree("icon", os.path.join(prop.src_path, "usr/share/icons/", prop.base_icon_theme), prop.target_dir_icons)
 
     # Check wallpaper directory/XML file as these process the source files directly.
     if os.path.exists(prop.target_dir_wallpapers):
@@ -264,7 +264,7 @@ def _replace_string(expr, before, after):
         Opens a file in memory, replaces text and saves again.
         """
         if prop.verbose:
-            print("\033[K-> {0}".format(path))
+            print("\033[K-> .{0}".format(path.replace(prop.target_dir_icons, "").replace(prop.target_dir_theme, "")))
             print("\033[K   '{0}' -> '{1}'".format(before, after), end="\r")
             print("\033[F\033[F")
 
@@ -361,7 +361,7 @@ def _export_svg(svg, png):
     size = os.popen("identify -format '%w' {0}".format(png_path)).readlines()[0]
 
     if prop.verbose:
-        print("-> Converting '{0}' to '{1}' at {2}x{2}...".format(svg, png, size))
+        print("-> {0} ({1}x{1})...".format(png, size))
 
     svg = os.path.join(prop.current_dir, svg)
     png = os.path.join(prop.current_dir, png)
@@ -527,7 +527,7 @@ def patch_theme():
         "switch-trough-on@2.png",
         "switch-trough-toolbar-on@2.png"]:
             if prop.verbose:
-                print("-> " + os.path.join(prop.current_dir, asset))
+                print("-> ." + os.path.join(prop.current_dir, asset).replace(prop.target_dir_theme, ""))
 
             # tmp_ is used as temporary files
             # Also use '@2' versions first.
@@ -548,7 +548,7 @@ def patch_theme():
             # Generate 1x if 2x was processed.
             if asset.find("@2") != -1:
                 if prop.verbose:
-                    print("-> " + os.path.join(prop.current_dir, asset.replace("@2", "")))
+                    print("-> ." + os.path.join(prop.current_dir, asset.replace("@2", "")).replace(prop.target_dir_theme, ""))
                 os.system("convert {dir}{input} -resize 50% {dir}{output}".format(
                     dir=prop.current_dir,
                     input=asset,
@@ -661,8 +661,7 @@ def optimise_icon_size():
 
         if src_hash == dest_hash:
             if prop.verbose:
-                print("\n         " + src_hash + " | " + src)
-                print("Deleted: " + dest_hash + " | " + dest)
+                print("-> {0} .{1}".format(dest_hash, dest.replace(dest_prefix, "")))
             os.remove(dest)
 
         return src_hash == dest_hash
@@ -671,16 +670,17 @@ def optimise_icon_size():
         __delete_if_same_file(dest, prop.target_dir_icons, os.path.join(prop.src_path, "usr", "share", "icons", prop.base_icon_theme))
 
     # Remove dead symlinks and empty directories.
+    print("\nCleaning up broken symlinks and empty directories...")
     for path in glob.glob(prop.target_dir_icons + "/**", recursive=True):
         if os.path.islink(path) and not os.path.exists(path):
             if prop.verbose:
-                print("Deleting non-existant symlink: " + path)
+                print("-> ." + path.replace(prop.target_dir_icons, ""))
             os.remove(path)
 
         if os.path.isdir(path):
             if len(os.listdir(path)) == 0:
                 if prop.verbose:
-                    print("Deleting empty directory: " + path)
+                    print("-> .{0}/".format(path.replace(prop.target_dir_icons, "")))
                 os.rmdir(path)
 
     print("Finished cleaning up icons.\n")
@@ -796,7 +796,7 @@ def colour_wallpapers():
             exit(1)
 
         if prop.verbose:
-            print("--> " + new_path)
+            print("-> " + new_path)
 
         os.system("convert {input} -colorspace gray {output}".format(input=original, output=tmp_path))
         if not os.path.exists(tmp_path):
@@ -828,6 +828,8 @@ def colour_wallpapers():
     xml.append('</wallpapers>')
     with open(prop.target_wallpapers_xml, "w") as f:
         f.writelines("\n".join(xml))
+
+    print("Wallpaper generation complete.\n")
 
 # ------------------------------------------------
 # Showtime!
