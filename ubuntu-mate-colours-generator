@@ -121,6 +121,11 @@ def parse_arguments():
         prop.base_icon_theme = theme_to_icon_set[prop.base_theme]
 
     if args.hex:
+        if not args.hex.startswith("#") or not len(args.hex) == 7:
+            print("Invalid hex value: " + args.hex)
+            print("Values should be in long format: #FFFFFF")
+            exit(1)
+
         prop.new_hex_value = args.hex
 
     if args.name:
