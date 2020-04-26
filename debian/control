@@ -2,6 +2,7 @@ Source: ubuntu-mate-colours
 Section: x11
 Priority: optional
 Maintainer: Luke Horwell <luke@ubuntu-mate.org>
+Standards-Version: 4.1.3
 Build-Depends: debhelper (>= 9),
                python3 (>= 3.4.0),
                librsvg2-bin,
