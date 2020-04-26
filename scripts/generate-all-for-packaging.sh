@@ -50,7 +50,7 @@ function generate() {
         --theme="$theme" \
         --hex="$hex" \
         --name="$name" \
-        --tweaks=mono_osd_icons$tweaks \
+        --tweaks=mono-osd-icons$tweaks \
         --packaging
 
     if [ $? != 0 ]; then
@@ -68,5 +68,5 @@ for theme in "Ambiant-MATE" "Ambiant-MATE-Dark" "Radiant-MATE"; do
     generate "$theme" "#7E5BC5" "Purple"
     generate "$theme" "#CE3A3A" "Red"
     generate "$theme" "#1CB39F" "Teal"
-    generate "$theme" "#DFCA25" "Yellow" ",black_selected_text"
+    generate "$theme" "#DFCA25" "Yellow" ",black-selected-text"
 done
