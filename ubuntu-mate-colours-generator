@@ -304,6 +304,16 @@ def _replace_string(expr, before, after):
                         __do_replacement(path, before, after)
 
 
+def _clear_replace_string_verbose():
+    """
+    For 'pretty' verbose output. After all _replace_string() have completed,
+    run this to clean 'current progress' line(s).
+    """
+    if prop.verbose:
+        print("\033[K")
+        print("\033[K", end="\r")
+
+
 def _get_hex_variant(string, offset):
     """
     Converts hex input #RRGGBB to RGB and HLS to increase lightness independently
@@ -439,9 +449,7 @@ def patch_theme():
     _replace_string(["*.svg", "gtk-widgets.css"], "#f08054", _get_hex_variant(prop.new_hex_value, -4))
     _replace_string(["*.svg", "gtk-widgets.css"], "#f07c4e", _get_hex_variant(prop.new_hex_value, 0))
 
-    if prop.verbose:
-        print("\033[K")
-        print("\033[K", end="\r")
+    _clear_replace_string_verbose()
     print("Theme patched.\n")
 
     # Export new PNGs for SVGs in the theme (button border, close, etc)
@@ -609,9 +617,7 @@ def patch_icons():
     # --> home
     _replace_string("*.svg", "#3b550e", _get_hex_variant(prop.new_hex_value, -30))
 
-    if prop.verbose:
-        print("\033[K")
-        print("\033[K", end="\r")
+    _clear_replace_string_verbose()
     print("Icons patched.\n")
 
 
@@ -749,6 +755,8 @@ class Tweaks(object):
 
         # Remove shadow when hovering over menus - escaped for regex
         _replace_string("*.css", "text-shadow: 0 -1px shade \(\@selected_bg_color, 0\.7\)", "text-shadow: none")
+
+        _clear_replace_string_verbose()
 
 
 # ------------------------------------------------
