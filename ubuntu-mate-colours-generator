@@ -701,7 +701,8 @@ class Tweaks(object):
         "tweak_id": [<function>, "description"]
         """
         self.tweaks = {
-            "mono-osd-icons": [self.mono_osd_icons, "Use mono icons for the OSD volume pop up"]
+            "mono-osd-icons": [self.mono_osd_icons, "Use mono icons for the OSD volume pop up"],
+            "black-selected-text": [self.black_selected_text, "Change the selected text colour to black."]
         }
 
     def perform_tweaks(self):
@@ -709,6 +710,7 @@ class Tweaks(object):
         Run through the tweaks, if any.
         """
         for tweak in prop.tweaks:
+            print("\nApplying tweak: " + tweak)
             self.tweaks[tweak][0]()
 
     def mono_osd_icons(self):
@@ -731,7 +733,22 @@ class Tweaks(object):
         ]:
             if os.path.exists(path[1]):
                 os.remove(path[1])
+            if prop.verbose:
+                print("-> {0} -> {1}".format(path[0], path[1]))
             os.symlink(path[0], path[1])
+
+    def black_selected_text(self):
+        """
+        All the themes originally use a white selected text colour. This inverts
+        the selected text colour to black to improve contrast.
+        """
+        prop.current_dir = prop.target_dir_theme
+        os.chdir(prop.current_dir)
+        _replace_string(["*.ini", "gtkrc"], "selected_fg_color:#ffffff", "selected_fg_color:#000000")
+        _replace_string("*.css", "selected_fg_color #ffffff", "selected_fg_color #000000")
+
+        # Remove shadow when hovering over menus - escaped for regex
+        _replace_string("*.css", "text-shadow: 0 -1px shade \(\@selected_bg_color, 0\.7\)", "text-shadow: none")
 
 
 # ------------------------------------------------
@@ -829,7 +846,7 @@ def colour_wallpapers():
     with open(prop.target_wallpapers_xml, "w") as f:
         f.writelines("\n".join(xml))
 
-    print("Wallpaper generation complete.\n")
+    print("Wallpaper generation complete.")
 
 # ------------------------------------------------
 # Showtime!
@@ -878,5 +895,5 @@ if __name__ == "__main__":
     colour_wallpapers()
     tweaks.perform_tweaks()
 
-    print("Generation of theme '{0}' complete.".format(prop.new_theme_name))
+    print("\nGeneration of theme '{0}' complete.".format(prop.new_theme_name))
     exit(0)
