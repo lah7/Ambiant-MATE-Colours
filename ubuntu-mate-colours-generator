@@ -205,7 +205,7 @@ def prep_targets():
                 print("Skipped as target icon exists.\n")
                 return
 
-            if not prop.always_overwrite:
+            if not prop.always_overwrite and not prop.ignore_existing:
                 print("\nDirectory exists: " + dst)
                 if input("Type 'y' to confirm removal: ") != "y":
                     exit(1)
