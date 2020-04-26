@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
-# Copyright (C) 2019 Luke Horwell <code@horwell.me>
+# Copyright (C) 2019-2020 Luke Horwell <code@horwell.me>
 #
 
 import argparse
@@ -750,8 +750,14 @@ class Tweaks(object):
         """
         prop.current_dir = prop.target_dir_theme
         os.chdir(prop.current_dir)
+
+        # Ambiant/Radiant
         _replace_string(["*.ini", "gtkrc"], "selected_fg_color:#ffffff", "selected_fg_color:#000000")
         _replace_string("*.css", "selected_fg_color #ffffff", "selected_fg_color #000000")
+
+        # Ambiant-Dark
+        _replace_string(["*.ini", "gtkrc"], "selected_fg_color:#EBEBEB", "selected_fg_color:#000000")
+        _replace_string("*.css", "selected_fg_color #EBEBEB", "selected_fg_color #000000")
 
         # Remove shadow when hovering over menus - escaped for regex
         _replace_string("*.css", "text-shadow: 0 -1px shade \(\@selected_bg_color, 0\.7\)", "text-shadow: none")
