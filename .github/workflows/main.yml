@@ -10,10 +10,13 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install Dependencies
-      run: sudo apt-get install python3 librsvg2-bin imagemagick debhelper
+      run: sudo apt-get install python3 librsvg2-bin imagemagick debhelper pylint3
 
     - name: Clone ubuntu-mate-artwork
       run: git clone https://github.com/ubuntu-mate/ubuntu-mate-artwork.git --depth=1
+
+    - name: Analyse Python Script
+      run: ./scripts/lint.sh
 
     - name: Test Build of Ambiant-MATE
       run: ./ubuntu-mate-colours-generator --ignore-existing --install-icon-dir=usr/share/icons --install-theme-dir=usr/share/themes --src-dir=ubuntu-mate-artwork/ --theme="Ambiant-MATE" --hex="#2DACD4" --name="Aqua-Test" --tweaks=mono-osd-icons
