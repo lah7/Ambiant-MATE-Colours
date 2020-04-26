@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install Dependencies
-      run: sudo apt-get install python3 librsvg2-bin imagemagick
+      run: sudo apt-get install python3 librsvg2-bin imagemagick debhelper
 
     - name: Clone ubuntu-mate-artwork
       run: git clone https://github.com/ubuntu-mate/ubuntu-mate-artwork.git --depth=1
@@ -23,3 +23,9 @@ jobs:
 
     - name: Test Build of Radiant-MATE
       run: ./ubuntu-mate-colours-generator --ignore-existing --install-icon-dir=usr/share/icons --install-theme-dir=usr/share/themes --src-dir=ubuntu-mate-artwork/ --theme="Radiant-MATE" --hex="#2DACD4" --name="Aqua-Test" --tweaks=mono-osd-icons
+
+    - name: Test Build of Source Package
+      run: |
+        sed -i "s#) focal#-UNRELEASED) focal#g" debian/changelog
+        dpkg-buildpackage -S -us -uc
+        lintian --suppress-tags bad-distribution-in-changes-file
