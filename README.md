@@ -136,6 +136,7 @@ further:
 | Tweak Name             | Description                                       |
 | ---------------------- | ------------------------------------------------- |
 | `mono-osd-icons`       | [Use monochrome icons for OSD volume pop up (#14)](https://github.com/lah7/ubuntu-mate-colours/issues/14)
+| `black-selected-text`  | [The selected text colour is black instead of white (#21)](https://github.com/lah7/ubuntu-mate-colours/issues/21)
 
 These are passed as a comma separated parameter to `--tweaks`.
 
