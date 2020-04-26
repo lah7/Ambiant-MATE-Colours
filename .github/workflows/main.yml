@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install Dependencies
-      run: sudo apt-get install python3 librsvg2-bin imagemagick debhelper pylint3
+      run: sudo apt-get install python3 librsvg2-bin imagemagick debhelper pylint3 lintian
 
     - name: Clone ubuntu-mate-artwork
       run: git clone https://github.com/ubuntu-mate/ubuntu-mate-artwork.git --depth=1
