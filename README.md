@@ -18,7 +18,6 @@ Only these themes are supported:
 These versions are supported:
 
 * Ubuntu MATE 18.04 LTS
-* Ubuntu MATE 19.10
 * Ubuntu MATE 20.04 LTS
 
 New default wallpapers are generated too:
