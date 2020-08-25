@@ -1,3 +1,11 @@
+ubuntu-mate-colours (20.10.0) groovy; urgency=low
+
+  * New upstream ubuntu-mate-artwork release.
+  * Add colourized plank themes.
+  * Generator: Use --install-share-dir parameter.
+
+ -- Luke Horwell <luke@ubuntu-mate.org>  Tue, 25 Aug 2020 16:14:30 +0100
+
 ubuntu-mate-colours (20.04.2.2) focal; urgency=low
 
   * Yellow: Improve selected text colour contrast (#21)
