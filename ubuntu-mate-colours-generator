@@ -34,7 +34,14 @@ class Properties(object):
         self.base_icon_theme = ""
         self.base_wallpapers = ""
         self.src_path = None
-        self.templates_dir = os.path.join(os.path.realpath(os.path.dirname(__file__)), "templates")
+
+        if os.path.exists(os.path.dirname(__file__) + "/templates"):
+            self.templates_dir = os.path.realpath(os.path.dirname(__file__)) + "/templates"
+        elif os.path.exists("/usr/share/ubuntu-mate-colours/"):
+            self.templates_dir = "/usr/share/ubuntu-mate-colours/templates"
+        else:
+            print("'templates' directory missing!")
+            exit(1)
 
         # Names
         self.new_name = ""
@@ -157,7 +164,7 @@ def parse_arguments():
         prop.target_dir_wallpapers = args.install_wallpapers_dir
 
     if args.install_share_dir:
-        prop.target_share_path = args.install_share_dir
+        prop.target_share_path = os.path.realpath(args.install_share_dir)
         prop.target_wallpapers_xml = os.path.join(args.install_share_dir, "mate-background-properties")
 
     if args.packaging:
