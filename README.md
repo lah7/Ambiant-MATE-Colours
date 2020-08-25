@@ -6,7 +6,7 @@
 
 ![Screenshot of thte 3 themes using custom colours](.github/screenshot@2x.jpg)
 
-A small program that takes `ubuntu-mate-artwork` (theme & icons)
+A small utility that takes `ubuntu-mate-artwork` (theme & icons)
 and swaps out the green to a colour of your choice.
 
 Only these themes are supported:
@@ -20,13 +20,15 @@ These versions are supported:
 * Ubuntu MATE 18.04 LTS
 * Ubuntu MATE 20.04 LTS
 
-New default wallpapers are generated too:
+In addition to coloured themes and icons:
 
-* Green Ubuntu MATE Jazz
-* Green Wall (Logo and Text)
-* Green Wall (Logo)
-* Green Wall
-* Ubuntu MATE Splash
+* New default wallpapers
+  * Green Ubuntu MATE Jazz
+  * Green Wall (Logo and Text)
+  * Green Wall (Logo)
+  * Green Wall
+  * Ubuntu MATE Splash
+* New plank themes
 
 Ubuntu MATE users can conveniently access this feature via **Welcome** on 18.04
 (and later)!

@@ -34,6 +34,7 @@ class Properties(object):
         self.base_icon_theme = ""
         self.base_wallpapers = ""
         self.src_path = None
+        self.templates_dir = os.path.join(os.path.realpath(os.path.dirname(__file__)), "templates")
 
         # Names
         self.new_name = ""
@@ -221,6 +222,7 @@ def prep_targets():
     prop.target_dir_icons = os.path.realpath(os.path.join(prop.target_dir_icons, prop.new_icon_name))
     prop.target_dir_wallpapers = os.path.realpath(os.path.join(prop.target_dir_wallpapers, prop.new_wallpaper_dirname))
     prop.target_wallpapers_xml = os.path.realpath(os.path.join(prop.target_wallpapers_xml, prop.new_wallpaper_dirname + ".xml"))
+    prop.target_plank_theme = os.path.join(prop.target_share_path, "plank", "themes", "Ubuntu-MATE-" + prop.new_name, "dock.theme")
 
     _copy_tree("theme", os.path.join(prop.src_path, "usr/share/themes/", prop.base_theme), prop.target_dir_theme)
     _copy_tree("icon", os.path.join(prop.src_path, "usr/share/icons/", prop.base_icon_theme), prop.target_dir_icons)
@@ -244,6 +246,10 @@ def prep_targets():
     if not os.path.exists(os.path.dirname(prop.target_wallpapers_xml)):
         print("Created mate-background-properties directory.\n")
         os.makedirs(os.path.dirname(prop.target_wallpapers_xml))
+
+    if not os.path.exists(os.path.dirname(prop.target_plank_theme)):
+        print("Created plank theme directory.\n")
+        os.makedirs(os.path.dirname(prop.target_plank_theme))
 
     print("Source files copied.\n")
 
@@ -361,6 +367,15 @@ def _hex_to_rgba(hex_string):
     hex_string = hex_string.lstrip("#")
     rgb = list(int(hex_string[i:i+2], 16) for i in (0, 2 ,4))
     return "rgba({0}, {1}, {2})".format(rgb[0], rgb[1], rgb[2])
+
+
+def _hex_to_rgb_list(hex_string):
+    """
+    Converts "#RRGGBB" string to RGB value list
+    """
+    hex_string = hex_string.lstrip("#")
+    rgb = list(int(hex_string[i:i+2], 16) for i in (0, 2 ,4))
+    return [rgb[0], rgb[1], rgb[2]]
 
 
 def _export_svg(svg, png):
@@ -768,7 +783,7 @@ class Tweaks(object):
 
 
 # ------------------------------------------------
-# Coloured Wallpapers
+# Miscellaneous
 # ------------------------------------------------
 def colour_wallpapers():
     """
@@ -864,6 +879,37 @@ def colour_wallpapers():
 
     print("Wallpaper generation complete.")
 
+
+def generate_plank_theme():
+    """
+    Create a new theme file for the Plank dock.
+    """
+    if not prop.build_theme:
+        return
+
+    print("\nGenerating Plank theme...")
+    template = os.path.join(prop.templates_dir, "plank.theme")
+
+    shutil.copy(template, prop.target_plank_theme)
+
+    # The template uses RRR, GGG and BBB as placeholders.
+    with open(template, "r") as f:
+        lines = f.readlines()
+
+    rgb = _hex_to_rgb_list(prop.new_hex_value)
+    output = []
+    for line in lines:
+        if line.find("RR"):
+            line = line.replace("RRR;;GGG;;BBB", "{0};;{1};;{2}".format(rgb[0], rgb[1], rgb[2]))
+
+        output.append(line)
+
+    with open(prop.target_plank_theme, "w") as f:
+        f.writelines(output)
+
+    print("Plank theme created.\n")
+
+
 # ------------------------------------------------
 # Showtime!
 # ------------------------------------------------
@@ -892,13 +938,13 @@ if __name__ == "__main__":
         print("     Base Icon Theme: " + prop.base_icon_theme)
         print("           New Icons: " + prop.new_icon_name)
     print("              Source: " + prop.src_path)
+    print("   /usr/share prefix: " + prop.target_share_path)
     if prop.build_theme:
         print("    Install theme to: " + prop.target_dir_theme)
     if prop.build_icons:
         print("    Install icons to: " + prop.target_dir_icons)
     if prop.build_wallpapers:
         print("   New wallpapers to: " + prop.target_dir_wallpapers)
-        print("      Wallpapers XML: " + prop.target_wallpapers_xml)
     if len(prop.tweaks) > 0:
         print("              Tweaks: " + ", ".join(prop.tweaks))
     print("")
@@ -909,6 +955,7 @@ if __name__ == "__main__":
     patch_icons()
     optimise_icon_size()
     colour_wallpapers()
+    generate_plank_theme()
     tweaks.perform_tweaks()
 
     print("\nGeneration of theme '{0}' complete.".format(prop.new_theme_name))
