@@ -45,7 +45,7 @@ function generate() {
         --install-icon-dir=usr/share/icons \
         --install-theme-dir=usr/share/themes \
         --install-wallpapers-dir=usr/share/backgrounds \
-        --install-wallpapers-xml-dir=usr/share/mate-background-properties \
+        --install-share-dir=usr/share \
         --src-dir=/ \
         --theme="$theme" \
         --hex="$hex" \

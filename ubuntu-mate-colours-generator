@@ -46,6 +46,7 @@ class Properties(object):
         self.target_dir_icons = os.path.expanduser("~/.icons")
         self.target_dir_theme = os.path.expanduser("~/.themes")
         self.target_dir_wallpapers = os.path.expanduser("~/.local/share/backgrounds")
+        self.target_share_path = os.path.expanduser("~/.local/share")
         self.target_wallpapers_xml = os.path.expanduser("~/.local/share/mate-background-properties")
 
         # Build parameters
@@ -78,8 +79,8 @@ def parse_arguments():
     # Optional
     parser.add_argument("--install-icon-dir", metavar="PATH", help="Path to install coloured icons", action="store")
     parser.add_argument("--install-theme-dir", metavar="PATH",help="Path to install coloured theme", action="store")
-    parser.add_argument("--install-wallpapers-dir", metavar="PATH",help="Path to install coloured wallpapers", action="store")
-    parser.add_argument("--install-wallpapers-xml-dir", metavar="PATH",help="Path to install XML file for wallpapers", action="store")
+    parser.add_argument("--install-wallpapers-dir", metavar="PATH", help="Path to install coloured wallpapers", action="store")
+    parser.add_argument("--install-share-dir", metavar="PATH", help="Path to install /usr/share path for additional files", action="store")
     parser.add_argument("-v", "--verbose", help="Show details of each file being processed", action="store_true")
     parser.add_argument("-y", "--overwrite", help="Suppress confirmation prompt if target exists", action="store_true")
     parser.add_argument("-i", "--ignore-existing", help="Ignore target folders that already exist", action="store_true")
@@ -154,8 +155,9 @@ def parse_arguments():
     if args.install_wallpapers_dir:
         prop.target_dir_wallpapers = args.install_wallpapers_dir
 
-    if args.install_wallpapers_xml_dir:
-        prop.target_wallpapers_xml = args.install_wallpapers_xml_dir
+    if args.install_share_dir:
+        prop.target_share_path = args.install_share_dir
+        prop.target_wallpapers_xml = os.path.join(args.install_share_dir, "mate-background-properties")
 
     if args.packaging:
         prop.packaging = True
