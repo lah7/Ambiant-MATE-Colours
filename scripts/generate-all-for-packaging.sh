@@ -25,8 +25,8 @@ fi
 echo -e "\n=================================================="
 echo "Versions"
 echo "=================================================="
-echo -n "Theme " && apt-cache show ubuntu-mate-icon-themes | grep Version
-echo -n "Icon Theme " && apt-cache show ubuntu-mate-themes | grep Version
+echo -n "Theme " && apt-cache show ubuntu-mate-themes | grep Version
+echo -n "Icon Theme " && apt-cache show ubuntu-mate-icon-themes | grep Version
 echo -n "Wallpaper " && apt-cache show ubuntu-mate-wallpapers-common | grep Version
 
 function generate() {
