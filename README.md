@@ -17,8 +17,9 @@ Only these themes are supported:
 
 These versions are supported:
 
-* Ubuntu MATE 18.04 LTS
-* Ubuntu MATE 20.04 LTS
+* Ubuntu MATE 18.04 LTS ("Bionic")
+* Ubuntu MATE 20.04 LTS ("Focal")
+* Ubuntu MATE 20.10 ("Groovy")
 
 In addition, these wallpapers and applications themes are recoloured too:
 
