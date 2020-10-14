@@ -4,7 +4,7 @@
 [![Release](https://img.shields.io/github/release/lah7/ubuntu-mate-colours.svg)](https://github.com/lah7/ubuntu-mate-colours/releases)
 [![Upstream](https://img.shields.io/github/release/ubuntu-mate/ubuntu-mate-artwork.svg?label=upstream)](https://github.com/ubuntu-mate/ubuntu-mate-artwork/releases)
 
-![Screenshot of thte 3 themes using custom colours](.github/screenshot@2x.jpg)
+![Screenshot of thte 3 themes using custom colours](.github/readme/screenshot@2x.jpg)
 
 A small utility that takes `ubuntu-mate-artwork` (theme & icons)
 and swaps out the green to a colour of your choice.
@@ -33,7 +33,7 @@ In addition to coloured themes and icons:
 Ubuntu MATE users can conveniently access this feature via **Welcome** on 18.04
 (and later)!
 
-![Screenshot of Colour Selection in Ubuntu MATE Welcome](.github/welcome.png)
+![Screenshot of Colour Selection in Ubuntu MATE Welcome](.github/readme/welcome.png)
 
 
 ## Versioning
@@ -59,7 +59,7 @@ The following colours are available:
 
 | Aqua                  | Blue                  | Brown                  | Orange                  | Pink                  | Purple                  | Red                  | Teal                  | Yellow                  |
 | :-------------------: | :-------------------: | :--------------------: | :---------------------: | :-------------------: | :---------------------: | :------------------: | :-------------------: | :---------------------: |
-| ![](.github/aqua.png) | ![](.github/blue.png) | ![](.github/brown.png) | ![](.github/orange.png) | ![](.github/pink.png) | ![](.github/purple.png) | ![](.github/red.png) | ![](.github/teal.png) | ![](.github/yellow.png) |
+| ![](.github/readme/aqua.png) | ![](.github/readme/blue.png) | ![](.github/readme/brown.png) | ![](.github/readme/orange.png) | ![](.github/readme/pink.png) | ![](.github/readme/purple.png) | ![](.github/readme/red.png) | ![](.github/readme/teal.png) | ![](.github/readme/yellow.png) |
 | `#2DACD4`             | `#5489CF`             | `#965024`              | `#E95420`               | `#E231A3`             | `#7E5BC5`               | `#CE3A3A`            | `#1CB39F`             | `#DFCA25`               |
 
 Packages are split by colour, so installing `ubuntu-mate-colours-blue` will
