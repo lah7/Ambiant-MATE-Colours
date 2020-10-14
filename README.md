@@ -9,13 +9,13 @@
 A small utility that takes `ubuntu-mate-artwork` (theme & icons)
 and swaps out the green to a colour of your choice.
 
-Only these themes are supported:
+**Supported Themes:**
 
 * Ambiant-MATE
 * Ambiant-MATE-Dark
 * Radiant-MATE
 
-These versions are supported:
+**Supported Releases:**
 
 * Ubuntu MATE 18.04 LTS ("Bionic")
 * Ubuntu MATE 20.04 LTS ("Focal")
