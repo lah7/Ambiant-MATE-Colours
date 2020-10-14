@@ -20,15 +20,15 @@ These versions are supported:
 * Ubuntu MATE 18.04 LTS
 * Ubuntu MATE 20.04 LTS
 
-In addition to coloured themes and icons:
+In addition, these wallpapers and applications themes are recoloured too:
 
-* New default wallpapers
-  * Green Ubuntu MATE Jazz
-  * Green Wall (Logo and Text)
-  * Green Wall (Logo)
-  * Green Wall
-  * Ubuntu MATE Splash
-* New plank themes
+| Jazz                  | Wall (Logo and Text)              | Wall (Logo)     |
+| :-------------------: | :-------------------------------: | :-------------: |
+| ![](.github/readme/wall-jazz.jpg) | ![](.github/readme/wall-logo-text.jpg) | ![](.github/readme/wall-logo.jpg)
+
+| Wall                  | Splash                            | Plank
+| :-------------------: | :-------------------------------: | :-------------: |
+| ![](.github/readme/wall.jpg) | ![](.github/readme/wall-splash.jpg) | ![](.github/readme/plank.jpg)
 
 Ubuntu MATE users can conveniently access this feature via **Welcome** on 18.04
 (and later)!
