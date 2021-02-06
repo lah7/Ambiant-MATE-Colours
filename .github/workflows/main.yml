@@ -29,6 +29,5 @@ jobs:
 
     - name: Test Build of Source Package
       run: |
-        sed -i "s#) focal#-UNRELEASED) focal#g" debian/changelog
         dpkg-buildpackage -S -us -uc -d
         lintian --suppress-tags bad-distribution-in-changes-file
