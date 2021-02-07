@@ -5,6 +5,12 @@ usr/share/themes/Radiant-MATE-Yellow usr/share/themes/
 usr/share/icons/Ambiant-MATE-Yellow usr/share/icons/
 usr/share/icons/Radiant-MATE-Yellow usr/share/icons/
 
+usr/share/themes/Yaru-MATE-light-Yellow usr/share/themes/
+usr/share/themes/Yaru-MATE-dark-Yellow usr/share/themes/
+
+usr/share/icons/Yaru-MATE-light-Yellow usr/share/icons/
+usr/share/icons/Yaru-MATE-dark-Yellow usr/share/icons/
+
 usr/share/backgrounds/ubuntu-mate-colours-yellow/
 usr/share/mate-background-properties/ubuntu-mate-colours-yellow.xml
 usr/share/plank/themes/Ubuntu-MATE-Yellow/dock.theme

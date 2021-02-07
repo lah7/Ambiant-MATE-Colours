@@ -5,6 +5,12 @@ usr/share/themes/Radiant-MATE-Teal usr/share/themes/
 usr/share/icons/Ambiant-MATE-Teal usr/share/icons/
 usr/share/icons/Radiant-MATE-Teal usr/share/icons/
 
+usr/share/themes/Yaru-MATE-light-Teal usr/share/themes/
+usr/share/themes/Yaru-MATE-dark-Teal usr/share/themes/
+
+usr/share/icons/Yaru-MATE-light-Teal usr/share/icons/
+usr/share/icons/Yaru-MATE-dark-Teal usr/share/icons/
+
 usr/share/backgrounds/ubuntu-mate-colours-teal/
 usr/share/mate-background-properties/ubuntu-mate-colours-teal.xml
 usr/share/plank/themes/Ubuntu-MATE-Teal/dock.theme

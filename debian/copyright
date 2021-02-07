@@ -4,12 +4,20 @@ Upstream-Contact: Luke Horwell <code@horwell.me>
 Source: https://github.com/lah7/ubuntu-mate-artwork-colours/
 
 Files: README.md
-       generate-ubuntu-mate-colours
-Copyright: 2019, Luke Horwell <code@horwell.me>
+       ubuntu-mate-colours-generator
+       .github/
+       debian/
+       scripts/
+Copyright: 2019-2021, Luke Horwell <code@horwell.me>
 License: GPL-3+
 
 Files: usr/share/*
+       ubuntu-mate-artwork/
 Copyright: Ubuntu MATE Team <ubuntu-mate-dev@lists.launchpad.net>
+License: GPL-3+
+
+Files: yaru-src/
+Copyright: Ubuntu Yaru Team
 License: GPL-3+
 
 License: GPL-3+

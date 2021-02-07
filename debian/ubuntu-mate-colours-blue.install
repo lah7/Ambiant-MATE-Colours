@@ -5,6 +5,12 @@ usr/share/themes/Radiant-MATE-Blue usr/share/themes/
 usr/share/icons/Ambiant-MATE-Blue usr/share/icons/
 usr/share/icons/Radiant-MATE-Blue usr/share/icons/
 
+usr/share/themes/Yaru-MATE-light-Blue usr/share/themes/
+usr/share/themes/Yaru-MATE-dark-Blue usr/share/themes/
+
+usr/share/icons/Yaru-MATE-light-Blue usr/share/icons/
+usr/share/icons/Yaru-MATE-dark-Blue usr/share/icons/
+
 usr/share/backgrounds/ubuntu-mate-colours-blue/
 usr/share/mate-background-properties/ubuntu-mate-colours-blue.xml
 usr/share/plank/themes/Ubuntu-MATE-Blue/dock.theme
