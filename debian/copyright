@@ -4,7 +4,7 @@ Upstream-Contact: Luke Horwell <code@horwell.me>
 Source: https://github.com/lah7/ubuntu-mate-artwork-colours/
 
 Files: README.md
-       ubuntu-mate-colours-generator
+       generate-ambiant-mate-colour.py
        .github/
        debian/
        scripts/

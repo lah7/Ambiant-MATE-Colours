@@ -6,9 +6,6 @@
 # For packaging use only!
 # =======================
 #
-# Ambiant-MATE Family:
-#   - Generate each variant using 'ubuntu-mate-colours-generator'
-#
 CUR=0
 TOTAL=$(( 9 * 3 ))
 
@@ -37,7 +34,7 @@ function generate_ambiant() {
     echo "($CUR/$TOTAL) - $theme ($name, $hex)"
     echo "=================================================="
 
-    ./ubuntu-mate-colours-generator \
+    ./generate-ambiant-mate-colour.py \
         --overwrite \
         --ignore-existing \
         --install-icon-dir=usr/share/icons \

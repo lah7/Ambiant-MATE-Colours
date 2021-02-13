@@ -20,5 +20,4 @@ if [ -z "$pylint" ]; then
     exit 1
 fi
 
-$pylint ubuntu-mate-colours-generator --errors-only
-echo "Lint returned exit code $?"
+$pylint generate-ambiant-mate-colour.py --errors-only
