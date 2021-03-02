@@ -19,8 +19,6 @@ def export_svg(prop, svg, png):
 
     size = os.popen("identify -format '%w' {0}".format(png_path)).readlines()[0]
     status_print(prop, png, size)
-    svg = os.path.join(prop.current_dir, svg)
-    png = os.path.join(prop.current_dir, png)
     os.system("rsvg-convert -w {2} -h {2} -f png -o {1} {0}".format(svg, png, size))
 
 
@@ -32,7 +30,7 @@ def colourize_raster(prop, path):
     if not os.path.exists(path):
         return
 
-    tmp_path = os.path.dirname(path) + "/tmp." + path.split(".")[-1]
+    tmp_path = "./tmp." + path.split(".")[-1]
 
     # Convert to greyscale (-> tmp)
     os.system("convert {0} -colorspace gray {1}".format(path, tmp_path))

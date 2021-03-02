@@ -90,9 +90,6 @@ class Properties(object):
         self.packaging = False
         self.tweaks = []
 
-        # Temporary
-        self.current_dir = None
-
 
 def parse_arguments():
     """
@@ -292,7 +289,7 @@ def patch_theme():
     """
     Search through the theme and replace green with new values.
     """
-    prop.current_dir = os.path.realpath(prop.target_dir_theme)
+    os.chdir(os.path.realpath(prop.target_dir_theme))
 
     if not prop.build_theme:
         return
@@ -364,7 +361,7 @@ def patch_theme():
 
     # Export new PNGs for SVGs in the theme (button border, close, etc)
     print("Generating theme assets...")
-    prop.current_dir = os.path.realpath(prop.target_dir_theme)
+    os.chdir(os.path.realpath(prop.target_dir_theme))
 
     # GTK3 assets
     for asset in [
@@ -389,7 +386,7 @@ def patch_theme():
 
     # For some reason, Radiant-MATE has a different filename for "close_focused_normal"
     if prop.base_icon_theme == "Radiant-MATE":
-        shutil.copy(prop.current_dir + "/unity/close_focused.svg", prop.current_dir + "/unity/close_focused_normal.svg")
+        shutil.copy("unity/close_focused.svg", "unity/close_focused_normal.svg")
 
     # Metacity assets
     for asset in [
@@ -441,21 +438,18 @@ def patch_theme():
         "switch-trough-toolbar-on@2.png"
     ]:
         for gtk_dir in ["gtk-2.0", "gtk-3.0", "gtk-3.20"]:
-            prop.current_dir = prop.target_dir_theme + "/" + gtk_dir + "/assets/"
-
-            if not os.path.exists(prop.current_dir):
+            cur_dir = os.path.join(prop.target_dir_theme, gtk_dir, "assets")
+            if not os.path.exists(cur_dir):
                 continue
-
-            os.chdir(prop.current_dir)
-            output_path = os.path.join(prop.current_dir, asset).replace(prop.target_dir_theme, "")
+            os.chdir(cur_dir)
 
             if not os.path.exists(asset):
                 continue
 
-            status_print(prop, "." + output_path, "")
+            status_print(prop, "." + os.path.basename(asset), "")
 
             # Convert icon to grey and colourise
-            colourize_raster(prop, prop.current_dir + "/" + asset)
+            colourize_raster(prop, asset)
 
     print("Theme assets generated.                                         \n")
 
@@ -464,7 +458,7 @@ def patch_icons():
     """
     Search through the icons and replace green with new values.
     """
-    prop.current_dir = os.path.realpath(prop.target_dir_icons)
+    os.chdir(os.path.realpath(prop.target_dir_icons))
 
     if not prop.build_icons:
         return
@@ -567,8 +561,7 @@ class Tweaks(object):
         All the themes originally use a white selected text colour. This inverts
         the selected text colour to black to improve contrast.
         """
-        prop.current_dir = prop.target_dir_theme
-        os.chdir(prop.current_dir)
+        os.chdir(prop.target_dir_theme)
 
         # Ambiant/Radiant
         replace_string(prop, ["*.ini", "gtkrc"], "selected_fg_color:#ffffff", "selected_fg_color:#000000")
