@@ -101,7 +101,6 @@ print("")
 print("Copying source files...")
 shutil.copytree(SRC_DIR, TEMP_DIR)
 
-
 print("Patching colours...")
 
 # Patch name
@@ -144,11 +143,11 @@ replace_string(prop, "*.svg", "#19b6ee", HEX_VALUE)
 # ------------------------------------------------
 # Pre-build
 # ------------------------------------------------
-print("Rendering new cursors...")
+print("Rendering cursors...")
 os.chdir(TEMP_DIR + "/icons/src/cursors/")
 os.system("./x11-make.sh")
 
-print("Rendering new icons... (this may take a while)\n--------------------------------")
+print("Rendering icons... (this may take a while)\n--------------------------------")
 os.chdir(TEMP_DIR + "/icons/src/fullcolor/")
 os.system("./render-bitmaps.py")
 print("\n--------------------------------\n")

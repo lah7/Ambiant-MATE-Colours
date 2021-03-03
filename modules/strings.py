@@ -2,8 +2,6 @@
 # Functions for replacing text data
 #
 
-from modules.common import status_print
-
 import glob
 import re
 import os
@@ -24,10 +22,6 @@ def replace_string(prop, expr, before, after):
         """
         Opens a file in memory, replaces text and saves again.
         """
-        if prop:
-            status_print(prop, path.replace(prop.target_dir_icons, "").replace(prop.target_dir_theme, ""),
-                "'{0}' -> '{1}'".format(before, after))
-
         newlines = []
         with open(path, "r") as f:
             lines = f.readlines()

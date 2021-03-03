@@ -16,8 +16,6 @@
 # Copyright (C) 2019-2021 Luke Horwell <code@horwell.me>
 #
 
-from modules.common import status_print
-from modules.common import status_clear
 from modules.graphics import export_svg
 from modules.graphics import colourize_raster
 from modules.hexrgb import get_hex_variant
@@ -81,7 +79,6 @@ class Properties(object):
         self.target_wallpapers_xml = os.path.expanduser("~/.local/share/mate-background-properties")
 
         # Build parameters
-        self.verbose = False
         self.always_overwrite = False
         self.ignore_existing = False
         self.build_theme = True
@@ -109,7 +106,6 @@ def parse_arguments():
     parser.add_argument("--install-theme-dir", metavar="PATH",help="Path to install coloured theme", action="store")
     parser.add_argument("--install-wallpapers-dir", metavar="PATH", help="Path to install coloured wallpapers", action="store")
     parser.add_argument("--install-share-dir", metavar="PATH", help="Path to install /usr/share path for additional files", action="store")
-    parser.add_argument("-v", "--verbose", help="Print every file being processed", action="store_true")
     parser.add_argument("-y", "--overwrite", help="Suppress confirmation prompt if target exists", action="store_true")
     parser.add_argument("-i", "--ignore-existing", help="Ignore target folders that already exist", action="store_true")
     parser.add_argument("--list-tweaks", help="List available modifications", action="store_true")
@@ -192,9 +188,6 @@ def parse_arguments():
     if args.overwrite:
         prop.always_overwrite = True
 
-    if args.verbose:
-        prop.verbose = True
-
     if args.ignore_existing:
         prop.ignore_existing = True
 
@@ -220,10 +213,6 @@ def prep_targets():
     """
     def _copy_tree(item, src, dst):
         print("Copying {0} files...".format(item))
-
-        if prop.verbose:
-            print("          Source: " + src)
-            print("     Destination: " + dst)
 
         if os.path.exists(dst):
             if prop.ignore_existing and item == "theme":
@@ -356,7 +345,6 @@ def patch_theme():
     replace_string(prop, ["*.svg", "gtk-widgets.css"], "#f08054", get_hex_variant(prop.new_hex_value, -4))
     replace_string(prop, ["*.svg", "gtk-widgets.css"], "#f07c4e", get_hex_variant(prop.new_hex_value, 0))
 
-    status_clear(prop)
     print("Theme patched.\n")
 
     # Export new PNGs for SVGs in the theme (button border, close, etc)
@@ -395,8 +383,6 @@ def patch_theme():
         "close_focused_pressed",
         "close"]:
             export_svg(prop, "unity/" + asset + ".svg", "metacity-1/" + asset + ".png")
-
-    status_clear(prop)
 
     # Remove unity assets as unused
     unity_dir = os.path.join(prop.target_dir_theme, "unity")
@@ -446,12 +432,10 @@ def patch_theme():
             if not os.path.exists(asset):
                 continue
 
-            status_print(prop, "." + os.path.basename(asset), "")
-
             # Convert icon to grey and colourise
             colourize_raster(prop.new_hex_value, asset)
 
-    print("Theme assets generated.                                         \n")
+    print("\nTheme assets generated.\n")
 
 
 def patch_icons():
@@ -501,7 +485,6 @@ def patch_icons():
     # --> home
     replace_string(prop, "*.svg", "#3b550e", get_hex_variant(prop.new_hex_value, -30))
 
-    status_clear(prop)
     print("Icons patched.\n")
 
 
@@ -552,8 +535,6 @@ class Tweaks(object):
         ]:
             if os.path.exists(path[1]):
                 os.remove(path[1])
-            if prop.verbose:
-                print("-> {0} -> {1}".format(path[0], path[1]))
             os.symlink(path[0], path[1])
 
     def black_selected_text(self):
@@ -573,8 +554,6 @@ class Tweaks(object):
 
         # Remove shadow when hovering over menus - escaped for regex
         replace_string(prop, "*.css", "text-shadow: 0 -1px shade \(\@selected_bg_color, 0\.7\)", "text-shadow: none")
-
-        status_clear(prop)
 
 
 # ------------------------------------------------
@@ -638,7 +617,7 @@ def colour_wallpapers():
             print("\nWallpaper no longer exists: " + original)
             exit(1)
 
-        status_print(prop, "Generating:", new_path)
+        print("Generating:", new_path)
 
         os.system("convert {input} -colorspace gray {output}".format(input=original, output=tmp_path))
         if not os.path.exists(tmp_path):
@@ -671,7 +650,6 @@ def colour_wallpapers():
     with open(prop.target_wallpapers_xml, "w") as f:
         f.writelines("\n".join(xml))
 
-    status_clear(prop)
     print("Wallpaper generation complete.")
 
 
@@ -725,12 +703,10 @@ if __name__ == "__main__":
 
     # Output summary of what's going to happen.
     print("\nNew variant to be generated:\n")
-    if prop.build_theme:
-        print("          Base Theme: " + prop.base_theme)
-        print("           New Theme: " + prop.new_theme_name)
     print("           Hex Value: " + prop.new_hex_value)
+    if prop.build_theme:
+        print("           New Theme: " + prop.new_theme_name)
     if prop.build_icons:
-        print("     Base Icon Theme: " + prop.base_icon_theme)
         print("           New Icons: " + prop.new_icon_name)
     print("              Source: " + prop.src_path)
     print("   /usr/share prefix: " + prop.target_share_path)

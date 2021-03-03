@@ -2,8 +2,6 @@
 # Functions for manipulating SVGs and PNGs
 #
 
-from modules.common import status_print
-
 import os
 
 
@@ -18,7 +16,6 @@ def export_svg(prop, svg, png):
         return
 
     size = os.popen("identify -format '%w' {0}".format(png_path)).readlines()[0]
-    status_print(prop, png, size)
     os.system("rsvg-convert -w {2} -h {2} -f png -o {1} {0}".format(svg, png, size))
 
 

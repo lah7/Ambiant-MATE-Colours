@@ -2,9 +2,6 @@
 # Functions for performing optimisations after the build or patches.
 #
 
-from modules.common import status_print
-from modules.common import status_clear
-
 import os
 import glob
 import hashlib
