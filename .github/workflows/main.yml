@@ -22,7 +22,9 @@ jobs:
       run: git clone https://github.com/ubuntu-mate/ubuntu-mate-artwork.git --depth=1
 
     - name: Clone Yaru-MATE
-      run: git clone https://github.com/ubuntu/yaru.git -b hirsute/mate --depth=1 yaru-src
+      run: |
+        git clone https://github.com/ubuntu/yaru.git -b hirsute/mate --depth=1 yaru-src
+        rm -rf yaru-src/.github/
 
     - name: Test Build of Ambiant-MATE
       run: ./generate-ambiant-mate-colour.py --ignore-existing --install-icon-dir=usr/share/icons --install-theme-dir=usr/share/themes --src-dir=ubuntu-mate-artwork/ --theme="Ambiant-MATE" --hex="#2DACD4" --name="Aqua" --tweaks=mono-osd-icons
