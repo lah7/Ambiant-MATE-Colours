@@ -5,11 +5,11 @@ usr/share/themes/Radiant-MATE-Aqua usr/share/themes/
 usr/share/icons/Ambiant-MATE-Aqua usr/share/icons/
 usr/share/icons/Radiant-MATE-Aqua usr/share/icons/
 
-usr/share/themes/Yaru-MATE-light-Aqua usr/share/themes/
-usr/share/themes/Yaru-MATE-dark-Aqua usr/share/themes/
+usr/share/themes/Yaru-MATE-Aqua-light usr/share/themes/
+usr/share/themes/Yaru-MATE-Aqua-dark usr/share/themes/
 
-usr/share/icons/Yaru-MATE-light-Aqua usr/share/icons/
-usr/share/icons/Yaru-MATE-dark-Aqua usr/share/icons/
+usr/share/icons/Yaru-MATE-Aqua-light usr/share/icons/
+usr/share/icons/Yaru-MATE-Aqua-dark usr/share/icons/
 
 usr/share/backgrounds/ubuntu-mate-colours-aqua/
 usr/share/mate-background-properties/ubuntu-mate-colours-aqua.xml

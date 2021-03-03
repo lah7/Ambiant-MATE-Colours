@@ -5,11 +5,11 @@ usr/share/themes/Radiant-MATE-Pink usr/share/themes/
 usr/share/icons/Ambiant-MATE-Pink usr/share/icons/
 usr/share/icons/Radiant-MATE-Pink usr/share/icons/
 
-usr/share/themes/Yaru-MATE-light-Pink usr/share/themes/
-usr/share/themes/Yaru-MATE-dark-Pink usr/share/themes/
+usr/share/themes/Yaru-MATE-Pink-light usr/share/themes/
+usr/share/themes/Yaru-MATE-Pink-dark usr/share/themes/
 
-usr/share/icons/Yaru-MATE-light-Pink usr/share/icons/
-usr/share/icons/Yaru-MATE-dark-Pink usr/share/icons/
+usr/share/icons/Yaru-MATE-Pink-light usr/share/icons/
+usr/share/icons/Yaru-MATE-Pink-dark usr/share/icons/
 
 usr/share/backgrounds/ubuntu-mate-colours-pink/
 usr/share/mate-background-properties/ubuntu-mate-colours-pink.xml

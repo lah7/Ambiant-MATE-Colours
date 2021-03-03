@@ -5,11 +5,11 @@ usr/share/themes/Radiant-MATE-Purple usr/share/themes/
 usr/share/icons/Ambiant-MATE-Purple usr/share/icons/
 usr/share/icons/Radiant-MATE-Purple usr/share/icons/
 
-usr/share/themes/Yaru-MATE-light-Purple usr/share/themes/
-usr/share/themes/Yaru-MATE-dark-Purple usr/share/themes/
+usr/share/themes/Yaru-MATE-Purple-light usr/share/themes/
+usr/share/themes/Yaru-MATE-Purple-dark usr/share/themes/
 
-usr/share/icons/Yaru-MATE-light-Purple usr/share/icons/
-usr/share/icons/Yaru-MATE-dark-Purple usr/share/icons/
+usr/share/icons/Yaru-MATE-Purple-light usr/share/icons/
+usr/share/icons/Yaru-MATE-Purple-dark usr/share/icons/
 
 usr/share/backgrounds/ubuntu-mate-colours-purple/
 usr/share/mate-background-properties/ubuntu-mate-colours-purple.xml

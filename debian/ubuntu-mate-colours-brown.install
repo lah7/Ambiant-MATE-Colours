@@ -5,11 +5,11 @@ usr/share/themes/Radiant-MATE-Brown usr/share/themes/
 usr/share/icons/Ambiant-MATE-Brown usr/share/icons/
 usr/share/icons/Radiant-MATE-Brown usr/share/icons/
 
-usr/share/themes/Yaru-MATE-light-Brown usr/share/themes/
-usr/share/themes/Yaru-MATE-dark-Brown usr/share/themes/
+usr/share/themes/Yaru-MATE-Brown-light usr/share/themes/
+usr/share/themes/Yaru-MATE-Brown-dark usr/share/themes/
 
-usr/share/icons/Yaru-MATE-light-Brown usr/share/icons/
-usr/share/icons/Yaru-MATE-dark-Brown usr/share/icons/
+usr/share/icons/Yaru-MATE-Brown-light usr/share/icons/
+usr/share/icons/Yaru-MATE-Brown-dark usr/share/icons/
 
 usr/share/backgrounds/ubuntu-mate-colours-brown/
 usr/share/mate-background-properties/ubuntu-mate-colours-brown.xml
