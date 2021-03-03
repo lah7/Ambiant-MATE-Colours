@@ -20,4 +20,19 @@ if [ -z "$pylint" ]; then
     exit 1
 fi
 
+function abort_on_error() {
+    code=$?
+    if [ $code != 0 ]; then
+        echo "Received exit code $code"
+        exit 1
+    fi
+}
+
 $pylint generate-ambiant-mate-colour.py --errors-only
+abort_on_error $?
+
+$pylint generate-yaru-mate-colour.py --errors-only
+abort_on_error $?
+
+$pylint modules/*.py --errors-only
+abort_on_error $?

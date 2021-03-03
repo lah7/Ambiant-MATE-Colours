@@ -3,8 +3,11 @@ debian/files
 debian/*.log
 debian/*.debhelper
 debian/*.substvars
-ubuntu-mate-artwork/
 usr/
 
-# Misc
-.directory
+# Sources
+ubuntu-mate-artwork/
+yaru-src/
+
+# Cache
+__pycache__

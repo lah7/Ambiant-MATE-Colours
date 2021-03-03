@@ -5,6 +5,7 @@ Source: https://github.com/lah7/ubuntu-mate-artwork-colours/
 
 Files: README.md
        generate-ambiant-mate-colour.py
+       generate-yaru-mate-colour.py
        .github/
        debian/
        scripts/

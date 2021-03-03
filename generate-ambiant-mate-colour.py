@@ -449,7 +449,7 @@ def patch_theme():
             status_print(prop, "." + os.path.basename(asset), "")
 
             # Convert icon to grey and colourise
-            colourize_raster(prop, asset)
+            colourize_raster(prop.new_hex_value, asset)
 
     print("Theme assets generated.                                         \n")
 

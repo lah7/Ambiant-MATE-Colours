@@ -22,7 +22,7 @@ def export_svg(prop, svg, png):
     os.system("rsvg-convert -w {2} -h {2} -f png -o {1} {0}".format(svg, png, size))
 
 
-def colourize_raster(prop, path):
+def colourize_raster(new_hex, path):
     """
     Uses Imagemagick to recolour a PNG or JPG file. The resulting file will
     replace the specified path.
@@ -37,5 +37,5 @@ def colourize_raster(prop, path):
 
     # Convert to new tined colour (-> path)
     os.remove(path)
-    os.system("convert {0} -background white -fill '{2}' -tint 100 {1}".format(tmp_path, path, prop.new_hex_value))
+    os.system("convert {0} -background white -fill '{2}' -tint 100 {1}".format(tmp_path, path, new_hex))
     os.remove(tmp_path)
