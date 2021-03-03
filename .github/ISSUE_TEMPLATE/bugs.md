@@ -1,7 +1,7 @@
 ---
 name: Report a visual issue
 about: "One (or more) of the colour themes doesn't look right"
-title: '[20.04] - Ambiant/Radiant-MATE - [Brief description here]'
+title: '[20.04] - Summary here'
 labels: 'bug'
 assignees:
 
@@ -22,11 +22,12 @@ assignees:
 - [ ] Ambiant-MATE
 - [ ] Ambiant-MATE-Dark
 - [ ] Radiant-MATE
+- [ ] Yaru-MATE
 
 <!-- Please try the original theme and mark [x] below if the bug happens there -->
 <!-- If it does, create an issue on that repository instead -->
 
-- [ ] This affects [ubuntu-mate/ubuntu-mate-artwork](https://github.com/ubuntu-mate/ubuntu-mate-artwork)
+- [ ] This affects upstream [ubuntu-mate/ubuntu-mate-artwork](https://github.com/ubuntu-mate/ubuntu-mate-artwork)
 
 
 ### Screenshots
