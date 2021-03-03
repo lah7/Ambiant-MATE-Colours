@@ -10,68 +10,70 @@ import glob
 import hashlib
 
 
-def optimise_icon_size(prop):
+def optimise_icon_size(src_dir, new_dir):
     """
     Remove unmodified icons so they can inherited from the parent theme.
     """
-    dest_icon_files = glob.glob(prop.target_dir_icons + "/**", recursive=True)
+    print("\nCleaning up: ", new_dir)
 
-    print("Removing unmodified icons...")
+    # Deduplication
+    checksums = []
+    original_files = glob.glob(src_dir + "/**", recursive=True)
+    new_files = glob.glob(new_dir + "/**", recursive=True)
 
-    def __delete_if_same_file(dest, dest_prefix, new_dest_prefix):
-        src = dest.replace(dest_prefix, new_dest_prefix)
+    print("Deduplicating... (1/2)")
+    for path in original_files:
+        # Can't checksum directories or links
+        if os.path.isdir(path) or os.path.islink(path):
+            continue
 
-        if not os.path.exists(src) or not os.path.exists(dest):
-            return False
+        with open(path, "rb") as f:
+            data = f.read()
+            data_hash = hashlib.md5(data).hexdigest()
+            checksums.append(data_hash)
 
-        if os.path.isdir(src) or os.path.isdir(dest):
-            return False
-
+    print("Deduplicating... (2/2)")
+    for path in new_files:
         # Keep files that end with "-panel.svg"
-        if dest[-10:] == "-panel.svg":
-            return False
+        if path[-10:] == "-panel.svg":
+            continue
 
         # Keep files that start with "bluetooth-" (#18)
-        if os.path.basename(dest)[:4] == "blue":
-            return False
+        if os.path.basename(path)[:4] == "blue":
+            continue
 
         # Keep files that start with "indicator-"
-        if os.path.basename(dest)[:9] == "indicator":
-            return False
+        if os.path.basename(path)[:9] == "indicator":
+            continue
 
         # Keep files that end with "-panel.svg" (#11)
-        if dest[-10:] == "-close.svg":
-            return False
+        if path[-10:] == "-close.svg":
+            continue
 
-        with open(src, "rb") as f:
-            src_bin = f.read()
-            src_hash = hashlib.md5(src_bin).hexdigest()
+        # Can't checksum directories or links
+        if os.path.isdir(path) or os.path.islink(path):
+            continue
 
-        with open(dest, "rb") as f:
-            dest_bin = f.read()
-            dest_hash = hashlib.md5(dest_bin).hexdigest()
+        # Perhaps it was recently deleted?
+        if not os.path.exists(path):
+            continue
 
-        if src_hash == dest_hash:
-            status_print(prop, dest_hash, "." + dest.replace(dest_prefix, ""))
-            os.remove(dest)
+        # Perform checksum and delete file if it matches
+        with open(path, "rb") as f:
+            data = f.read()
+            data_hash = hashlib.md5(data).hexdigest()
 
-        return src_hash == dest_hash
-
-    for dest in dest_icon_files:
-        __delete_if_same_file(dest, prop.target_dir_icons, os.path.join(prop.src_path, "usr", "share", "icons", prop.base_icon_theme))
-    status_clear(prop)
+        if data_hash in checksums:
+            os.remove(path)
 
     # Remove dead symlinks and empty directories.
-    print("\nCleaning up broken symlinks and empty directories...")
-    for path in glob.glob(prop.target_dir_icons + "/**", recursive=True):
+    print("Cleaning up broken symlinks and empty directories...")
+    for path in glob.glob(new_dir + "/**", recursive=True):
         if os.path.islink(path) and not os.path.exists(path):
-            status_print(prop, "Removing broken symlink:", "." + path.replace(prop.target_dir_icons, ""))
             os.remove(path)
 
         if os.path.isdir(path):
             if len(os.listdir(path)) == 0:
-                status_print(prop, "Removing empty directory:", ".{0}/".format(path.replace(prop.target_dir_icons, "")))
                 os.rmdir(path)
 
-    status_clear(prop)
     print("Finished cleaning up icons.\n")

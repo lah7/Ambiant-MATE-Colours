@@ -748,7 +748,7 @@ if __name__ == "__main__":
     prep_targets()
     patch_theme()
     patch_icons()
-    optimise_icon_size(prop)
+    optimise_icon_size(prop.src_path + "/usr/share/icons/" + prop.base_icon_theme, prop.target_dir_icons)
     colour_wallpapers()
     generate_plank_theme()
     tweaks.perform_tweaks()

@@ -210,7 +210,16 @@ for theme in glob.glob("*"):
 # ------------------------------------------------
 # Finishing up
 # ------------------------------------------------
-print("Cleaning up...")
+print("Cleaning up temporary files...")
 shutil.rmtree(TEMP_DIR)
+
+# Shrink the size of icons by removing duplicates
+if os.path.exists("/usr/share/icons/Yaru-MATE/"):
+    new_icons_prefix = os.path.join(PREFIX_DIR, "share/icons/Yaru-MATE-" + THEME_NAME)
+    optimise_icon_size("/usr/share/icons/Yaru-MATE/", new_icons_prefix)
+    optimise_icon_size("/usr/share/icons/Yaru-MATE-dark/", new_icons_prefix + "-dark")
+    optimise_icon_size("/usr/share/icons/Yaru-MATE-light/", new_icons_prefix + "-light")
+else:
+    print("\nWARNING: Yaru-MATE is not installed on system! Skipping icon disk space optimisation.\n")
 
 print("\nSuccessfully generated Yaru-MATE-{0} ({1})\nSaved to: {2}\n".format(THEME_NAME, HEX_VALUE, PREFIX_DIR))
