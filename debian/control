@@ -14,6 +14,7 @@ Build-Depends: debhelper (>= 11),
                inkscape,
                optipng,
                ruby,
+               x11-apps,
                ubuntu-mate-icon-themes,
                ubuntu-mate-themes,
                ubuntu-mate-wallpapers-common

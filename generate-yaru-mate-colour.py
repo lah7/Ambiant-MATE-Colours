@@ -137,10 +137,17 @@ replace_string(prop, "*.svg", "#eaffcf", "#ffffff" if is_dark_colour(HEX_VALUE) 
 replace_string(prop, "*.svg", "#b4d959", get_hex_variant(HEX_VALUE, 12))
 replace_string(prop, "*.svg", "#45602a", get_hex_variant(HEX_VALUE, -12))
 
+# Patch cursor colours
+replace_string(prop, "*.svg", "#19b6ee", HEX_VALUE)
+
 
 # ------------------------------------------------
 # Pre-build
 # ------------------------------------------------
+print("Rendering new cursors...")
+os.chdir(TEMP_DIR + "/icons/src/cursors/")
+os.system("./x11-make.sh")
+
 print("Rendering new icons... (this may take a while)\n--------------------------------")
 os.chdir(TEMP_DIR + "/icons/src/fullcolor/")
 os.system("./render-bitmaps.py")
