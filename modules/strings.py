@@ -7,12 +7,11 @@ import re
 import os
 
 
-def replace_string(prop, expr, before, after):
+def replace_string(expr, before, after):
     """
     Scans the directory for expression and performs a string replacement.
 
     Params:
-    - prop              Properties object or None (for verbosity)
     - expr      (str)   Expression to glob. E.g. *.svg for all SVG files.
                 (list)  Alternately, multiple expressions to glob.
     - before    (str)   Hash to change from.

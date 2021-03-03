@@ -286,64 +286,64 @@ def patch_theme():
     print("Patching theme...")
 
     # --> Metadata
-    replace_string(prop, "index.theme", "Name=" + prop.base_theme, "Name=" + prop.new_theme_name)
-    replace_string(prop, "index.theme", "GtkTheme=" + prop.base_theme, "GtkTheme=" + prop.new_theme_name)
-    replace_string(prop, "index.theme", "MetacityTheme=" + prop.base_theme, "MetacityTheme=" + prop.new_theme_name)
-    replace_string(prop, "index.theme", "IconTheme=" + prop.base_icon_theme, "IconTheme=" + prop.new_icon_name)
-    replace_string(prop, "index.theme", "Comment=", "Comment=" + prop.new_name + " ")
-    replace_string(prop, "metacity-theme-1.xml", "<name>{0}</name>".format(prop.base_theme), "<name>{0}</name>".format(prop.new_theme_name))
+    replace_string("index.theme", "Name=" + prop.base_theme, "Name=" + prop.new_theme_name)
+    replace_string("index.theme", "GtkTheme=" + prop.base_theme, "GtkTheme=" + prop.new_theme_name)
+    replace_string("index.theme", "MetacityTheme=" + prop.base_theme, "MetacityTheme=" + prop.new_theme_name)
+    replace_string("index.theme", "IconTheme=" + prop.base_icon_theme, "IconTheme=" + prop.new_icon_name)
+    replace_string("index.theme", "Comment=", "Comment=" + prop.new_name + " ")
+    replace_string("metacity-theme-1.xml", "<name>{0}</name>".format(prop.base_theme), "<name>{0}</name>".format(prop.new_theme_name))
 
     # --> Base colour
-    replace_string(prop, ["*.ini", "gtkrc"], "#87A752", prop.new_hex_value) # <= 19.10
-    replace_string(prop, ["*.ini", "gtkrc"], "#87A556", prop.new_hex_value) # >= 20.04 (Official)
-    replace_string(prop, ["*.ini", "gtkrc", "*.css"], "#A7BB85", get_hex_variant(prop.new_hex_value, -21))
+    replace_string(["*.ini", "gtkrc"], "#87A752", prop.new_hex_value) # <= 19.10
+    replace_string(["*.ini", "gtkrc"], "#87A556", prop.new_hex_value) # >= 20.04 (Official)
+    replace_string(["*.ini", "gtkrc", "*.css"], "#A7BB85", get_hex_variant(prop.new_hex_value, -21))
 
-    replace_string(prop, "*.css", "#87A752", prop.new_hex_value) # <= 19.10
-    replace_string(prop, "*.css", "#87A556", prop.new_hex_value) # >= 20.04 (Official)
-    replace_string(prop, "*.css", hex_to_rgb("#87A752"), hex_to_rgb(prop.new_hex_value)) # <= 19.10
-    replace_string(prop, "*.css", hex_to_rgb("#87A556"), hex_to_rgb(prop.new_hex_value)) # >= 20.04 (Official)
-    replace_string(prop, "*.css", hex_to_rgba("#87A752"), hex_to_rgba(prop.new_hex_value)) # <= 19.10
-    replace_string(prop, "*.css", hex_to_rgba("#87A556"), hex_to_rgba(prop.new_hex_value)) # >= 20.04 (Official)
-    replace_string(prop, "*.css", "#84b436", get_hex_variant(prop.new_hex_value, 5))
-    replace_string(prop, "*.css", hex_to_rgba("#84b436"), hex_to_rgba(prop.new_hex_value))
+    replace_string("*.css", "#87A752", prop.new_hex_value) # <= 19.10
+    replace_string("*.css", "#87A556", prop.new_hex_value) # >= 20.04 (Official)
+    replace_string("*.css", hex_to_rgb("#87A752"), hex_to_rgb(prop.new_hex_value)) # <= 19.10
+    replace_string("*.css", hex_to_rgb("#87A556"), hex_to_rgb(prop.new_hex_value)) # >= 20.04 (Official)
+    replace_string("*.css", hex_to_rgba("#87A752"), hex_to_rgba(prop.new_hex_value)) # <= 19.10
+    replace_string("*.css", hex_to_rgba("#87A556"), hex_to_rgba(prop.new_hex_value)) # >= 20.04 (Official)
+    replace_string("*.css", "#84b436", get_hex_variant(prop.new_hex_value, 5))
+    replace_string("*.css", hex_to_rgba("#84b436"), hex_to_rgba(prop.new_hex_value))
 
     # --> Ambiant-MATE Assets
-    replace_string(prop, "*.svg", "#87A752", prop.new_hex_value) # <= 19.10
-    replace_string(prop, "*.svg", "#87A556", prop.new_hex_value) # >= 20.04 (Official)
-    replace_string(prop, "*.svg", "#355404", get_hex_variant(prop.new_hex_value, -32))
-    replace_string(prop, "*.svg", "#5a782c", get_hex_variant(prop.new_hex_value, -17))
-    replace_string(prop, "*.svg", "#64941c", get_hex_variant(prop.new_hex_value, -14))
-    replace_string(prop, "*.svg", "#79a934", get_hex_variant(prop.new_hex_value, -6))
-    replace_string(prop, "*.svg", "#87a556", get_hex_variant(prop.new_hex_value, 1))
-    replace_string(prop, "*.svg", "#96b565", get_hex_variant(prop.new_hex_value, 6))
+    replace_string("*.svg", "#87A752", prop.new_hex_value) # <= 19.10
+    replace_string("*.svg", "#87A556", prop.new_hex_value) # >= 20.04 (Official)
+    replace_string("*.svg", "#355404", get_hex_variant(prop.new_hex_value, -32))
+    replace_string("*.svg", "#5a782c", get_hex_variant(prop.new_hex_value, -17))
+    replace_string("*.svg", "#64941c", get_hex_variant(prop.new_hex_value, -14))
+    replace_string("*.svg", "#79a934", get_hex_variant(prop.new_hex_value, -6))
+    replace_string("*.svg", "#87a556", get_hex_variant(prop.new_hex_value, 1))
+    replace_string("*.svg", "#96b565", get_hex_variant(prop.new_hex_value, 6))
 
     # --> Ambiant-MATE: Close button (normal)
-    replace_string(prop, ["*.svg", "gtk-widgets.css"], "#de4c19", get_hex_variant(prop.new_hex_value, 8))
-    replace_string(prop, ["*.svg", "gtk-widgets.css"], "#e55e30", get_hex_variant(prop.new_hex_value, 12))
-    replace_string(prop, ["*.svg", "gtk-widgets.css"], "#f58d6e", get_hex_variant(prop.new_hex_value, 16))
+    replace_string(["*.svg", "gtk-widgets.css"], "#de4c19", get_hex_variant(prop.new_hex_value, 8))
+    replace_string(["*.svg", "gtk-widgets.css"], "#e55e30", get_hex_variant(prop.new_hex_value, 12))
+    replace_string(["*.svg", "gtk-widgets.css"], "#f58d6e", get_hex_variant(prop.new_hex_value, 16))
 
     # --> Ambiant-MATE: Close button (prelight)
-    replace_string(prop, ["*.svg", "gtk-widgets.css"], "#e24f1b", get_hex_variant(prop.new_hex_value, 20))
-    replace_string(prop, ["*.svg", "gtk-widgets.css"], "#f17750", get_hex_variant(prop.new_hex_value, 24))
-    replace_string(prop, ["*.svg", "gtk-widgets.css"], "#fba992", get_hex_variant(prop.new_hex_value, 28))
+    replace_string(["*.svg", "gtk-widgets.css"], "#e24f1b", get_hex_variant(prop.new_hex_value, 20))
+    replace_string(["*.svg", "gtk-widgets.css"], "#f17750", get_hex_variant(prop.new_hex_value, 24))
+    replace_string(["*.svg", "gtk-widgets.css"], "#fba992", get_hex_variant(prop.new_hex_value, 28))
 
     # --> Ambiant-MATE: Close button (pressed)
-    replace_string(prop, ["*.svg", "gtk-widgets.css"], "#ec6e44", get_hex_variant(prop.new_hex_value, -4))
-    replace_string(prop, ["*.svg", "gtk-widgets.css"], "#e76b41", get_hex_variant(prop.new_hex_value, 0))
+    replace_string(["*.svg", "gtk-widgets.css"], "#ec6e44", get_hex_variant(prop.new_hex_value, -4))
+    replace_string(["*.svg", "gtk-widgets.css"], "#e76b41", get_hex_variant(prop.new_hex_value, 0))
 
     # --> Radiant-MATE: Close button (normal)
-    replace_string(prop, ["*.svg", "gtk-widgets.css"], "#e77041", get_hex_variant(prop.new_hex_value, 8))
-    replace_string(prop, ["*.svg", "gtk-widgets.css"], "#f17d4e", get_hex_variant(prop.new_hex_value, 12))
-    replace_string(prop, ["*.svg", "gtk-widgets.css"], "#f9b39c", get_hex_variant(prop.new_hex_value, 16))
+    replace_string(["*.svg", "gtk-widgets.css"], "#e77041", get_hex_variant(prop.new_hex_value, 8))
+    replace_string(["*.svg", "gtk-widgets.css"], "#f17d4e", get_hex_variant(prop.new_hex_value, 12))
+    replace_string(["*.svg", "gtk-widgets.css"], "#f9b39c", get_hex_variant(prop.new_hex_value, 16))
 
     # --> Radiant-MATE: Close button (prelight)
-    replace_string(prop, ["*.svg", "gtk-widgets.css"], "#e67144", get_hex_variant(prop.new_hex_value, 20))
-    replace_string(prop, ["*.svg", "gtk-widgets.css"], "#ed8b67", get_hex_variant(prop.new_hex_value, 24))
-    replace_string(prop, ["*.svg", "gtk-widgets.css"], "#f9cbbd", get_hex_variant(prop.new_hex_value, 28))
+    replace_string(["*.svg", "gtk-widgets.css"], "#e67144", get_hex_variant(prop.new_hex_value, 20))
+    replace_string(["*.svg", "gtk-widgets.css"], "#ed8b67", get_hex_variant(prop.new_hex_value, 24))
+    replace_string(["*.svg", "gtk-widgets.css"], "#f9cbbd", get_hex_variant(prop.new_hex_value, 28))
 
     # --> Radiant-MATE: Close button (pressed)
-    replace_string(prop, ["*.svg", "gtk-widgets.css"], "#f08054", get_hex_variant(prop.new_hex_value, -4))
-    replace_string(prop, ["*.svg", "gtk-widgets.css"], "#f07c4e", get_hex_variant(prop.new_hex_value, 0))
+    replace_string(["*.svg", "gtk-widgets.css"], "#f08054", get_hex_variant(prop.new_hex_value, -4))
+    replace_string(["*.svg", "gtk-widgets.css"], "#f07c4e", get_hex_variant(prop.new_hex_value, 0))
 
     print("Theme patched.\n")
 
@@ -450,40 +450,40 @@ def patch_icons():
     print("Patching icons...")
 
     # --> Metadata
-    replace_string(prop, "index.theme", "Name=" + prop.base_icon_theme, "Name=" + prop.new_icon_name)
+    replace_string("index.theme", "Name=" + prop.base_icon_theme, "Name=" + prop.new_icon_name)
 
-    replace_string(prop, "index.theme", "Inherits=ubuntu-mono-dark,", "Inherits=ubuntu-mono-dark,{0},".format(prop.base_icon_theme))
-    replace_string(prop, "index.theme", "Inherits=ubuntu-mono-light,", "Inherits=ubuntu-mono-light,{0},".format(prop.base_icon_theme))
+    replace_string("index.theme", "Inherits=ubuntu-mono-dark,", "Inherits=ubuntu-mono-dark,{0},".format(prop.base_icon_theme))
+    replace_string("index.theme", "Inherits=ubuntu-mono-light,", "Inherits=ubuntu-mono-light,{0},".format(prop.base_icon_theme))
 
     # --> General colours and shades
-    replace_string(prop, "*.svg", "#87A752", prop.new_hex_value) # <= 19.10
-    replace_string(prop, "*.svg", "#87A556", prop.new_hex_value) # >= 20.04 (Official)
-    replace_string(prop, "*.svg", "#ADC980", get_hex_variant(prop.new_hex_value, 16))
-    replace_string(prop, "*.svg", "#688933", get_hex_variant(prop.new_hex_value, -12))
-    replace_string(prop, "*.svg", "#4e7752", get_hex_variant(prop.new_hex_value, -10))
-    replace_string(prop, "*.svg", "#4A6A17", get_hex_variant(prop.new_hex_value, -24))
+    replace_string("*.svg", "#87A752", prop.new_hex_value) # <= 19.10
+    replace_string("*.svg", "#87A556", prop.new_hex_value) # >= 20.04 (Official)
+    replace_string("*.svg", "#ADC980", get_hex_variant(prop.new_hex_value, 16))
+    replace_string("*.svg", "#688933", get_hex_variant(prop.new_hex_value, -12))
+    replace_string("*.svg", "#4e7752", get_hex_variant(prop.new_hex_value, -10))
+    replace_string("*.svg", "#4A6A17", get_hex_variant(prop.new_hex_value, -24))
 
     #--> actions (go-home)
-    replace_string(prop, "*.svg", "#d9edb9", get_hex_variant(prop.new_hex_value, 34))
-    replace_string(prop, "*.svg", "#f6daae", get_hex_variant(prop.new_hex_value, 33))
+    replace_string("*.svg", "#d9edb9", get_hex_variant(prop.new_hex_value, 34))
+    replace_string("*.svg", "#f6daae", get_hex_variant(prop.new_hex_value, 33))
 
     # --> preferences-desktop-theme
-    replace_string(prop, "*.svg", "#4e6827", get_hex_variant(prop.new_hex_value, -21))
-    replace_string(prop, "*.svg", "#617f30", get_hex_variant(prop.new_hex_value, -15))
-    replace_string(prop, "*.svg", "#87a556", get_hex_variant(prop.new_hex_value, -1))
-    replace_string(prop, "*.svg", "#b4c990", get_hex_variant(prop.new_hex_value, 19))
+    replace_string("*.svg", "#4e6827", get_hex_variant(prop.new_hex_value, -21))
+    replace_string("*.svg", "#617f30", get_hex_variant(prop.new_hex_value, -15))
+    replace_string("*.svg", "#87a556", get_hex_variant(prop.new_hex_value, -1))
+    replace_string("*.svg", "#b4c990", get_hex_variant(prop.new_hex_value, 19))
 
     # --> preferences-system-network
-    replace_string(prop, "*.svg", "#4d5e31", get_hex_variant(prop.new_hex_value, -21))
-    replace_string(prop, "*.svg", "#abc187", get_hex_variant(prop.new_hex_value, 15))
-    replace_string(prop, "*.svg", "#657b40", get_hex_variant(prop.new_hex_value, -12))
-    replace_string(prop, "*.svg", "#4a5a2f", get_hex_variant(prop.new_hex_value, -22))
+    replace_string("*.svg", "#4d5e31", get_hex_variant(prop.new_hex_value, -21))
+    replace_string("*.svg", "#abc187", get_hex_variant(prop.new_hex_value, 15))
+    replace_string("*.svg", "#657b40", get_hex_variant(prop.new_hex_value, -12))
+    replace_string("*.svg", "#4a5a2f", get_hex_variant(prop.new_hex_value, -22))
 
     #--> system-file-manager
-    replace_string(prop, "*.svg", "#2e4705", get_hex_variant(prop.new_hex_value, -34))
+    replace_string("*.svg", "#2e4705", get_hex_variant(prop.new_hex_value, -34))
 
     # --> home
-    replace_string(prop, "*.svg", "#3b550e", get_hex_variant(prop.new_hex_value, -30))
+    replace_string("*.svg", "#3b550e", get_hex_variant(prop.new_hex_value, -30))
 
     print("Icons patched.\n")
 
@@ -545,15 +545,15 @@ class Tweaks(object):
         os.chdir(prop.target_dir_theme)
 
         # Ambiant/Radiant
-        replace_string(prop, ["*.ini", "gtkrc"], "selected_fg_color:#ffffff", "selected_fg_color:#000000")
-        replace_string(prop, "*.css", "selected_fg_color #ffffff", "selected_fg_color #000000")
+        replace_string(["*.ini", "gtkrc"], "selected_fg_color:#ffffff", "selected_fg_color:#000000")
+        replace_string("*.css", "selected_fg_color #ffffff", "selected_fg_color #000000")
 
         # Ambiant-Dark
-        replace_string(prop, ["*.ini", "gtkrc"], "selected_fg_color:#EBEBEB", "selected_fg_color:#000000")
-        replace_string(prop, "*.css", "selected_fg_color #EBEBEB", "selected_fg_color #000000")
+        replace_string(["*.ini", "gtkrc"], "selected_fg_color:#EBEBEB", "selected_fg_color:#000000")
+        replace_string("*.css", "selected_fg_color #EBEBEB", "selected_fg_color #000000")
 
         # Remove shadow when hovering over menus - escaped for regex
-        replace_string(prop, "*.css", "text-shadow: 0 -1px shade \(\@selected_bg_color, 0\.7\)", "text-shadow: none")
+        replace_string("*.css", "text-shadow: 0 -1px shade \(\@selected_bg_color, 0\.7\)", "text-shadow: none")
 
 
 # ------------------------------------------------

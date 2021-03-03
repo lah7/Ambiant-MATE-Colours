@@ -85,9 +85,6 @@ if not os.path.exists(SRC_DIR):
     print(SRC_DIR)
     exit(1)
 
-# Properties() not used in this script
-prop = None
-
 
 # ------------------------------------------------
 # Patch source
@@ -105,39 +102,39 @@ print("Patching colours...")
 
 # Patch name
 os.chdir(TEMP_DIR)
-replace_string(prop, ["meson.build"], "Yaru-MATE", "Yaru-MATE-" + THEME_NAME)
+replace_string(["meson.build"], "Yaru-MATE", "Yaru-MATE-" + THEME_NAME)
 
 # Patch colours
-replace_string(prop, ["*.svg", "*.scss", "*.css"], "#87A556", HEX_VALUE)
-replace_string(prop, ["*.svg", "*.scss", "*.css"], "#87a556", HEX_VALUE)
+replace_string(["*.svg", "*.scss", "*.css"], "#87A556", HEX_VALUE)
+replace_string(["*.svg", "*.scss", "*.css"], "#87a556", HEX_VALUE)
 
 # Patch theme colours
-replace_string(prop, ["*.svg", "*.scss", "*.css"], "#5c853d", get_hex_variant(HEX_VALUE, -8))
-replace_string(prop, ["*.svg", "*.scss", "*.css"], "#79944d", get_hex_variant(HEX_VALUE, -4))
-replace_string(prop, ["*.svg", "*.scss", "*.css"], "#7DAF56", get_hex_variant(HEX_VALUE, 2))
-replace_string(prop, ["*.svg", "*.scss", "*.css"], "#9bb571", get_hex_variant(HEX_VALUE, 2.2))
-replace_string(prop, ["*.svg", "*.scss", "*.css"], "#83B35C", get_hex_variant(HEX_VALUE, 2))
-replace_string(prop, ["*.svg", "*.scss", "*.css"], "#8aa858", get_hex_variant(HEX_VALUE, 2))
-replace_string(prop, ["*.svg", "*.scss", "*.css"], "#89B763", get_hex_variant(HEX_VALUE, 2.2))
-replace_string(prop, ["*.svg", "*.scss", "*.css"], "#8FBB69", get_hex_variant(HEX_VALUE, 2.4))
-replace_string(prop, ["*.svg", "*.scss", "*.css"], "#93af66", get_hex_variant(HEX_VALUE, 2.5))
-replace_string(prop, ["*.svg", "*.scss", "*.css"], "#95BF70", get_hex_variant(HEX_VALUE, 2.6))
-replace_string(prop, ["*.svg", "*.scss", "*.css"], "#A1C77D", get_hex_variant(HEX_VALUE, 2.8))
-replace_string(prop, ["*.svg", "*.scss", "*.css"], "#A7CB83", get_hex_variant(HEX_VALUE, 3))
-replace_string(prop, ["*.svg", "*.scss", "*.css"], "#ADD08A", get_hex_variant(HEX_VALUE, 3.2))
+replace_string(["*.svg", "*.scss", "*.css"], "#5c853d", get_hex_variant(HEX_VALUE, -8))
+replace_string(["*.svg", "*.scss", "*.css"], "#79944d", get_hex_variant(HEX_VALUE, -4))
+replace_string(["*.svg", "*.scss", "*.css"], "#7DAF56", get_hex_variant(HEX_VALUE, 2))
+replace_string(["*.svg", "*.scss", "*.css"], "#9bb571", get_hex_variant(HEX_VALUE, 2.2))
+replace_string(["*.svg", "*.scss", "*.css"], "#83B35C", get_hex_variant(HEX_VALUE, 2))
+replace_string(["*.svg", "*.scss", "*.css"], "#8aa858", get_hex_variant(HEX_VALUE, 2))
+replace_string(["*.svg", "*.scss", "*.css"], "#89B763", get_hex_variant(HEX_VALUE, 2.2))
+replace_string(["*.svg", "*.scss", "*.css"], "#8FBB69", get_hex_variant(HEX_VALUE, 2.4))
+replace_string(["*.svg", "*.scss", "*.css"], "#93af66", get_hex_variant(HEX_VALUE, 2.5))
+replace_string(["*.svg", "*.scss", "*.css"], "#95BF70", get_hex_variant(HEX_VALUE, 2.6))
+replace_string(["*.svg", "*.scss", "*.css"], "#A1C77D", get_hex_variant(HEX_VALUE, 2.8))
+replace_string(["*.svg", "*.scss", "*.css"], "#A7CB83", get_hex_variant(HEX_VALUE, 3))
+replace_string(["*.svg", "*.scss", "*.css"], "#ADD08A", get_hex_variant(HEX_VALUE, 3.2))
 
 # Patch icon colours
 # -- user-desktop.svg
-replace_string(prop, "*.svg", "#93b258", get_hex_variant(HEX_VALUE, 2.5))
-replace_string(prop, "*.svg", "#5d8638", get_hex_variant(HEX_VALUE, -8))
-replace_string(prop, "*.svg", "#eaffcf", "#ffffff" if is_dark_colour(HEX_VALUE) else "#000000")
+replace_string("*.svg", "#93b258", get_hex_variant(HEX_VALUE, 2.5))
+replace_string("*.svg", "#5d8638", get_hex_variant(HEX_VALUE, -8))
+replace_string("*.svg", "#eaffcf", "#ffffff" if is_dark_colour(HEX_VALUE) else "#000000")
 
 # -- folders.svg
-replace_string(prop, "*.svg", "#b4d959", get_hex_variant(HEX_VALUE, 12))
-replace_string(prop, "*.svg", "#45602a", get_hex_variant(HEX_VALUE, -12))
+replace_string("*.svg", "#b4d959", get_hex_variant(HEX_VALUE, 12))
+replace_string("*.svg", "#45602a", get_hex_variant(HEX_VALUE, -12))
 
 # Patch cursor colours
-replace_string(prop, "*.svg", "#19b6ee", HEX_VALUE)
+replace_string("*.svg", "#19b6ee", HEX_VALUE)
 
 
 # ------------------------------------------------
