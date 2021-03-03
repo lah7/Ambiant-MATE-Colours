@@ -1,7 +1,7 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: ubuntu-mate-artwork-colours
+Upstream-Name: ubuntu-mate-colours
 Upstream-Contact: Luke Horwell <code@horwell.me>
-Source: https://github.com/lah7/ubuntu-mate-artwork-colours/
+Source: https://github.com/lah7/ubuntu-mate-colours/
 
 Files: README.md
        generate-ambiant-mate-colour.py
