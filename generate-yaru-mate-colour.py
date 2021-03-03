@@ -19,6 +19,7 @@
 from modules.common import check_for_tool
 from modules.common import get_output
 from modules.hexrgb import get_hex_variant
+from modules.hexrgb import is_dark_colour
 from modules.graphics import colourize_raster
 from modules.postprocessing import optimise_icon_size
 from modules.strings import replace_string
@@ -42,6 +43,8 @@ def _run(action, command):
 check_for_tool("git")
 check_for_tool("meson")
 check_for_tool("sassc")
+check_for_tool("inkscape")
+check_for_tool("optipng")
 # Needs "libglib2.0-bin"
 # Needs "libgtk-3-dev"
 
@@ -108,8 +111,10 @@ replace_string(prop, ["meson.build"], "Yaru-MATE", "Yaru-MATE-" + THEME_NAME)
 # Patch colours
 replace_string(prop, ["*.svg", "*.scss", "*.css"], "#87A556", HEX_VALUE)
 replace_string(prop, ["*.svg", "*.scss", "*.css"], "#87a556", HEX_VALUE)
-replace_string(prop, ["*.svg", "*.scss", "*.css"], "#5c853d", get_hex_variant(HEX_VALUE, -10))
-replace_string(prop, ["*.svg", "*.scss", "*.css"], "#79944d", get_hex_variant(HEX_VALUE, -5))
+
+# Patch theme colours
+replace_string(prop, ["*.svg", "*.scss", "*.css"], "#5c853d", get_hex_variant(HEX_VALUE, -8))
+replace_string(prop, ["*.svg", "*.scss", "*.css"], "#79944d", get_hex_variant(HEX_VALUE, -4))
 replace_string(prop, ["*.svg", "*.scss", "*.css"], "#7DAF56", get_hex_variant(HEX_VALUE, 2))
 replace_string(prop, ["*.svg", "*.scss", "*.css"], "#9bb571", get_hex_variant(HEX_VALUE, 2.2))
 replace_string(prop, ["*.svg", "*.scss", "*.css"], "#83B35C", get_hex_variant(HEX_VALUE, 2))
@@ -122,6 +127,24 @@ replace_string(prop, ["*.svg", "*.scss", "*.css"], "#A1C77D", get_hex_variant(HE
 replace_string(prop, ["*.svg", "*.scss", "*.css"], "#A7CB83", get_hex_variant(HEX_VALUE, 3))
 replace_string(prop, ["*.svg", "*.scss", "*.css"], "#ADD08A", get_hex_variant(HEX_VALUE, 3.2))
 
+# Patch icon colours
+# -- user-desktop.svg
+replace_string(prop, "*.svg", "#93b258", get_hex_variant(HEX_VALUE, 2.5))
+replace_string(prop, "*.svg", "#5d8638", get_hex_variant(HEX_VALUE, -8))
+replace_string(prop, "*.svg", "#eaffcf", "#ffffff" if is_dark_colour(HEX_VALUE) else "#000000")
+
+# -- folders.svg
+replace_string(prop, "*.svg", "#b4d959", get_hex_variant(HEX_VALUE, 12))
+replace_string(prop, "*.svg", "#45602a", get_hex_variant(HEX_VALUE, -12))
+
+
+# ------------------------------------------------
+# Pre-build
+# ------------------------------------------------
+print("Rendering new icons... (this may take a while)\n--------------------------------")
+os.chdir(TEMP_DIR + "/icons/src/fullcolor/")
+os.system("./render-bitmaps.py")
+print("\n--------------------------------\n")
 
 # ------------------------------------------------
 # Build

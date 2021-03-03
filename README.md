@@ -107,7 +107,7 @@ Acquire the source code for Yaru-MATE:
 
 Install the dependencies:
 
-    sudo apt install meson sassc libglib2.0-bin libgtk-3-dev imagemagick
+    sudo apt install meson sassc libglib2.0-bin libgtk-3-dev imagemagick inkscape optipng ruby
 
 Use the [generate-yaru-mate-colour.py](generate-yaru-mate-colour.py) script,
 which creates a temporary copy of the source code to patch, build and optimise
@@ -116,7 +116,11 @@ to your specified colour.
 The output (`--usr-dir`) can then be placed into `~/.themes` and `~/.icons`.
 This script does not generate wallpapers or Plank themes.
 
-For usage:
+Please note that all the icons are rendered, even though a few were recoloured.
+This is inefficient and may take a few minutes to complete. Icons that are
+the same as Yaru-MATE will be removed to save disk space.
+
+Usage:
 
     ./generate-yaru-mate-colour.py --help
 

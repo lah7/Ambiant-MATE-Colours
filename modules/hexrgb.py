@@ -3,6 +3,7 @@
 #
 
 import colorsys
+import math
 
 
 def get_hex_variant(string, offset, rgb_only=False):
@@ -72,3 +73,14 @@ def hex_to_rgb_list(hex_string):
     hex_string = hex_string.lstrip("#")
     rgb = list(int(hex_string[i:i+2], 16) for i in (0, 2 ,4))
     return [rgb[0], rgb[1], rgb[2]]
+
+
+def is_dark_colour(hex_string):
+    """
+    Returns a boolean on whether the specified colour is dark or light.
+    """
+    [r,g,b] = hex_to_rgb_list(hex_string)
+    hsp = math.sqrt(0.299 * (r * r) + 0.587 * (g * g) + 0.114 * (b * b))
+    if (hsp > 127.5):
+        return False
+    return True
