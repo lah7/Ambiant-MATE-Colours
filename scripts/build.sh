@@ -62,7 +62,11 @@ function build_yaru() {
     echo "($CUR/$TOTAL) - Yaru-MATE ($name, $hex)"
     echo "=================================================="
 
-    ./generate-yaru-mate-variant.py "$hex" "$name" "$(realpath usr/share/)"
+    ./generate-yaru-mate-colour.py \
+        --hex "$hex" \
+        --name "$name" \
+        --src-dir yaru-src/ \
+        --usr-dir usr/
 
     if [ $? != 0 ]; then
         echo "Build failed!"
