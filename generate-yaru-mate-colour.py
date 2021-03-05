@@ -144,9 +144,19 @@ print("Rendering cursors...")
 os.chdir(TEMP_DIR + "/icons/src/cursors/")
 os.system("./x11-make.sh")
 
-print("Rendering icons... (this may take a while)\n--------------------------------")
+print("Rendering icons...\n--------------------------------")
 os.chdir(TEMP_DIR + "/icons/src/fullcolor/")
-os.system("./render-bitmaps.py")
+changed_icons = [
+    "preferences-desktop-wallpaper",
+    "emblem-symbolic-link",
+    "emblem-synchronizing",
+    "document-export",
+    "document-open",
+    "folders",
+    "user-desktop"
+]
+for icon in changed_icons:
+    os.system("./render-bitmaps.py " + icon)
 print("\n--------------------------------\n")
 
 # ------------------------------------------------
@@ -216,7 +226,7 @@ for theme in glob.glob("*"):
 print("Cleaning up temporary files...")
 shutil.rmtree(TEMP_DIR)
 
-# Shrink the size of icons by removing duplicates
+# Reduce disk space by removing duplicates of unchanged icons
 if os.path.exists("/usr/share/icons/Yaru-MATE/"):
     new_icons_prefix = os.path.join(PREFIX_DIR, "share/icons/Yaru-MATE-" + THEME_NAME)
     optimise_icon_size("/usr/share/icons/Yaru-MATE/", new_icons_prefix)
