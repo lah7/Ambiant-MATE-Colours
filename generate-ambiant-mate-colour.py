@@ -392,48 +392,53 @@ def patch_theme():
     # Generate colourised variants of PNGs (as SVG may not be available)
     for asset in [
         # Ambiant/Radiant-MATE
-        "button-active-focused@2.png",
-        "button-active-hover@2.png",
-        "button-active-focused-hover@2.png",
-        "button-focused@2.png",
-        "button-focused-hover@2.png",
-        "button-default-focused-hover@2.png",
-        "button-default-focused@2.png",
-        "button-toolbar-active-focused@2.png",
-        "button-toolbar-focused@2.png",
-        "combobox-button-focused@2.png",
-        "combobox-button-pressed-focused@2.png",
-        "combobox-entry-focused@2.png",
-        "entry-focused@2.png",
-        "entry-toolbar-focused@2.png",
-        "progressbar-horizontal-fill@2.png",
-        "progressbar-vertical-fill@2.png",
-        "radiance-button-toolbar-active-focused@2.png",
-        "radiance-button-toolbar-focused@2.png",
-        "radiance-combobox-button-toolbar-focused.png",     # No @2 file
-        "radiance-entry-toolbar-focused@2.png",
-        "scale-horizontal-fill@2.png",
-        "scale-vertical-fill@2.png",
-        "slider-horizontal-focused-hover@2.png",
-        "slider-horizontal-focused@2.png",
-        "slider-vertical-focused-hover@2.png",
-        "slider-vertical-focused@2.png",
-        "switch-button-on@2.png",
-        "switch-trough-focused@2.png",
-        "switch-trough-on@2.png",
-        "switch-trough-toolbar-on@2.png"
+        "button-active-focused",
+        "button-active-focused-hover",
+        "button-active-hover",
+        "button-default-focused",
+        "button-default-focused-hover",
+        "button-focused",
+        "button-focused-hover",
+        "button-toolbar-active-focused",
+        "button-toolbar-focused",
+        "check-selected",
+        "combobox-button-focused",
+        "combobox-button-pressed-focused",
+        "combobox-entry-focused",
+        "entry-focused",
+        "entry-toolbar-focused",
+        "progressbar-horizontal-fill",
+        "progressbar-vertical-fill",
+        "radiance-button-toolbar-active-focused",
+        "radiance-button-toolbar-focused",
+        "radiance-combobox-button-toolbar-focused",
+        "radiance-entry-toolbar-focused",
+        "radio-selected",
+        "scale-horizontal-fill",
+        "scale-vertical-fill",
+        "slider-horizontal-focused",
+        "slider-horizontal-focused-hover",
+        "slider-vertical-focused",
+        "slider-vertical-focused-hover",
+        "switch-button-on",
+        "switch-trough-focused",
+        "switch-trough-on",
+        "switch-trough-toolbar-on",
     ]:
         for gtk_dir in ["gtk-2.0", "gtk-3.0", "gtk-3.20"]:
-            cur_dir = os.path.join(prop.target_dir_theme, gtk_dir, "assets")
-            if not os.path.exists(cur_dir):
-                continue
-            os.chdir(cur_dir)
+            for suffix in [".png", "@2.png"]:
+                cur_dir = os.path.join(prop.target_dir_theme, gtk_dir, "assets")
+                filename = asset + suffix
 
-            if not os.path.exists(asset):
-                continue
+                if not os.path.exists(cur_dir):
+                    continue
+                os.chdir(cur_dir)
 
-            # Convert icon to grey and colourise
-            colourize_raster(prop.new_hex_value, asset)
+                if not os.path.exists(filename):
+                    continue
+
+                # Convert icon to grey and colourise
+                colourize_raster(prop.new_hex_value, filename)
 
     print("\nTheme assets generated.\n")
 
