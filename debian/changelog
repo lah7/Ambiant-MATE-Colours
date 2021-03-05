@@ -1,10 +1,16 @@
+ubuntu-mate-colours (21.04.4) hirsute; urgency=low
+
+  * New upstream ubuntu-mate-artwork release.
+
+ -- Luke Horwell <luke@ubuntu-mate.org>  Fri, 05 Mar 2021 10:32:45 +0100
+
 ubuntu-mate-colours (21.04.3) hirsute; urgency=low
 
   * New upstream ubuntu-mate-artwork release.
   * Add support for Yaru-MATE themes and icons.
   * Drop ubuntu-mate-colours-generator package.
 
- -- Luke Horwell <luke@ubuntu-mate.org>  Sat, 06 Feb 2021 12:17:30 +0100
+ -- Luke Horwell <luke@ubuntu-mate.org>  Thu, 04 Mar 2021 10:32:45 +0100
 
 ubuntu-mate-colours (20.10.0) groovy; urgency=low
 
