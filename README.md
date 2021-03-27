@@ -7,7 +7,7 @@
 [![Release](https://img.shields.io/github/release/lah7/ubuntu-mate-colours.svg)](https://github.com/lah7/ubuntu-mate-colours/releases)
 [![Upstream](https://img.shields.io/github/release/ubuntu-mate/ubuntu-mate-artwork.svg?label=upstream)](https://github.com/ubuntu-mate/ubuntu-mate-artwork/releases)
 
-![Screenshot of thte 3 themes using custom colours](.github/readme/screenshot@2x.jpg)
+![Screenshot of the 3 themes using custom colours](.github/readme/screenshot@2x.jpg)
 
 This project provides Ubuntu MATE with colour variants for these themes:
 
