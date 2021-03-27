@@ -1,8 +1,15 @@
+ubuntu-mate-colours (21.04.5) hirsute; urgency=low
+
+  * New upstream ubuntu-mate-artwork release.
+  * Improved deduplication of Yaru-MATE icons.
+
+ -- Luke Horwell <code@horwell.me>  Sat, 27 Mar 2021 09:56:30 +0100
+
 ubuntu-mate-colours (21.04.4) hirsute; urgency=low
 
   * New upstream ubuntu-mate-artwork release.
 
- -- Luke Horwell <luke@ubuntu-mate.org>  Fri, 05 Mar 2021 10:32:45 +0100
+ -- Luke Horwell <luke@ubuntu-mate.org>  Fri, 05 Mar 2021 14:37:00 +0100
 
 ubuntu-mate-colours (21.04.3) hirsute; urgency=low
 
