@@ -96,7 +96,7 @@ print("Destination:          ", PREFIX_DIR)
 print("")
 
 print("Copying source files...")
-shutil.copytree(SRC_DIR, TEMP_DIR)
+shutil.copytree(SRC_DIR, TEMP_DIR, symlinks=True, ignore_dangling_symlinks=True)
 
 print("Patching colours...")
 
