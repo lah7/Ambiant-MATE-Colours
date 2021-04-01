@@ -227,7 +227,7 @@ print("Cleaning up temporary files...")
 shutil.rmtree(TEMP_DIR)
 
 # Reduce disk space by removing duplicates of unchanged icons
-if os.path.exists("/usr/share/icons/Yaru-MATE/"):
+if os.path.exists("/usr/share/icons/Yaru-MATE-light/"):
     new_icons_prefix = os.path.join(PREFIX_DIR, "share/icons/Yaru-MATE-" + THEME_NAME)
     optimise_icon_size(SRC_DIR + "/icons/Suru/", new_icons_prefix)
     optimise_icon_size(SRC_DIR + "/icons/Suru/", new_icons_prefix + "-dark")
