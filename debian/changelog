@@ -1,12 +1,18 @@
+ubuntu-mate-colours (21.04.6.4) hirsute; urgency=low
+
+  * Yaru-MATE: Always use white logo for user-desktop.svg
+
+ -- Luke Horwell <code@horwell.me>  Thu, 01 Apr 2021 20:13:55 +0100
+
 ubuntu-mate-colours (21.04.6.3) hirsute; urgency=low
 
-  * Reinstate icon optimisations to reduce disk space.
+  * Yaru-MATE: Reinstate icon optimisations to reduce disk space.
 
  -- Luke Horwell <code@horwell.me>  Thu, 01 Apr 2021 16:54:30 +0100
 
 ubuntu-mate-colours (21.04.6.2) hirsute; urgency=low
 
-  * Fix icon symlinks (#26)
+  * Yaru-MATE: Fix icon symlinks (#26)
 
  -- Luke Horwell <code@horwell.me>  Thu, 01 Apr 2021 15:34:00 +0100
 
