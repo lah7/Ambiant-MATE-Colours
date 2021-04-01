@@ -15,3 +15,14 @@ def check_for_tool(exec_name):
 def get_output(command):
     return subprocess.check_output(command.split(" ")).decode("UTF-8").strip()
 
+
+def validate_colour_hex(value):
+    if not value.startswith("#") or not len(value) == 7:
+        return False
+
+    try:
+        int(value[1:7], 16)
+    except ValueError:
+        return False
+
+    return True

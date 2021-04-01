@@ -16,6 +16,7 @@
 # Copyright (C) 2019-2021 Luke Horwell <code@horwell.me>
 #
 
+from modules.common import validate_colour_hex
 from modules.graphics import export_svg
 from modules.graphics import colourize_raster
 from modules.hexrgb import get_hex_variant
@@ -145,9 +146,13 @@ def parse_arguments():
             exit(1)
 
     if args.hex:
-        if not args.hex.startswith("#") or not len(args.hex) == 7:
+        if len(args.hex) == 6:
+            args.hex = "#" + args.hex
+
+        if not validate_colour_hex(args.hex):
             print("Invalid hex value: " + args.hex)
             print("Values should be in long format: #FFFFFF")
+            print("(If the input starts with '#', make sure to wrap with quotes)")
             exit(1)
 
         prop.new_hex_value = args.hex

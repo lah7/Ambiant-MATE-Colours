@@ -16,6 +16,7 @@
 # Copyright (C) 2021 Luke Horwell <code@horwell.me>
 #
 
+from modules.common import validate_colour_hex
 from modules.common import check_for_tool
 from modules.common import get_output
 from modules.hexrgb import get_hex_variant
@@ -66,14 +67,19 @@ if None in [args.hex, args.name, args.src_dir, args.usr_dir]:
     print("One (or more) parameters are invalid or missing. See --help for usage.")
     exit(1)
 
+if len(args.hex) == 6:
+    args.hex = "#" + args.hex
+
 HEX_VALUE = args.hex
 THEME_NAME = args.name
 SRC_DIR = os.path.realpath(args.src_dir)
 TEMP_DIR = tempfile.mktemp()
 PREFIX_DIR = os.path.realpath(args.usr_dir)
 
-if not HEX_VALUE.startswith("#") and not len(HEX_VALUE) == 7:
+if not validate_colour_hex(args.hex):
     print("Invalid hex value!")
+    print("Values should be in long format: #FFFFFF")
+    print("(If the input starts with '#', make sure to wrap with quotes)")
     exit(1)
 
 if len(THEME_NAME) == 0:
