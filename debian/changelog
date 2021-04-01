@@ -1,3 +1,9 @@
+ubuntu-mate-colours (21.04.6.2) hirsute; urgency=low
+
+  * Fix icon symlinks (#26)
+
+ -- Luke Horwell <code@horwell.me>  Thu, 01 Apr 2021 15:34:00 +0100
+
 ubuntu-mate-colours (21.04.6) hirsute; urgency=low
 
   * New upstream ubuntu-mate-artwork release.
