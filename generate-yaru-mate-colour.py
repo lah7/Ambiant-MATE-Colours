@@ -127,7 +127,7 @@ replace_string(["*.svg", "*.scss", "*.css"], "#ADD08A", get_hex_variant(HEX_VALU
 # -- user-desktop.svg
 replace_string("*.svg", "#93b258", get_hex_variant(HEX_VALUE, 2.5))
 replace_string("*.svg", "#5d8638", get_hex_variant(HEX_VALUE, -8))
-replace_string("*.svg", "#eaffcf", "#ffffff" if is_dark_colour(HEX_VALUE) else "#000000")
+replace_string("*.svg", "#eaffcf", "#ffffff")
 
 # -- folders.svg
 replace_string("*.svg", "#b4d959", get_hex_variant(HEX_VALUE, 12))
