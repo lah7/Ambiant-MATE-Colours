@@ -17,17 +17,17 @@ assignees:
 
 ### Which themes are affected?
 
-<!-- Place an [x] if applicable -->
+- Ambiant-MATE
+- Ambiant-MATE-Dark
+- Radiant-MATE
+- Yaru-MATE
 
-- [ ] Ambiant-MATE
-- [ ] Ambiant-MATE-Dark
-- [ ] Radiant-MATE
-- [ ] Yaru-MATE
+<!--
+    Please test the original themes. If this issue happens on the original
+    theme, please raise the issue on their repository instead:
 
-<!-- Please try the original theme and mark [x] below if the bug happens there -->
-<!-- If it does, create an issue on that repository instead -->
-
-- [ ] This affects upstream [ubuntu-mate/ubuntu-mate-artwork](https://github.com/ubuntu-mate/ubuntu-mate-artwork)
+    https://github.com/ubuntu-mate/ubuntu-mate-artwork/issues
+-->
 
 
 ### Screenshots
