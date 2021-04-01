@@ -11,6 +11,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Install Dependencies
       run: |
+        sudo apt-get update
         sudo apt-get install python3 librsvg2-bin imagemagick
         sudo apt-get install meson sassc libglib2.0-bin libgtk-3-dev inkscape optipng ruby x11-apps
         sudo apt-get install debhelper pylint3 lintian
