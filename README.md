@@ -69,66 +69,35 @@ Want them all? That's roughly 35 MB download, 550 MB unpacked!
 After installing, themes/icons will be available from **Appearance** (Look & Feel).
 
 
-## Build your own
+## Building Ambiant-MATE and Radiant-MATE
 
-To begin, make sure you have a clone of this repository.
+1. To begin, make sure you have a clone of this repository.
 
-    git clone https://github.com/lah7/ubuntu-mate-colours
+       git clone https://github.com/lah7/ubuntu-mate-colours
 
-#### Ambiant-MATE and Radiant-MATE
+1. Acquire the source code for [`ubuntu-mate-artwork`]:
 
-Acquire the source code for [`ubuntu-mate-artwork`]:
+       git clone https://github.com/ubuntu-mate/ubuntu-mate-artwork
 
-    git clone https://github.com/ubuntu-mate/ubuntu-mate-artwork
+1. Install the dependencies:
 
-Install the dependencies:
+       sudo apt install librsvg2-bin imagemagick
 
-    sudo apt install librsvg2-bin imagemagick
-
-Use the [generate-ambiant-mate-colour.py](generate-ambiant-mate-colour.py)
+1. Use the [generate-ambiant-mate-colour.py](generate-ambiant-mate-colour.py)
 script, which will create a copy and rewrites known colours to new colour
 values. Some image assets will be recoloured using Imagemagick.
 
-By default, the theme is created in `~/.themes` and `~/.icons`, making it
+    By default, the theme is created in `~/.themes` and `~/.icons`, making it
 available only to the local user.
 
-The tool is entirely command line and parameter based. For usage:
+    The tool is entirely command line and parameter based. For usage:
 
-    ./generate-ambiant-mate-colour.py --help
-
-See [Tweaks](#tweaks) below for additional changes you can use.
-
-
-#### Yaru-MATE
-
-Acquire the source code for Yaru-MATE:
-
-    git clone https://github.com/ubuntu/yaru.git -b hirsute/mate
-
-Install the dependencies:
-
-    sudo apt install meson sassc libglib2.0-bin libgtk-3-dev imagemagick inkscape optipng ruby
-
-Use the [generate-yaru-mate-colour.py](generate-yaru-mate-colour.py) script,
-which creates a temporary copy of the source code to patch, build and optimise
-to your specified colour.
-
-The output (`--usr-dir`) can then be placed into `~/.themes` and `~/.icons`.
-This script does not generate wallpapers or Plank themes.
-
-Please note that all the icons are rendered, even though a few were recoloured.
-This is inefficient and may take a few minutes to complete. Icons that are
-the same as Yaru-MATE will be removed to save disk space.
-
-Usage:
-
-    ./generate-yaru-mate-colour.py --help
-
+       ./generate-ambiant-mate-colour.py --help
 
 #### Tweaks
 
-For Ambiant-MATE/Radiant-MATE themes, 'tweaks' can optionally modify the themes
-further:
+Ambiant-MATE/Radiant-MATE themes can optionally apply 'tweaks' to modify the
+themes even further:
 
 | Tweak Name             | Theme                | Description                  |
 | ---------------------- | -------------------- | ---------------------------- |
@@ -136,6 +105,36 @@ further:
 | `black-selected-text`  | Ambiant/Radiant-MATE | [The selected text colour is black instead of white (#21)](https://github.com/lah7/ubuntu-mate-colours/issues/21)
 
 These are passed as a comma separated parameter to `--tweaks`.
+
+
+## Building Yaru-MATE
+
+1. To begin, make sure you have a clone of this repository.
+
+       git clone https://github.com/lah7/ubuntu-mate-colours
+
+1. Acquire the source code for [Yaru-MATE](https://github.com/ubuntu/yaru/tree/hirsute/mate):
+
+       git clone https://github.com/ubuntu/yaru.git -b hirsute/mate
+
+1. Install the dependencies:
+
+       sudo apt install meson sassc libglib2.0-bin libgtk-3-dev imagemagick inkscape optipng ruby
+
+1. Use the [generate-yaru-mate-colour.py](generate-yaru-mate-colour.py) script,
+which creates a temporary copy of the source code to patch, build and optimise
+to your specified colour.
+
+The output (`--usr-dir`) can then be placed into `~/.themes` and `~/.icons`.
+This script does not generate wallpapers or Plank themes.
+
+This theme uses Yaru's build system. If `Yaru-MATE-light` and `Yaru-MATE-dark`
+is already installed in `/usr/share/icons`, then uncoloured icons will be
+removed to save disk space.
+
+For usage:
+
+    ./generate-yaru-mate-colour.py --help
 
 
 ## License
