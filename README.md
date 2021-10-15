@@ -33,8 +33,8 @@ are recoloured too:
 
 | Release   | Codename | Ambiant*-MATE | Yaru-MATE |
 | --------- | -------- | ------------- | --------- |
+| 21.10     | Impish   | ✔️            | ✔️
 | 21.04     | Hirsute  | ✔️            | ✔️
-| 20.10     | Groovy   | ✔️            | ❌
 | 20.04 LTS | Focal    | ✔️            | ❌
 | 18.04 LTS | Bionic   | ✔️            | ❌
 
