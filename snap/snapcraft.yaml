@@ -7,16 +7,16 @@
 # - James Walters for adopting the YAML for this project (#27)
 #
 name: ubuntu-mate-colours
-base: core18
+base: core20
 architectures:
  - build-on: amd64
    run-on: all
-version: '21.04.6.4'
 summary: Ubuntu MATE Colours
 description: |
   Colour variations of Ambiant-MATE, Radiant-MATE and Yaru-MATE themes.
+version: 'devel'
 
-grade: stable
+grade: devel
 confinement: strict
 
 slots:
@@ -160,28 +160,43 @@ slots:
         - $SNAP/share/icons/Yaru-MATE-Yellow-light
 
 parts:
-  utils:
-    plugin: dump
-    source: .
-    prime:
-      - -*
-    build-packages:
-      - try: [gtk-update-icon-cache]
-      - else: [libgtk-3-bin]
+  ubuntu-mate-artwork:
+    plugin: nil
+    source: https://github.com/ubuntu-mate/ubuntu-mate-artwork.git
+    source-type: git
+    source-depth: 1
+
+  yaru-mate:
+    plugin: nil
+    source: https://github.com/ubuntu/yaru.git
+    source-type: git
+    source-branch: hirsute/mate
+    source-depth: 1
 
   ubuntu-mate-colours:
-    after:
-      - utils
-    plugin: dump
-    source: https://github.com/lah7/ubuntu-mate-colours/releases/download/$SNAPCRAFT_PROJECT_VERSION/ubuntu-mate-colours-$SNAPCRAFT_PROJECT_VERSION.tar.xz
+    plugin: nil
+    source: .
+    build-packages:
+      - python3
+      - librsvg2-bin
+      - imagemagick
+      - libglib2.0-bin
+      - libgtk-3-dev
+      - meson
+      - sassc
+      - inkscape
+      - optipng
+      - ruby
+      - x11-apps
+    override-pull: |
+      # snapcraftctl pull
+      cd $SNAPCRAFT_PROJECT_DIR
+      snapcraftctl set-version $(git describe --tags --always)
     override-build: |
-        snapcraftctl build
-        mkdir -p $SNAPCRAFT_PART_INSTALL/share/themes
-        mkdir -p $SNAPCRAFT_PART_INSTALL/share/icons
-        cp -r $SNAPCRAFT_PART_SRC/share/themes/* $SNAPCRAFT_PART_INSTALL/share/themes/
-        cp -r $SNAPCRAFT_PART_SRC/share/icons/* $SNAPCRAFT_PART_INSTALL/share/icons/
-        $SNAPCRAFT_STAGE/scripts/prep-snap.sh $SNAPCRAFT_PART_INSTALL
-    stage:
+      snapcraftctl build
+      cd $SNAPCRAFT_PROJECT_DIR
+      ./scripts/build-snap.sh "$SNAPCRAFT_PART_INSTALL"
+    prime:
       - share/gtk2/*/gtk-2.0
       - share/themes/*/gtk-3*
       - share/themes/*/gtk-4*
