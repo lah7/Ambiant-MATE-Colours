@@ -6,6 +6,7 @@
 [![Test Build](https://github.com/lah7/ubuntu-mate-colours/workflows/Test%20Build/badge.svg?event=push)](https://github.com/lah7/ubuntu-mate-colours/actions?query=workflow%3A%22Test+Build%22)
 [![Release](https://img.shields.io/github/release/lah7/ubuntu-mate-colours.svg)](https://github.com/lah7/ubuntu-mate-colours/releases)
 [![Upstream](https://img.shields.io/github/release/ubuntu-mate/ubuntu-mate-artwork.svg?label=upstream)](https://github.com/ubuntu-mate/ubuntu-mate-artwork/releases)
+[![Snapcraft](https://snapcraft.io/ubuntu-mate-colours/badge.svg)](https://snapcraft.io/ubuntu-mate-colours)
 
 ![Screenshot of the 3 themes using custom colours](.github/readme/screenshot@2x.jpg)
 
@@ -49,6 +50,15 @@ feature via the **Welcome** application:
 This adds the [lah7/ubuntu-mate-colours PPA](https://launchpad.net/~lah7/+archive/ubuntu/ubuntu-mate-colours/)
 
     sudo add-apt-repository ppa:lah7/ubuntu-mate-colours
+
+In order for the theme to appear in snapped applications, you will need to
+install the snap version, and then attach it to each snapped application, for example, Firefox:
+
+    sudo snap install ubuntu-mate-colours
+    sudo snap connect firefox:gtk-3-themes ubuntu-mate-colours:gtk-3-themes
+
+Note that the snap only provides compatibility for snapped applications. It cannot
+be selected as the theme in MATE's **Appearance** settings. Please use the Debian packages instead.
 
 Packages are made for the following pre-defined colours:
 
