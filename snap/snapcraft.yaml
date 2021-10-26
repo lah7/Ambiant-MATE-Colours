@@ -1,3 +1,5 @@
+# This YAML was forked from https://github.com/ubuntu-mate/gtk-theme-yaru-mate-snap by Wimpy
+
 name: ubuntu-mate-colours
 base: core18
 architectures:

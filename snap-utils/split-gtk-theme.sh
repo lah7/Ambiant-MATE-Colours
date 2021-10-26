@@ -1,4 +1,5 @@
 #!/bin/sh
+# This script is from https://github.com/ubuntu-mate/gtk-theme-yaru-mate-snap by Wimpy
 
 set -eux
 
