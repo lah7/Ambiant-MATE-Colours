@@ -11,3 +11,6 @@ yaru-src/
 
 # Cache
 __pycache__
+
+# Snaps
+*.snap

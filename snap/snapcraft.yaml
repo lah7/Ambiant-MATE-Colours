@@ -1,0 +1,188 @@
+#
+# Acknowledgements:
+#
+# - Martin Wimpress (Wimpy) for the original YAML
+#   https://github.com/ubuntu-mate/gtk-theme-yaru-mate-snap
+#
+# - James Walters for adopting the YAML for this project (#27)
+#
+name: ubuntu-mate-colours
+base: core18
+architectures:
+ - build-on: amd64
+   run-on: all
+version: '21.04.6.4'
+summary: Ubuntu MATE Colours
+description: |
+  Colour variations of Ambiant-MATE, Radiant-MATE and Yaru-MATE themes.
+
+grade: stable
+confinement: strict
+
+slots:
+  gtk-2-themes:
+    interface: content
+    source:
+      read:
+        - $SNAP/share/gtk2/Yaru-MATE-Aqua-dark
+        - $SNAP/share/gtk2/Yaru-MATE-Aqua-light
+        - $SNAP/share/gtk2/Ambiant-MATE-Aqua
+        - $SNAP/share/gtk2/Ambiant-MATE-Dark-Aqua
+        - $SNAP/share/gtk2/Radiant-MATE-Aqua
+        - $SNAP/share/gtk2/Yaru-MATE-Blue-dark
+        - $SNAP/share/gtk2/Yaru-MATE-Blue-light
+        - $SNAP/share/gtk2/Ambiant-MATE-Blue
+        - $SNAP/share/gtk2/Ambiant-MATE-Dark-Blue
+        - $SNAP/share/gtk2/Radiant-MATE-Blue
+        - $SNAP/share/gtk2/Yaru-MATE-Brown-dark
+        - $SNAP/share/gtk2/Yaru-MATE-Brown-light
+        - $SNAP/share/gtk2/Ambiant-MATE-Brown
+        - $SNAP/share/gtk2/Ambiant-MATE-Dark-Brown
+        - $SNAP/share/gtk2/Radiant-MATE-Brown
+        - $SNAP/share/gtk2/Yaru-MATE-Orange-dark
+        - $SNAP/share/gtk2/Yaru-MATE-Orange-light
+        - $SNAP/share/gtk2/Ambiant-MATE-Orange
+        - $SNAP/share/gtk2/Ambiant-MATE-Dark-Orange
+        - $SNAP/share/gtk2/Radiant-MATE-Orange
+        - $SNAP/share/gtk2/Yaru-MATE-Pink-dark
+        - $SNAP/share/gtk2/Yaru-MATE-Pink-light
+        - $SNAP/share/gtk2/Ambiant-MATE-Pink
+        - $SNAP/share/gtk2/Ambiant-MATE-Dark-Pink
+        - $SNAP/share/gtk2/Radiant-MATE-Pink
+        - $SNAP/share/gtk2/Yaru-MATE-Purple-dark
+        - $SNAP/share/gtk2/Yaru-MATE-Purple-light
+        - $SNAP/share/gtk2/Ambiant-MATE-Purple
+        - $SNAP/share/gtk2/Ambiant-MATE-Dark-Purple
+        - $SNAP/share/gtk2/Radiant-MATE-Purple
+        - $SNAP/share/gtk2/Yaru-MATE-Red-dark
+        - $SNAP/share/gtk2/Yaru-MATE-Red-light
+        - $SNAP/share/gtk2/Ambiant-MATE-Red
+        - $SNAP/share/gtk2/Ambiant-MATE-Dark-Red
+        - $SNAP/share/gtk2/Radiant-MATE-Red
+        - $SNAP/share/gtk2/Yaru-MATE-Teal-dark
+        - $SNAP/share/gtk2/Yaru-MATE-Teal-light
+        - $SNAP/share/gtk2/Ambiant-MATE-Teal
+        - $SNAP/share/gtk2/Ambiant-MATE-Dark-Teal
+        - $SNAP/share/gtk2/Radiant-MATE-Teal
+        - $SNAP/share/gtk2/Yaru-MATE-Yellow-dark
+        - $SNAP/share/gtk2/Yaru-MATE-Yellow-light
+        - $SNAP/share/gtk2/Ambiant-MATE-Yellow
+        - $SNAP/share/gtk2/Ambiant-MATE-Dark-Yellow
+        - $SNAP/share/gtk2/Radiant-MATE-Yellow
+  gtk-3-themes:
+    interface: content
+    source:
+      read:
+        - $SNAP/share/themes/Yaru-MATE-Aqua-dark
+        - $SNAP/share/themes/Yaru-MATE-Aqua-light
+        - $SNAP/share/themes/Ambiant-MATE-Aqua
+        - $SNAP/share/themes/Ambiant-MATE-Dark-Aqua
+        - $SNAP/share/themes/Radiant-MATE-Aqua
+        - $SNAP/share/themes/Yaru-MATE-Blue-dark
+        - $SNAP/share/themes/Yaru-MATE-Blue-light
+        - $SNAP/share/themes/Ambiant-MATE-Blue
+        - $SNAP/share/themes/Ambiant-MATE-Dark-Blue
+        - $SNAP/share/themes/Radiant-MATE-Blue
+        - $SNAP/share/themes/Yaru-MATE-Brown-dark
+        - $SNAP/share/themes/Yaru-MATE-Brown-light
+        - $SNAP/share/themes/Ambiant-MATE-Brown
+        - $SNAP/share/themes/Ambiant-MATE-Dark-Brown
+        - $SNAP/share/themes/Radiant-MATE-Brown
+        - $SNAP/share/themes/Yaru-MATE-Orange-dark
+        - $SNAP/share/themes/Yaru-MATE-Orange-light
+        - $SNAP/share/themes/Ambiant-MATE-Orange
+        - $SNAP/share/themes/Ambiant-MATE-Dark-Orange
+        - $SNAP/share/themes/Radiant-MATE-Orange
+        - $SNAP/share/themes/Yaru-MATE-Pink-dark
+        - $SNAP/share/themes/Yaru-MATE-Pink-light
+        - $SNAP/share/themes/Ambiant-MATE-Pink
+        - $SNAP/share/themes/Ambiant-MATE-Dark-Pink
+        - $SNAP/share/themes/Radiant-MATE-Pink
+        - $SNAP/share/themes/Yaru-MATE-Purple-dark
+        - $SNAP/share/themes/Yaru-MATE-Purple-light
+        - $SNAP/share/themes/Ambiant-MATE-Purple
+        - $SNAP/share/themes/Ambiant-MATE-Dark-Purple
+        - $SNAP/share/themes/Radiant-MATE-Purple
+        - $SNAP/share/themes/Yaru-MATE-Red-dark
+        - $SNAP/share/themes/Yaru-MATE-Red-light
+        - $SNAP/share/themes/Ambiant-MATE-Red
+        - $SNAP/share/themes/Ambiant-MATE-Dark-Red
+        - $SNAP/share/themes/Radiant-MATE-Red
+        - $SNAP/share/themes/Yaru-MATE-Teal-dark
+        - $SNAP/share/themes/Yaru-MATE-Teal-light
+        - $SNAP/share/themes/Ambiant-MATE-Teal
+        - $SNAP/share/themes/Ambiant-MATE-Dark-Teal
+        - $SNAP/share/themes/Radiant-MATE-Teal
+        - $SNAP/share/themes/Yaru-MATE-Yellow-dark
+        - $SNAP/share/themes/Yaru-MATE-Yellow-light
+        - $SNAP/share/themes/Ambiant-MATE-Yellow
+        - $SNAP/share/themes/Ambiant-MATE-Dark-Yellow
+        - $SNAP/share/themes/Radiant-MATE-Yellow
+  icon-themes:
+    interface: content
+    source:
+      read:
+        - $SNAP/share/icons/Ambiant-MATE-Aqua
+        - $SNAP/share/icons/Radiant-MATE-Aqua
+        - $SNAP/share/icons/Yaru-MATE-Aqua-dark
+        - $SNAP/share/icons/Yaru-MATE-Aqua-light
+        - $SNAP/share/icons/Ambiant-MATE-Blue
+        - $SNAP/share/icons/Radiant-MATE-Blue
+        - $SNAP/share/icons/Yaru-MATE-Blue-dark
+        - $SNAP/share/icons/Yaru-MATE-Blue-light
+        - $SNAP/share/icons/Ambiant-MATE-Brown
+        - $SNAP/share/icons/Radiant-MATE-Brown
+        - $SNAP/share/icons/Yaru-MATE-Brown-dark
+        - $SNAP/share/icons/Yaru-MATE-Brown-light
+        - $SNAP/share/icons/Ambiant-MATE-Orange
+        - $SNAP/share/icons/Radiant-MATE-Orange
+        - $SNAP/share/icons/Yaru-MATE-Orange-dark
+        - $SNAP/share/icons/Yaru-MATE-Orange-light
+        - $SNAP/share/icons/Ambiant-MATE-Pink
+        - $SNAP/share/icons/Radiant-MATE-Pink
+        - $SNAP/share/icons/Yaru-MATE-Pink-dark
+        - $SNAP/share/icons/Yaru-MATE-Pink-light
+        - $SNAP/share/icons/Ambiant-MATE-Purple
+        - $SNAP/share/icons/Radiant-MATE-Purple
+        - $SNAP/share/icons/Yaru-MATE-Purple-dark
+        - $SNAP/share/icons/Yaru-MATE-Purple-light
+        - $SNAP/share/icons/Ambiant-MATE-Red
+        - $SNAP/share/icons/Radiant-MATE-Red
+        - $SNAP/share/icons/Yaru-MATE-Red-dark
+        - $SNAP/share/icons/Yaru-MATE-Red-light
+        - $SNAP/share/icons/Ambiant-MATE-Teal
+        - $SNAP/share/icons/Radiant-MATE-Teal
+        - $SNAP/share/icons/Yaru-MATE-Teal-dark
+        - $SNAP/share/icons/Yaru-MATE-Teal-light
+        - $SNAP/share/icons/Ambiant-MATE-Yellow
+        - $SNAP/share/icons/Radiant-MATE-Yellow
+        - $SNAP/share/icons/Yaru-MATE-Yellow-dark
+        - $SNAP/share/icons/Yaru-MATE-Yellow-light
+
+parts:
+  utils:
+    plugin: dump
+    source: .
+    prime:
+      - -*
+    build-packages:
+      - try: [gtk-update-icon-cache]
+      - else: [libgtk-3-bin]
+
+  ubuntu-mate-colours:
+    after:
+      - utils
+    plugin: dump
+    source: https://github.com/lah7/ubuntu-mate-colours/releases/download/$SNAPCRAFT_PROJECT_VERSION/ubuntu-mate-colours-$SNAPCRAFT_PROJECT_VERSION.tar.xz
+    override-build: |
+        snapcraftctl build
+        mkdir -p $SNAPCRAFT_PART_INSTALL/share/themes
+        mkdir -p $SNAPCRAFT_PART_INSTALL/share/icons
+        cp -r $SNAPCRAFT_PART_SRC/share/themes/* $SNAPCRAFT_PART_INSTALL/share/themes/
+        cp -r $SNAPCRAFT_PART_SRC/share/icons/* $SNAPCRAFT_PART_INSTALL/share/icons/
+        $SNAPCRAFT_STAGE/scripts/prep-snap.sh $SNAPCRAFT_PART_INSTALL
+    stage:
+      - share/gtk2/*/gtk-2.0
+      - share/themes/*/gtk-3*
+      - share/themes/*/gtk-4*
+      - share/icons/*
