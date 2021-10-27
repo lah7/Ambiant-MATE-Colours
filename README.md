@@ -51,15 +51,6 @@ This adds the [lah7/ubuntu-mate-colours PPA](https://launchpad.net/~lah7/+archiv
 
     sudo add-apt-repository ppa:lah7/ubuntu-mate-colours
 
-In order for the theme to appear in snapped applications, you will need to
-install the snap version, and then attach it to each snapped application, for example, Firefox:
-
-    sudo snap install ubuntu-mate-colours
-    sudo snap connect firefox:gtk-3-themes ubuntu-mate-colours:gtk-3-themes
-
-Note that the snap only provides compatibility for snapped applications. It cannot
-be selected as the theme in MATE's **Appearance** settings. Please use the Debian packages instead.
-
 Packages are made for the following pre-defined colours:
 
 | Aqua                  | Blue                  | Brown                  | Orange                  | Pink                  | Purple                  | Red                  | Teal                  | Yellow                  |
@@ -77,6 +68,29 @@ Want them all? That's roughly 35 MB download, 550 MB unpacked!
     sudo apt install ubuntu-mate-colours-all
 
 After installing, themes/icons will be available from **Appearance** (Look & Feel).
+
+
+### Snap Compatibility
+
+In order for the theme to work in snapped applications, you will need to
+install the snap in addition:
+
+    sudo snap install ubuntu-mate-colours
+
+Then, "plug" this snap to all the other snaps, [as indicated on Yaru-MATE's README](https://github.com/ubuntu-mate/gtk-theme-yaru-mate-snap#readme):
+
+    for PLUG in $(snap connections | grep gtk-common-themes:gtk-3-themes | awk '{print $2}'); do sudo snap connect ${PLUG} ubuntu-mate-colours:gtk-3-themes; done
+    for PLUG in $(snap connections | grep gtk-common-themes:gtk-2-themes | awk '{print $2}'); do sudo snap connect ${PLUG} ubuntu-mate-colours:gtk-2-themes; done
+    for PLUG in $(snap connections | grep gtk-common-themes:icon-themes | awk '{print $2}'); do sudo snap connect ${PLUG} ubuntu-mate-colours:icon-themes; done
+
+To snap an individual application, such as Firefox:
+
+    sudo snap connect firefox:gtk-3-themes ubuntu-mate-colours:gtk-3-themes
+
+This step may need to be repeated when installing new snaps to the system.
+
+Please note that the snap only provides compatibility for snapped applications. It cannot
+be selected as the theme in MATE's **Appearance** settings.
 
 
 ## Building Ambiant-MATE and Radiant-MATE
