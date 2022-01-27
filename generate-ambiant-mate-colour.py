@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
-# Copyright (C) 2019-2021 Luke Horwell <code@horwell.me>
+# Copyright (C) 2019-2022 Luke Horwell <code@horwell.me>
 #
 
 from modules.common import validate_colour_hex
@@ -514,7 +514,8 @@ class Tweaks(object):
         """
         self.tweaks = {
             "mono-osd-icons": [self.mono_osd_icons, "Use mono icons for the OSD volume pop up"],
-            "black-selected-text": [self.black_selected_text, "Change the selected text colour to black."]
+            "black-selected-text": [self.black_selected_text, "Change the selected text colour to black."],
+            "gtk3-classic": [self.gtk3_classic_extras, "Additional styling for gtk3-classic package"],
         }
 
     def perform_tweaks(self):
@@ -564,6 +565,22 @@ class Tweaks(object):
 
         # Remove shadow when hovering over menus - escaped for regex
         replace_string("*.css", "text-shadow: 0 -1px shade \(\@selected_bg_color, 0\.7\)", "text-shadow: none")
+
+    def gtk3_classic_extras(self):
+        """
+        Adds additional CSS for convenience with gtk3-classic, such as
+        alternating treeview rows.
+        """
+        if not prop.build_theme:
+            return
+
+        os.chdir(prop.target_dir_theme)
+        with open("gtk-3.0/gtk.css", "a") as f:
+            f.write("\n@import url(\"gtk3-classic.css\");")
+
+        orig = os.path.join(prop.templates_dir, "gtk3-classic.css")
+        dest = os.path.join(prop.target_dir_theme, "gtk-3.0", "gtk3-classic.css")
+        shutil.copy(orig, dest)
 
 
 # ------------------------------------------------

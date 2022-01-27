@@ -1,0 +1,37 @@
+/*
+ * Additional styling for use with gtk3-classic
+ * https://github.com/lah7/gtk3-classic/wiki/Treeview:-Alternating-Colours-CSS
+*/
+
+/* Alternating treeview rows */
+treeview.view {
+    background-color: @base_color;
+    color: @fg_color;
+}
+
+treeview.view.even,
+treeview.view.sorted.odd {
+    background-color: shade(@base_color, 0.9);
+}
+
+treeview.view.sorted.even {
+    background-color: shade(@base_color, 0.8);
+}
+
+treeview.view:hover,
+treeview.view.even:hover,
+treeview.view.odd:hover {
+    background-color: shade(@selected_bg_color, 1.75);
+}
+
+treeview.view:selected,
+treeview.view.odd:selected,
+treeview.view.even:selected,
+treeview.view.sorted:selected {
+    background-color: @selected_bg_color;
+}
+
+.caja-side-pane treeview.view:not(:selected) {
+    background-color: shade(@base_color, 0.925);
+    color: @fg_color;
+}

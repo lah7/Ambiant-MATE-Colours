@@ -127,6 +127,7 @@ themes even further:
 | ---------------------- | -------------------- | ---------------------------- |
 | `mono-osd-icons`       | Ambiant/Radiant-MATE | [Use monochrome icons for OSD volume pop up (#14)](https://github.com/lah7/ubuntu-mate-colours/issues/14)
 | `black-selected-text`  | Ambiant/Radiant-MATE | [The selected text colour is black instead of white (#21)](https://github.com/lah7/ubuntu-mate-colours/issues/21)
+| `gtk3-classic`         | Ambiant/Radiant-MATE | [Append treeview alternating styling](https://github.com/lah7/gtk3-classic/wiki/Treeview:-Alternating-Colours-CSS) for use with the [gtk3-classic](https://github.com/lah7/gtk3-classic) project.
 
 These are passed as a comma separated parameter to `--tweaks`.
 

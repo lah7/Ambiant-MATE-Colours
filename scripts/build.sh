@@ -77,15 +77,15 @@ function build_yaru() {
 for theme in "Ambiant-MATE" "Ambiant-MATE-Dark" "Radiant-MATE"; do
     #                 Hex #     Name     Tweaks
     #                 --------- -------- -------------------------------------
-    generate_ambiant "$theme" "#2DACD4" "Aqua"   "mono-osd-icons"
-    generate_ambiant "$theme" "#5489CF" "Blue"   "mono-osd-icons"
-    generate_ambiant "$theme" "#965024" "Brown"  "mono-osd-icons"
-    generate_ambiant "$theme" "#E95420" "Orange" "mono-osd-icons"
-    generate_ambiant "$theme" "#E231A3" "Pink"   "mono-osd-icons"
-    generate_ambiant "$theme" "#7E5BC5" "Purple" "mono-osd-icons"
-    generate_ambiant "$theme" "#CE3A3A" "Red"    "mono-osd-icons"
-    generate_ambiant "$theme" "#1CB39F" "Teal"   "mono-osd-icons"
-    generate_ambiant "$theme" "#DFCA25" "Yellow" "mono-osd-icons,black-selected-text"
+    generate_ambiant "$theme" "#2DACD4" "Aqua"   "gtk3-classic,mono-osd-icons"
+    generate_ambiant "$theme" "#5489CF" "Blue"   "gtk3-classic,mono-osd-icons"
+    generate_ambiant "$theme" "#965024" "Brown"  "gtk3-classic,mono-osd-icons"
+    generate_ambiant "$theme" "#E95420" "Orange" "gtk3-classic,mono-osd-icons"
+    generate_ambiant "$theme" "#E231A3" "Pink"   "gtk3-classic,mono-osd-icons"
+    generate_ambiant "$theme" "#7E5BC5" "Purple" "gtk3-classic,mono-osd-icons"
+    generate_ambiant "$theme" "#CE3A3A" "Red"    "gtk3-classic,mono-osd-icons"
+    generate_ambiant "$theme" "#1CB39F" "Teal"   "gtk3-classic,mono-osd-icons"
+    generate_ambiant "$theme" "#DFCA25" "Yellow" "gtk3-classic,mono-osd-icons,black-selected-text"
 done
 
 # Build Yaru-MATE variants
