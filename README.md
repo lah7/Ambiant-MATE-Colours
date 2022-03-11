@@ -162,6 +162,28 @@ For usage:
     ./generate-yaru-mate-colour.py --help
 
 
+## Packaging
+
+A source build is dispatched to Launchpad for the latest Ubuntu series available
+(for example, 22.04 is `jammy`). This is so the latest `ubuntu-mate-artwork`
+package is used. The Yaru source code must be included alongside the upload
+in a folder named `yaru-src`.
+
+    git clone https://github.com/ubuntu/yaru.git --depth 1 yaru-src
+    rm -r yaru-src/.git*
+
+The builders at Launchpad run the `scripts/build.sh` script, which takes a
+long time to process.
+
+    debuild -S
+    dput ../*.changes ppa:lah7/ubuntu-mate-colours
+
+Alternately, to produce a complete colour collection:
+
+    scripts/build.sh
+    tar -cv usr/ | xz -z -9 > ubuntu-mate-colours-VERSION.tar.xz
+
+
 ## Development Tips
 
 ### Inspect GTK+3 Themes
