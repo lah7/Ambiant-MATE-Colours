@@ -1,13 +1,12 @@
 #!/bin/bash
 #
+# =======================
+# For packaging use only!
+# =======================
 # Performs additional preparations for the snap package.
 #
 # Parameters:
 # <$SNAPCRAFT_PART_INSTALL>
-#
-# =======================
-# For packaging use only!
-# =======================
 #
 OUTPUT_DIR="$1"
 

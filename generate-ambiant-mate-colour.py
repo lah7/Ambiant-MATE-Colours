@@ -15,6 +15,17 @@
 #
 # Copyright (C) 2019-2022 Luke Horwell <code@horwell.me>
 #
+"""
+Ambiant-MATE and Radiant-MATE family of themes don't have a build system,
+so this script is a search & replace operation to extract the old colour
+and switch it with new ones.
+
+This script handles the parameters to produce a new GTK theme, icons, as well
+as the wallpapers. Optional tweaks may include some patches on top of that.
+"""
+import argparse
+import os
+import shutil
 
 from modules.common import validate_colour_hex
 from modules.graphics import export_svg
@@ -27,10 +38,6 @@ from modules.hexrgb import hex_to_rgb_list
 from modules.hexrgb import get_hex_variant
 from modules.postprocessing import optimise_icon_size
 from modules.strings import replace_string
-
-import argparse
-import os
-import shutil
 
 
 SUPPORTED_THEMES = [

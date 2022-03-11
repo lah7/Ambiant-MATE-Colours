@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Creates a compressed tar.xz package containing the icons for a release.
+# Creates a compressed tar.xz package with all the colours for the release notes.
 #
 cd $(dirname "$0")/../
 ./scripts/build.sh

@@ -13,24 +13,30 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
-# Copyright (C) 2021 Luke Horwell <code@horwell.me>
+# Copyright (C) 2021-2022 Luke Horwell <code@horwell.me>
 #
+"""
+Yaru-MATE is part of the Yaru project. This script modifies the MATE colours
+and utilises its build system to produce a new theme/icon set, deduplicating
+identical files where possible.
 
-from modules.common import validate_colour_hex
-from modules.common import check_for_tool
-from modules.common import get_output
-from modules.hexrgb import get_hex_variant
-from modules.hexrgb import is_dark_colour
-from modules.graphics import colourize_raster
-from modules.postprocessing import optimise_icon_size
-from modules.strings import replace_string
-
+This script does not handle the colourisation of the Ubuntu MATE wallpapers.
+"""
 import argparse
 import glob
 import tempfile
 import os
 import shutil
 import subprocess
+
+from modules.common import check_for_tool
+from modules.common import get_output
+from modules.common import validate_colour_hex
+from modules.hexrgb import get_hex_variant
+from modules.hexrgb import is_dark_colour
+from modules.graphics import colourize_raster
+from modules.postprocessing import optimise_icon_size
+from modules.strings import replace_string
 
 
 def _run(action, command):

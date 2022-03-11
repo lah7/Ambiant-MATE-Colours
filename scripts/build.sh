@@ -1,10 +1,11 @@
 #!/bin/bash
 #
-# Build the Debian package, usually performed by Launchpad.
-#
 # =======================
 # For packaging use only!
 # =======================
+#
+# Builds all the colour themes for the Debian package. Launchpad would normally
+# run this script.
 #
 CUR=0
 TOTAL=$(( 9 * 4 ))
