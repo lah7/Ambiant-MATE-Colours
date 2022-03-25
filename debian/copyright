@@ -5,7 +5,6 @@ Source: https://github.com/lah7/ubuntu-mate-colours/
 
 Files: README.md
        generate-ambiant-mate-colour.py
-       generate-yaru-mate-colour.py
        .github/*
        debian/*
        scripts/*
@@ -13,13 +12,8 @@ Copyright: 2019-2021, Luke Horwell <code@horwell.me>
 License: GPL-3+
 
 Files: usr/share/*
-       ubuntu-mate-artwork/*
+       src/*
 Copyright: Ubuntu MATE Team <ubuntu-mate-dev@lists.launchpad.net>
-License: GPL-3+
-
-Files: usr/share/*
-       yaru-src/*
-Copyright: Ubuntu Yaru Team
 License: GPL-3+
 
 License: GPL-3+

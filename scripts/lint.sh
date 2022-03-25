@@ -31,8 +31,5 @@ function abort_on_error() {
 $pylint generate-ambiant-mate-colour.py --errors-only
 abort_on_error $?
 
-$pylint generate-yaru-mate-colour.py --errors-only
-abort_on_error $?
-
 $pylint modules/*.py --errors-only
 abort_on_error $?

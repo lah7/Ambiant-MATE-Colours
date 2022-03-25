@@ -5,7 +5,6 @@
 
 [![Test Build](https://github.com/lah7/ubuntu-mate-colours/workflows/Test%20Build/badge.svg?event=push)](https://github.com/lah7/ubuntu-mate-colours/actions?query=workflow%3A%22Test+Build%22)
 [![Release](https://img.shields.io/github/release/lah7/ubuntu-mate-colours.svg)](https://github.com/lah7/ubuntu-mate-colours/releases)
-[![Upstream](https://img.shields.io/github/release/ubuntu-mate/ubuntu-mate-artwork.svg?label=upstream)](https://github.com/ubuntu-mate/ubuntu-mate-artwork/releases)
 [![Snapcraft](https://snapcraft.io/ubuntu-mate-colours/badge.svg)](https://snapcraft.io/ubuntu-mate-colours)
 
 ![Screenshot of the 3 themes using custom colours](.github/readme/screenshot@2x.jpg)
@@ -15,8 +14,6 @@ This project provides Ubuntu MATE with colour variants for these themes:
 * Ambiant-MATE
 * Ambiant-MATE-Dark
 * Radiant-MATE
-* Yaru-MATE-Light (21.04 onwards)
-* Yaru-MATE-Dark (21.04 onwards)
 
 In addition to themes and icons, these wallpapers and applications themes
 are recoloured too:
@@ -30,26 +27,7 @@ are recoloured too:
 | ![](.github/readme/wall.jpg) | ![](.github/readme/wall-splash.jpg) | ![](.github/readme/plank.jpg)
 
 
-## Supported Releases
-
-| Release   | Codename | Ambiant*-MATE | Yaru-MATE |
-| --------- | -------- | ------------- | --------- |
-| 21.10     | Impish   | ✔️            | ✔️
-| 21.04     | Hirsute  | ✔️            | ✔️
-| 20.04 LTS | Focal    | ✔️            | ❌
-| 18.04 LTS | Bionic   | ✔️            | ❌
-
-
-## Installation
-
-If you're running Ubuntu MATE 18.04 or later, you can conveniently access this
-feature via the **Welcome** application:
-
-![Screenshot of Colour Selection in Ubuntu MATE Welcome](.github/readme/welcome.png)
-
-This adds the [lah7/ubuntu-mate-colours PPA](https://launchpad.net/~lah7/+archive/ubuntu/ubuntu-mate-colours/)
-
-    sudo add-apt-repository ppa:lah7/ubuntu-mate-colours
+## Colours
 
 Packages are made for the following pre-defined colours:
 
@@ -70,6 +48,17 @@ Want them all? That's roughly 35 MB download, 550 MB unpacked!
 After installing, themes/icons will be available from **Appearance** (Look & Feel).
 
 
+## Ubuntu MATE Welcome (18.04 to 21.10)
+
+Users of Ubuntu MATE between releases 18.04 and 21.10 can conveniently access
+this feature via the **Welcome** application:
+
+![Screenshot of Colour Selection in Ubuntu MATE Welcome](.github/readme/welcome.png)
+
+This adds the older [lah7/ubuntu-mate-colours PPA](https://launchpad.net/~lah7/+archive/ubuntu/ubuntu-mate-colours/),
+which is now discontinued.
+
+
 ### Snap Compatibility
 
 In order for the theme to work in snapped applications, you will need to
@@ -77,7 +66,7 @@ install the snap in addition:
 
     sudo snap install ubuntu-mate-colours
 
-Then, "plug" this snap to all the other snaps, [as indicated on Yaru-MATE's README](https://github.com/ubuntu-mate/gtk-theme-yaru-mate-snap#readme):
+Then, "plug" this snap to all the other snaps:
 
     for PLUG in $(snap connections | grep gtk-common-themes:gtk-3-themes | awk '{print $2}'); do sudo snap connect ${PLUG} ubuntu-mate-colours:gtk-3-themes; done
     for PLUG in $(snap connections | grep gtk-common-themes:gtk-2-themes | awk '{print $2}'); do sudo snap connect ${PLUG} ubuntu-mate-colours:gtk-2-themes; done
@@ -93,19 +82,21 @@ Please note that the snap only provides compatibility for snapped applications. 
 be selected as the theme in MATE's **Appearance** settings.
 
 
-## Building Ambiant-MATE and Radiant-MATE
+## Building
 
 1. To begin, make sure you have a clone of this repository.
 
        git clone https://github.com/lah7/ubuntu-mate-colours
 
-1. Acquire the source code for [`ubuntu-mate-artwork`]:
-
-       git clone https://github.com/ubuntu-mate/ubuntu-mate-artwork
-
 1. Install the dependencies:
 
        sudo apt install librsvg2-bin imagemagick
+
+1. (Optional) Download a copy of Ambiant-MATE.
+
+    Skip this step if you have the theme already installed on your system.
+
+       git clone https://github.com/lah7/Ambiant-MATE
 
 1. Use the [generate-ambiant-mate-colour.py](generate-ambiant-mate-colour.py)
 script, which will create a copy and rewrites known colours to new colour
@@ -117,6 +108,7 @@ available only to the local user.
     The tool is entirely command line and parameter based. For usage:
 
        ./generate-ambiant-mate-colour.py --help
+
 
 #### Tweaks
 
@@ -132,51 +124,14 @@ themes even further:
 These are passed as a comma separated parameter to `--tweaks`.
 
 
-## Building Yaru-MATE
-
-1. To begin, make sure you have a clone of this repository.
-
-       git clone https://github.com/lah7/ubuntu-mate-colours
-
-1. Acquire the source code for [Yaru-MATE](https://github.com/ubuntu/yaru/tree/hirsute/mate):
-
-       git clone https://github.com/ubuntu/yaru.git -b hirsute/mate
-
-1. Install the dependencies:
-
-       sudo apt install meson sassc libglib2.0-bin libgtk-3-dev imagemagick inkscape optipng ruby
-
-1. Use the [generate-yaru-mate-colour.py](generate-yaru-mate-colour.py) script,
-which creates a temporary copy of the source code to patch, build and optimise
-to your specified colour.
-
-The output (`--usr-dir`) can then be placed into `~/.themes` and `~/.icons`.
-This script does not generate wallpapers or Plank themes.
-
-This theme uses Yaru's build system. If `Yaru-MATE-light` and `Yaru-MATE-dark`
-is already installed in `/usr/share/icons`, then uncoloured icons will be
-removed to save disk space.
-
-For usage:
-
-    ./generate-yaru-mate-colour.py --help
-
-
 ## Packaging
 
-A source build is dispatched to Launchpad for the latest Ubuntu series available
-(for example, 22.04 is `jammy`). This is so the latest `ubuntu-mate-artwork`
-package is used. The Yaru source code must be included alongside the upload
-in a folder named `yaru-src`.
+A local package can be produced by running:
 
-    git clone https://github.com/ubuntu/yaru.git --depth 1 yaru-src
-    rm -r yaru-src/.git*
+    debuild -b
 
-The builders at Launchpad run the `scripts/build.sh` script, which takes a
-long time to process.
-
-    debuild -S
-    dput ../*.changes ppa:lah7/ubuntu-mate-colours
+Note that this runs through the entire `scripts/build.sh` script, which takes a
+long time to process. A RAM disk is strongly recommended.
 
 Alternately, to produce a complete colour collection:
 
@@ -219,13 +174,8 @@ To launch:
 
 This program is licensed under the GPLv3.
 
-[`ubuntu-mate-artwork`] is licensed under the GPLv3 or
-[Creative Commons Attribution-ShareAlike 4.0 License].
-
-Yaru-MATE is a branch of the [Yaru] project and its assets are licensed under
-the [Creative Commons Attribution-ShareAlike 4.0 License].
+[`Ambiant-MATE`] is licensed under the [Creative Commons Attribution-ShareAlike 4.0 License].
 
 
-[`ubuntu-mate-artwork`]: https://github.com/ubuntu-mate/ubuntu-mate-artwork
+[`Ambiant-MATE`]: https://github.com/lah7/Ambiant-MATE
 [Creative Commons Attribution-ShareAlike 4.0 License]: https://creativecommons.org/licenses/by-sa/4.0/
-[Yaru]: https://github.com/ubuntu/yaru

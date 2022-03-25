@@ -6,8 +6,7 @@ debian/*.substvars
 usr/
 
 # Sources
-ubuntu-mate-artwork/
-yaru-src/
+src/
 
 # Cache
 __pycache__
