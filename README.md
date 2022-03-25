@@ -98,16 +98,15 @@ be selected as the theme in MATE's **Appearance** settings.
 
        git clone https://github.com/lah7/Ambiant-MATE
 
-1. Use the [generate-ambiant-mate-colour.py](generate-ambiant-mate-colour.py)
-script, which will create a copy and rewrites known colours to new colour
-values. Some image assets will be recoloured using Imagemagick.
-
-    By default, the theme is created in `~/.themes` and `~/.icons`, making it
-available only to the local user.
+1. Use the script to generate your theme.
 
     The tool is entirely command line and parameter based. For usage:
 
        ./generate-ambiant-mate-colour.py --help
+
+    By default, the new theme will be created in `~/.themes` and `~/.icons`.
+    If you use Compiz, this needs to be copied (as root) to `/usr/share/`
+    in order for window borders to work.
 
 
 #### Tweaks
