@@ -1,19 +1,19 @@
-name: Test Build
+name: CI
 
 on: [push, pull_request]
 
 jobs:
   build:
-
-    runs-on: ubuntu-20.04
-
+    name: Build
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v2
+
     - name: Install Dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install python3 librsvg2-bin imagemagick
-        sudo apt-get install debhelper pylint3 lintian
+        sudo apt-get install python3 pylint3 librsvg2-bin imagemagick
 
     - name: Check Python script for errors
       run: ./scripts/lint.sh
@@ -29,6 +29,18 @@ jobs:
 
     - name: Test Build of Radiant-MATE
       run: ./generate-ambiant-mate-colour.py --ignore-existing --install-icon-dir=usr/share/icons --install-theme-dir=usr/share/themes --src-dir=src/ --theme="Radiant-MATE" --hex="#DFCA25" --name="Yellow" --tweaks=mono-osd-icons,black-selected-text
+
+  package:
+    name: Test Packaging
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Install Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install debhelper lintian
 
     - name: Test Build of Source Package
       run: |

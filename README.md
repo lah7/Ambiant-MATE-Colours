@@ -3,7 +3,7 @@
 
 # Ubuntu MATE Colours
 
-[![Test Build](https://github.com/lah7/ubuntu-mate-colours/workflows/Test%20Build/badge.svg?event=push)](https://github.com/lah7/ubuntu-mate-colours/actions?query=workflow%3A%22Test+Build%22)
+[![CI](https://github.com/lah7/ubuntu-mate-colours/workflows/CI/badge.svg?event=push)](https://github.com/lah7/ubuntu-mate-colours/actions?query=workflow%3A%22CI%22)
 [![Release](https://img.shields.io/github/release/lah7/ubuntu-mate-colours.svg)](https://github.com/lah7/ubuntu-mate-colours/releases)
 [![Snapcraft](https://snapcraft.io/ubuntu-mate-colours/badge.svg)](https://snapcraft.io/ubuntu-mate-colours)
 
