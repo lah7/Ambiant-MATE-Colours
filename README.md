@@ -1,7 +1,4 @@
-
-![Colourful Ubuntu MATE Logo](.github/readme/logo-small.png)
-
-# Ambiant-MATE-Colours
+# Ambiant MATE Colours
 
 [![CI](https://github.com/lah7/Ambiant-MATE-Colours/workflows/CI/badge.svg?event=push)](https://github.com/lah7/Ambiant-MATE-Colours/actions?query=workflow%3A%22CI%22)
 [![Release](https://img.shields.io/github/release/lah7/Ambiant-MATE-Colours.svg)](https://github.com/lah7/Ambiant-MATE-Colours/releases)
@@ -9,7 +6,7 @@
 
 ![Screenshot of the 3 themes using custom colours](.github/readme/screenshot@2x.jpg)
 
-This project provides Ubuntu MATE with colour variants for these themes:
+This project generates colour variants for:
 
 * Ambiant-MATE
 * Ambiant-MATE-Dark
@@ -30,22 +27,22 @@ Packages are made with the following pre-defined colours:
 
 Coloured themes can be obtained in a few ways:
 
-* Ubuntu users can add the `lah7/Ambiant-MATE` PPA.
+* Ubuntu users can add the `lah7/ambiant-mate` PPA.
 * Download a copy from the [Releases](https://github.com/lah7/Ambiant-MATE-Colours/releases) page.
 * [Build one yourself](#building)
 
 Ubuntu users can conveniently add the PPA like so:
 
-    sudo add-apt-repository ppa:lah7/Ambiant-MATE
+    sudo add-apt-repository ppa:lah7/ambiant-mate
 
-Packages are split by colour, so installing `ubuntu-mate-colours-blue` will
+Packages are split by colour, so installing `ambiant-mate-colours-blue` will
 give you the blue variants of the GTK and icon themes.
 
-    sudo apt install ubuntu-mate-colours-blue
+    sudo apt install ambiant-mate-colours-blue
 
 Want them all? That's roughly 35 MB download, 550 MB unpacked!
 
-    sudo apt install ubuntu-mate-colours-all
+    sudo apt install ambiant-mate-colours-all
 
 After installing, themes/icons will be available from **Appearance** (Look & Feel).
 
@@ -55,8 +52,8 @@ theme packages: `ambiant-mate-gtk-themes` and `ambiant-mate-icon-themes`
 
 ## Via Ubuntu MATE Welcome
 
-The project was previously known as `ubuntu-mate-colours`, which included
-recoloured wallpapers and a Plank theme.
+The project was [previously known as `ubuntu-mate-colours`](https://github.com/lah7/Ambiant-MATE-Colours/tree/49199e9b07d172608bfef83b70e242ff3657109f),
+which included recoloured wallpapers and a Plank theme.
 
 Users running a release of Ubuntu MATE between 18.04 and 21.10 can conveniently
 access this feature via the **Welcome** application:
@@ -64,8 +61,8 @@ access this feature via the **Welcome** application:
 ![Screenshot of Colour Selection in Ubuntu MATE Welcome](.github/readme/welcome.png)
 
 This adds the older [lah7/ubuntu-mate-colours PPA](https://launchpad.net/~lah7/+archive/ubuntu/ubuntu-mate-colours/),
-which is now discontinued. This feature is no longer used in 22.04 as Yaru-MATE
-has superceded this theme, and includes colour variants out of the box.
+which is now discontinued. This feature is no longer accessible in 22.04 as Yaru-MATE
+now includes colour variants out of the box, and superceded this theme.
 
 
 ### Snap Compatibility
@@ -149,12 +146,12 @@ Packaging is not strictly required, a complete colour collection can be created 
 
 ## Bonus: Wallpapers
 
-Take your favourite [Ubuntu MATE artwork](https://github.com/ubuntu-mate/ubuntu-mate-artwork/tree/master/usr/share/backgrounds) and recolour it:
+Take your favourite [Ubuntu MATE wallpaper](https://github.com/ubuntu-mate/ubuntu-mate-artwork/tree/master/usr/share/backgrounds) and recolour it:
 
     convert input.jpg -colorspace gray temp.jpg
     convert temp.jpg -background white -fill 'YOUR_HEX_HERE' -tint 100 output.jpg
 
-Users upgrading to 22.04 can re-download their recoloured wallpapers [from this release (18.8 MB)](https://github.com/lah7/Ambiant-MATE-Colours/releases/download/21.04.6.4/ubuntu-mate-colours-21.04.6.4.tar.xz).
+Users upgrading to 22.04 can re-download coloured wallpapers [from this release (18.8 MB)](https://github.com/lah7/Ambiant-MATE-Colours/releases/download/21.04.6.4/ubuntu-mate-colours-21.04.6.4.tar.xz).
 
 
 ## Development Tips
@@ -192,8 +189,8 @@ To launch:
 
 This program is licensed under the GPLv3.
 
-[`Ambiant-MATE`] is licensed under the [Creative Commons Attribution-ShareAlike 4.0 License].
+[Ambiant-MATE] is licensed under the [Creative Commons Attribution-ShareAlike 4.0 License].
 
 
-[`Ambiant-MATE`]: https://github.com/lah7/Ambiant-MATE
+[Ambiant-MATE]: https://github.com/lah7/Ambiant-MATE
 [Creative Commons Attribution-ShareAlike 4.0 License]: https://creativecommons.org/licenses/by-sa/4.0/
