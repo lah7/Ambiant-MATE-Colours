@@ -1,14 +1,14 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: ubuntu-mate-colours
+Upstream-Name: ambiant-mate-colours
 Upstream-Contact: Luke Horwell <code@horwell.me>
-Source: https://github.com/lah7/ubuntu-mate-colours/
+Source: https://github.com/lah7/ambiant-mate-colours/
 
 Files: README.md
        generate-ambiant-mate-colour.py
        .github/*
        debian/*
        scripts/*
-Copyright: 2019-2021, Luke Horwell <code@horwell.me>
+Copyright: 2019-2022, Luke Horwell <code@horwell.me>
 License: GPL-3+
 
 Files: usr/share/*

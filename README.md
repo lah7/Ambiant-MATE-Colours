@@ -1,10 +1,10 @@
 
 ![Colourful Ubuntu MATE Logo](.github/readme/logo-small.png)
 
-# Ubuntu MATE Colours
+# Ambiant-MATE-Colours
 
-[![CI](https://github.com/lah7/ubuntu-mate-colours/workflows/CI/badge.svg?event=push)](https://github.com/lah7/ubuntu-mate-colours/actions?query=workflow%3A%22CI%22)
-[![Release](https://img.shields.io/github/release/lah7/ubuntu-mate-colours.svg)](https://github.com/lah7/ubuntu-mate-colours/releases)
+[![CI](https://github.com/lah7/Ambiant-MATE-Colours/workflows/CI/badge.svg?event=push)](https://github.com/lah7/Ambiant-MATE-Colours/actions?query=workflow%3A%22CI%22)
+[![Release](https://img.shields.io/github/release/lah7/Ambiant-MATE-Colours.svg)](https://github.com/lah7/Ambiant-MATE-Colours/releases)
 [![Snapcraft](https://snapcraft.io/ubuntu-mate-colours/badge.svg)](https://snapcraft.io/ubuntu-mate-colours)
 
 ![Screenshot of the 3 themes using custom colours](.github/readme/screenshot@2x.jpg)
@@ -15,26 +15,27 @@ This project provides Ubuntu MATE with colour variants for these themes:
 * Ambiant-MATE-Dark
 * Radiant-MATE
 
-In addition to themes and icons, these wallpapers and applications themes
-are recoloured too:
-
-| Jazz                  | Wall (Logo and Text)              | Wall (Logo)     |
-| :-------------------: | :-------------------------------: | :-------------: |
-| ![](.github/readme/wall-jazz.jpg) | ![](.github/readme/wall-logo-text.jpg) | ![](.github/readme/wall-logo.jpg)
-
-| Wall                  | Splash                            | Plank
-| :-------------------: | :-------------------------------: | :-------------: |
-| ![](.github/readme/wall.jpg) | ![](.github/readme/wall-splash.jpg) | ![](.github/readme/plank.jpg)
-
 
 ## Colours
 
-Packages are made for the following pre-defined colours:
+Packages are made with the following pre-defined colours:
 
 | Aqua                  | Blue                  | Brown                  | Orange                  | Pink                  | Purple                  | Red                  | Teal                  | Yellow                  |
 | :-------------------: | :-------------------: | :--------------------: | :---------------------: | :-------------------: | :---------------------: | :------------------: | :-------------------: | :---------------------: |
 | ![](.github/readme/aqua.png) | ![](.github/readme/blue.png) | ![](.github/readme/brown.png) | ![](.github/readme/orange.png) | ![](.github/readme/pink.png) | ![](.github/readme/purple.png) | ![](.github/readme/red.png) | ![](.github/readme/teal.png) | ![](.github/readme/yellow.png) |
 | `#2DACD4`             | `#5489CF`             | `#965024`              | `#E95420`               | `#E231A3`             | `#7E5BC5`               | `#CE3A3A`            | `#1CB39F`             | `#DFCA25`               |
+
+## Installation
+
+Coloured themes can be obtained in a few ways:
+
+* Ubuntu users can add the `lah7/Ambiant-MATE` PPA.
+* Download a copy from the [Releases](https://github.com/lah7/Ambiant-MATE-Colours/releases) page.
+* [Build one yourself](#building)
+
+Ubuntu users can conveniently add the PPA like so:
+
+    sudo add-apt-repository ppa:lah7/Ambiant-MATE
 
 Packages are split by colour, so installing `ubuntu-mate-colours-blue` will
 give you the blue variants of the GTK and icon themes.
@@ -47,16 +48,23 @@ Want them all? That's roughly 35 MB download, 550 MB unpacked!
 
 After installing, themes/icons will be available from **Appearance** (Look & Feel).
 
+To keep the size of the colour themes down, these colours depend on the original
+theme packages: `ambiant-mate-gtk-themes` and `ambiant-mate-icon-themes`
 
-## Ubuntu MATE Welcome (18.04 to 21.10)
 
-Users of Ubuntu MATE between releases 18.04 and 21.10 can conveniently access
-this feature via the **Welcome** application:
+## Via Ubuntu MATE Welcome
+
+The project was previously known as `ubuntu-mate-colours`, which included
+recoloured wallpapers and a Plank theme.
+
+Users running a release of Ubuntu MATE between 18.04 and 21.10 can conveniently
+access this feature via the **Welcome** application:
 
 ![Screenshot of Colour Selection in Ubuntu MATE Welcome](.github/readme/welcome.png)
 
 This adds the older [lah7/ubuntu-mate-colours PPA](https://launchpad.net/~lah7/+archive/ubuntu/ubuntu-mate-colours/),
-which is now discontinued.
+which is now discontinued. This feature is no longer used in 22.04 as Yaru-MATE
+has superceded this theme, and includes colour variants out of the box.
 
 
 ### Snap Compatibility
@@ -86,7 +94,7 @@ be selected as the theme in MATE's **Appearance** settings.
 
 1. To begin, make sure you have a clone of this repository.
 
-       git clone https://github.com/lah7/ubuntu-mate-colours
+       git clone https://github.com/lah7/Ambiant-MATE-Colours
 
 1. Install the dependencies:
 
@@ -116,8 +124,8 @@ themes even further:
 
 | Tweak Name             | Theme                | Description                  |
 | ---------------------- | -------------------- | ---------------------------- |
-| `mono-osd-icons`       | Ambiant/Radiant-MATE | [Use monochrome icons for OSD volume pop up (#14)](https://github.com/lah7/ubuntu-mate-colours/issues/14)
-| `black-selected-text`  | Ambiant/Radiant-MATE | [The selected text colour is black instead of white (#21)](https://github.com/lah7/ubuntu-mate-colours/issues/21)
+| `mono-osd-icons`       | Ambiant/Radiant-MATE | [Use monochrome icons for OSD volume pop up (#14)](https://github.com/lah7/Ambiant-MATE-Colours/issues/14)
+| `black-selected-text`  | Ambiant/Radiant-MATE | [The selected text colour is black instead of white (#21)](https://github.com/lah7/Ambiant-MATE-Colours/issues/21)
 | `gtk3-classic`         | Ambiant/Radiant-MATE | [Append treeview alternating styling](https://github.com/lah7/gtk3-classic/wiki/Treeview:-Alternating-Colours-CSS) for use with the [gtk3-classic](https://github.com/lah7/gtk3-classic) project.
 
 These are passed as a comma separated parameter to `--tweaks`.

@@ -66,8 +66,6 @@ class Properties(object):
 
         if os.path.exists(os.path.dirname(__file__) + "/templates"):
             self.templates_dir = os.path.realpath(os.path.dirname(__file__)) + "/templates"
-        elif os.path.exists("/usr/share/ubuntu-mate-colours/"):
-            self.templates_dir = "/usr/share/ubuntu-mate-colours/templates"
         else:
             print("'templates' directory missing!")
             exit(1)
@@ -107,7 +105,7 @@ def parse_arguments():
     parser.add_argument("--theme", metavar="NAME", help="Required. Ubuntu MATE theme to use, e.g. 'Ambiant-MATE'", action="store")
     parser.add_argument("--hex", metavar="CODE", help="Required. Colour value to use, e.g. '#5489CF'", action="store")
     parser.add_argument("--name", metavar="NAME", help="Required. Human readable suffix to identify variant, e.g. 'Blue'.", action="store")
-    parser.add_argument("--src-dir", metavar="PATH", help="Required. Path to ubuntu-mate-artwork repository", action="store")
+    parser.add_argument("--src-dir", metavar="PATH", help="Required. Path to Ambiant-MATE repository", action="store")
 
     # Optional
     parser.add_argument("--install-icon-dir", metavar="PATH", help="Path to install coloured icons", action="store")
@@ -147,11 +145,6 @@ def parse_arguments():
 
         prop.base_icon_theme = THEME_TO_ICONS[prop.base_theme]
 
-        if prop.base_theme.startswith("Yaru"):
-            print("Yaru-MATE is not supported by this script.")
-            print("See README for details on generating Yaru-MATE variants.")
-            exit(1)
-
     if args.hex:
         if len(args.hex) == 6:
             args.hex = "#" + args.hex
@@ -168,7 +161,7 @@ def parse_arguments():
         prop.new_name = args.name
         prop.new_theme_name = prop.base_theme + "-" + args.name
         prop.new_icon_name = prop.base_icon_theme + "-" + prop.new_name
-        prop.new_wallpaper_dirname = "ubuntu-mate-colours-" + prop.new_name.lower()
+        prop.new_wallpaper_dirname = "ambiant-mate-colours-" + prop.new_name.lower()
 
     if args.src_dir:
         prop.src_path = os.path.realpath(args.src_dir)

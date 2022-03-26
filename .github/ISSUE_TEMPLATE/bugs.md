@@ -20,13 +20,12 @@ assignees:
 - Ambiant-MATE
 - Ambiant-MATE-Dark
 - Radiant-MATE
-- Yaru-MATE
 
 <!--
     Please test the original themes. If this issue happens on the original
-    theme, please raise the issue on their repository instead:
+    theme, please raise the issue on this repository instead:
 
-    https://github.com/ubuntu-mate/ubuntu-mate-artwork/issues
+    https://github.com/lah7/Ambiant-MATE
 -->
 
 

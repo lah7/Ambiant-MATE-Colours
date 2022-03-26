@@ -14,7 +14,7 @@ architectures:
 version: '21.04.6.4'
 summary: Ubuntu MATE Colours
 description: |
-  Colour variations of Ambiant-MATE, Radiant-MATE and Yaru-MATE themes.
+  Colour variations of Ambiant-MATE, Radiant-MATE and Yaru-MATE (21.10) themes.
 
 grade: stable
 confinement: strict

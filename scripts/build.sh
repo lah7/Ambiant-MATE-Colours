@@ -8,22 +8,12 @@
 # run this script.
 #
 CUR=0
-TOTAL=$(( 9 * 4 ))
+TOTAL=$(( 9 * 3 ))
 
 # Clear out any existing build
 if [ -d usr/share ]; then
     rm -r usr/share/icons
 fi
-
-# Output package versions being processed
-echo -e "\n=================================================="
-echo "Versions"
-echo "=================================================="
-echo -n "Theme " && apt-cache show ubuntu-mate-themes | grep Version
-echo -n "Icon Theme " && apt-cache show ubuntu-mate-icon-themes | grep Version
-echo -n "Wallpaper " && apt-cache show ubuntu-mate-wallpapers-common | grep Version
-echo -n "Meson " && apt-cache show meson | grep Version
-echo -n "sassc " && apt-cache show sassc | grep Version
 
 function generate_ambiant() {
     theme="$1"
@@ -42,7 +32,7 @@ function generate_ambiant() {
         --install-theme-dir=usr/share/themes \
         --install-wallpapers-dir=usr/share/backgrounds \
         --install-share-dir=usr/share \
-        --src-dir=/ \
+        --src-dir=src/ \
         --theme="$theme" \
         --hex="$hex" \
         --name="$name" \
