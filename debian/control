@@ -45,8 +45,6 @@ Replaces: ubuntu-mate-colours-aqua
 Description: Aqua variant of Ubuntu MATE themes
  Contains aqua coloured versions of Ambiant-MATE, Ambiant-MATE-Dark and
  Radiant-MATE.
- .
- This includes wallpapers, icons and themes.
 
 Package: ambiant-mate-colours-blue
 Architecture: all
@@ -57,8 +55,6 @@ Replaces: ubuntu-mate-colours-blue
 Description: Blue variant of Ubuntu MATE themes
  Contains blue coloured versions of Ambiant-MATE, Ambiant-MATE-Dark and
  Radiant-MATE.
- .
- This includes wallpapers, icons and themes.
 
 Package: ambiant-mate-colours-brown
 Architecture: all
@@ -69,8 +65,6 @@ Replaces: ubuntu-mate-colours-brown
 Description: Brown variant of Ubuntu MATE themes
  Contains brown coloured versions of Ambiant-MATE, Ambiant-MATE-Dark and
  Radiant-MATE.
- .
- This includes wallpapers, icons and themes.
 
 Package: ambiant-mate-colours-orange
 Architecture: all
@@ -81,8 +75,6 @@ Replaces: ubuntu-mate-colours-orange
 Description: Orange variant of Ubuntu MATE themes
  Contains orange coloured versions of Ambiant-MATE, Ambiant-MATE-Dark and
  Radiant-MATE.
- .
- This includes wallpapers, icons and themes.
 
 Package: ambiant-mate-colours-pink
 Architecture: all

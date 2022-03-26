@@ -25,6 +25,7 @@ Packages are made with the following pre-defined colours:
 | ![](.github/readme/aqua.png) | ![](.github/readme/blue.png) | ![](.github/readme/brown.png) | ![](.github/readme/orange.png) | ![](.github/readme/pink.png) | ![](.github/readme/purple.png) | ![](.github/readme/red.png) | ![](.github/readme/teal.png) | ![](.github/readme/yellow.png) |
 | `#2DACD4`             | `#5489CF`             | `#965024`              | `#E95420`               | `#E231A3`             | `#7E5BC5`               | `#CE3A3A`            | `#1CB39F`             | `#DFCA25`               |
 
+
 ## Installation
 
 Coloured themes can be obtained in a few ways:
@@ -100,7 +101,7 @@ be selected as the theme in MATE's **Appearance** settings.
 
        sudo apt install librsvg2-bin imagemagick
 
-1. (Optional) Download a copy of Ambiant-MATE.
+1. (Optional) Download a copy of [Ambiant-MATE].
 
     Skip this step if you have the theme already installed on your system.
 
@@ -140,10 +141,20 @@ A local package can be produced by running:
 Note that this runs through the entire `scripts/build.sh` script, which takes a
 long time to process. A RAM disk is strongly recommended.
 
-Alternately, to produce a complete colour collection:
+Packaging is not strictly required, a complete colour collection can be created like this:
 
     scripts/build.sh
     tar -cv usr/ | xz -z -9 > ubuntu-mate-colours-VERSION.tar.xz
+
+
+## Bonus: Wallpapers
+
+Take your favourite [Ubuntu MATE artwork](https://github.com/ubuntu-mate/ubuntu-mate-artwork/tree/master/usr/share/backgrounds) and recolour it:
+
+    convert input.jpg -colorspace gray temp.jpg
+    convert temp.jpg -background white -fill 'YOUR_HEX_HERE' -tint 100 output.jpg
+
+Users upgrading to 22.04 can re-download their recoloured wallpapers [from this release (18.8 MB)](https://github.com/lah7/Ambiant-MATE-Colours/releases/download/21.04.6.4/ubuntu-mate-colours-21.04.6.4.tar.xz).
 
 
 ## Development Tips

@@ -20,8 +20,8 @@ Ambiant-MATE and Radiant-MATE family of themes don't have a build system,
 so this script is a search & replace operation to extract the old colour
 and switch it with new ones.
 
-This script handles the parameters to produce a new GTK theme, icons, as well
-as the wallpapers. Optional tweaks may include some patches on top of that.
+This script handles the parameters to produce a new GTK theme and icons.
+Optional tweaks may include some patches on top of that.
 """
 import argparse
 import os
@@ -61,36 +61,23 @@ class Properties(object):
         # Source
         self.base_theme = ""
         self.base_icon_theme = ""
-        self.base_wallpapers = ""
         self.src_path = None
-
-        if os.path.exists(os.path.dirname(__file__) + "/templates"):
-            self.templates_dir = os.path.realpath(os.path.dirname(__file__)) + "/templates"
-        else:
-            print("'templates' directory missing!")
-            exit(1)
 
         # Names
         self.new_name = ""
         self.new_hex_value = ""
         self.new_theme_name = ""
         self.new_icon_name = ""
-        self.new_wallpaper_dirname = ""
 
         # Destination paths
         self.target_dir_icons = os.path.expanduser("~/.icons")
         self.target_dir_theme = os.path.expanduser("~/.themes")
-        self.target_dir_wallpapers = os.path.expanduser("~/.local/share/backgrounds")
-        self.target_share_path = os.path.expanduser("~/.local/share")
-        self.target_wallpapers_xml = os.path.expanduser("~/.local/share/mate-background-properties")
 
         # Build parameters
         self.always_overwrite = False
         self.ignore_existing = False
         self.build_theme = True
         self.build_icons = True
-        self.build_wallpapers = True
-        self.packaging = False
         self.tweaks = []
 
 
@@ -110,15 +97,10 @@ def parse_arguments():
     # Optional
     parser.add_argument("--install-icon-dir", metavar="PATH", help="Path to install coloured icons", action="store")
     parser.add_argument("--install-theme-dir", metavar="PATH",help="Path to install coloured theme", action="store")
-    parser.add_argument("--install-wallpapers-dir", metavar="PATH", help="Path to install coloured wallpapers", action="store")
-    parser.add_argument("--install-share-dir", metavar="PATH", help="Path to install /usr/share path for additional files", action="store")
     parser.add_argument("-y", "--overwrite", help="Suppress confirmation prompt if target exists", action="store_true")
     parser.add_argument("-i", "--ignore-existing", help="Ignore target folders that already exist", action="store_true")
     parser.add_argument("--list-tweaks", help="List available modifications", action="store_true")
     parser.add_argument("--tweaks", help="Apply additional modifications, comma separated", action="store")
-
-    # Special consideration for packaging use only
-    parser.add_argument( "--packaging", help=argparse.SUPPRESS, action="store_true")
 
     args = parser.parse_args()
 
@@ -180,16 +162,6 @@ def parse_arguments():
     if args.install_theme_dir:
         prop.target_dir_theme = args.install_theme_dir
 
-    if args.install_wallpapers_dir:
-        prop.target_dir_wallpapers = args.install_wallpapers_dir
-
-    if args.install_share_dir:
-        prop.target_share_path = os.path.realpath(args.install_share_dir)
-        prop.target_wallpapers_xml = os.path.join(args.install_share_dir, "mate-background-properties")
-
-    if args.packaging:
-        prop.packaging = True
-
     if args.overwrite:
         prop.always_overwrite = True
 
@@ -242,36 +214,9 @@ def prep_targets():
 
     prop.target_dir_theme = os.path.realpath(os.path.join(prop.target_dir_theme, prop.new_theme_name))
     prop.target_dir_icons = os.path.realpath(os.path.join(prop.target_dir_icons, prop.new_icon_name))
-    prop.target_dir_wallpapers = os.path.realpath(os.path.join(prop.target_dir_wallpapers, prop.new_wallpaper_dirname))
-    prop.target_wallpapers_xml = os.path.realpath(os.path.join(prop.target_wallpapers_xml, prop.new_wallpaper_dirname + ".xml"))
-    prop.target_plank_theme = os.path.join(prop.target_share_path, "plank", "themes", "Ubuntu-MATE-" + prop.new_name, "dock.theme")
 
     _copy_tree("theme", os.path.join(prop.src_path, "usr/share/themes/", prop.base_theme), prop.target_dir_theme)
     _copy_tree("icon", os.path.join(prop.src_path, "usr/share/icons/", prop.base_icon_theme), prop.target_dir_icons)
-
-    # Check wallpaper directory/XML file as these process the source files directly.
-    if os.path.exists(prop.target_dir_wallpapers):
-        if prop.ignore_existing:
-            print("Skipping wallpaper generation as target exists.\n")
-            prop.build_wallpapers = False
-
-        elif prop.always_overwrite:
-            print("\nDirectory exists: " + prop.target_dir_wallpapers)
-            shutil.rmtree(prop.target_dir_wallpapers)
-            if os.path.exists(prop.target_wallpapers_xml):
-                os.remove(prop.target_wallpapers_xml)
-
-    if not os.path.exists(prop.target_dir_wallpapers):
-        print("Created wallpaper directory.\n")
-        os.makedirs(prop.target_dir_wallpapers)
-
-    if not os.path.exists(os.path.dirname(prop.target_wallpapers_xml)):
-        print("Created mate-background-properties directory.\n")
-        os.makedirs(os.path.dirname(prop.target_wallpapers_xml))
-
-    if not os.path.exists(os.path.dirname(prop.target_plank_theme)):
-        print("Created plank theme directory.\n")
-        os.makedirs(os.path.dirname(prop.target_plank_theme))
 
     print("Source files copied.\n")
 
@@ -430,7 +375,7 @@ def patch_theme():
         "switch-trough-on",
         "switch-trough-toolbar-on",
     ]:
-        for gtk_dir in ["gtk-2.0", "gtk-3.0", "gtk-3.20"]:
+        for gtk_dir in ["gtk-2.0", "gtk-3.0"]:
             for suffix in [".png", "@2.png"]:
                 cur_dir = os.path.join(prop.target_dir_theme, gtk_dir, "assets")
                 filename = asset + suffix
@@ -578,136 +523,9 @@ class Tweaks(object):
         with open("gtk-3.0/gtk.css", "a") as f:
             f.write("\n@import url(\"gtk3-classic.css\");")
 
-        orig = os.path.join(prop.templates_dir, "gtk3-classic.css")
+        orig = os.path.join("./templates/gtk3-classic.css")
         dest = os.path.join(prop.target_dir_theme, "gtk-3.0", "gtk3-classic.css")
         shutil.copy(orig, dest)
-
-
-# ------------------------------------------------
-# Miscellaneous
-# ------------------------------------------------
-def colour_wallpapers():
-    """
-    Create colourised versions of the common Ubuntu MATE wallpapers.
-    """
-    if not prop.build_wallpapers:
-        return
-
-    wallpapers_src = [
-        [
-            "usr/share/backgrounds/ubuntu-mate-common/Green-Jazz.jpg",
-            prop.new_name + " Ubuntu MATE Jazz",
-            "Roberto Perico"
-        ],
-        [
-            "usr/share/backgrounds/ubuntu-mate-common/Green-Wall-Logo-Text.png",
-            prop.new_name + " Wall (Logo and Text)",
-            "Roberto Perico"
-        ],
-        [
-            "usr/share/backgrounds/ubuntu-mate-common/Green-Wall-Logo.png",
-            prop.new_name + " Wall (Logo)",
-            "Roberto Perico"
-        ],
-        [
-            "usr/share/backgrounds/ubuntu-mate-common/Green-Wall.png",
-            prop.new_name + " Wall",
-            "Roberto Perico"
-        ],
-        [
-            "usr/share/backgrounds/ubuntu-mate-common/Ubuntu-MATE-Splash.jpg",
-            prop.new_name + " Ubuntu MATE Splash",
-            "Martin Wimpress"
-        ]
-    ]
-
-    print("Generating wallpapers...")
-
-    xml = [
-        '<?xml version="1.0" encoding="UTF-8"?>',
-        '<!DOCTYPE wallpapers SYSTEM "mate-wp-list.dtd">',
-        '<wallpapers>'
-    ]
-
-    for wallpaper in wallpapers_src:
-        path = wallpaper[0]
-        display_name = wallpaper[1]
-        artist = wallpaper[2]
-
-        original = os.path.realpath(os.path.join(prop.src_path, path))
-        new_filename = os.path.basename(os.path.splitext(original)[0]).replace("Green", prop.new_name) + os.path.splitext(original)[1]
-
-        tmp_path = os.path.join("/tmp/" + new_filename)
-        new_path = os.path.join(prop.target_dir_wallpapers, new_filename)
-
-        if not os.path.exists(original):
-            print("\nWallpaper no longer exists: " + original)
-            exit(1)
-
-        print("Generating:", new_path)
-
-        os.system("convert {input} -colorspace gray {output}".format(input=original, output=tmp_path))
-        if not os.path.exists(tmp_path):
-            print("\nFailed to generate: " + tmp_path)
-            exit(1)
-
-        os.system("convert {input} -background white -fill '{hex}' -tint 100 {output}".format(input=tmp_path, hex=prop.new_hex_value, output=new_path))
-        if not os.path.exists(new_path):
-            print("\nFailed to generate: " + new_path)
-            exit(1)
-
-        # Clean up temporary files
-        os.remove(tmp_path)
-
-        # Add wallpaper to XML file
-        if prop.packaging:
-            new_path = "/usr/share/backgrounds/ubuntu-mate-colours-{colour}/{filename}".format(
-                colour=prop.new_name.lower(),
-                filename=new_filename)
-
-        xml.append('    <wallpaper deleted="false">'),
-        xml.append('      <name>' + display_name + '</name>')
-        xml.append('      <filename>' + new_path + '</filename>')
-        xml.append('      <options>zoom</options>')
-        xml.append('      <artist>' + artist + '</artist>')
-        xml.append('    </wallpaper>')
-
-    # Finish XML output
-    xml.append('</wallpapers>')
-    with open(prop.target_wallpapers_xml, "w") as f:
-        f.writelines("\n".join(xml))
-
-    print("Wallpaper generation complete.")
-
-
-def generate_plank_theme():
-    """
-    Create a new theme file for the Plank dock.
-    """
-    if not prop.build_theme:
-        return
-
-    print("\nGenerating Plank theme...")
-    template = os.path.join(prop.templates_dir, "plank.theme")
-
-    shutil.copy(template, prop.target_plank_theme)
-
-    # The template uses RRR, GGG and BBB as placeholders.
-    with open(template, "r") as f:
-        lines = f.readlines()
-
-    rgb = hex_to_rgb_list(prop.new_hex_value)
-    output = []
-    for line in lines:
-        if line.find("RR"):
-            line = line.replace("RRR;;GGG;;BBB", "{0};;{1};;{2}".format(rgb[0], rgb[1], rgb[2]))
-
-        output.append(line)
-
-    with open(prop.target_plank_theme, "w") as f:
-        f.writelines(output)
-
-    print("Plank theme created.\n")
 
 
 # ------------------------------------------------
@@ -736,13 +554,10 @@ if __name__ == "__main__":
     if prop.build_icons:
         print("           New Icons: " + prop.new_icon_name)
     print("              Source: " + prop.src_path)
-    print("   /usr/share prefix: " + prop.target_share_path)
     if prop.build_theme:
         print("    Install theme to: " + prop.target_dir_theme)
     if prop.build_icons:
         print("    Install icons to: " + prop.target_dir_icons)
-    if prop.build_wallpapers:
-        print("   New wallpapers to: " + prop.target_dir_wallpapers)
     if len(prop.tweaks) > 0:
         print("              Tweaks: " + ", ".join(prop.tweaks))
     print("")
@@ -752,8 +567,6 @@ if __name__ == "__main__":
     patch_theme()
     patch_icons()
     optimise_icon_size(prop.src_path + "/usr/share/icons/" + prop.base_icon_theme, prop.target_dir_icons)
-    colour_wallpapers()
-    generate_plank_theme()
     tweaks.perform_tweaks()
 
     print("\nGeneration of theme '{0}' complete.".format(prop.new_theme_name))

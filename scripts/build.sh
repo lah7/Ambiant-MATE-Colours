@@ -30,14 +30,11 @@ function generate_ambiant() {
         --ignore-existing \
         --install-icon-dir=usr/share/icons \
         --install-theme-dir=usr/share/themes \
-        --install-wallpapers-dir=usr/share/backgrounds \
-        --install-share-dir=usr/share \
         --src-dir=src/ \
         --theme="$theme" \
         --hex="$hex" \
         --name="$name" \
-        --tweaks=$tweaks \
-        --packaging
+        --tweaks=$tweaks
 
     if [ $? != 0 ]; then
         echo "Build failed!"
