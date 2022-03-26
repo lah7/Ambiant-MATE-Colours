@@ -62,6 +62,7 @@ class Properties(object):
         self.base_theme = ""
         self.base_icon_theme = ""
         self.src_path = None
+        self.templates = os.path.join(os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__), "templates")))
 
         # Names
         self.new_name = ""
@@ -523,7 +524,7 @@ class Tweaks(object):
         with open("gtk-3.0/gtk.css", "a") as f:
             f.write("\n@import url(\"gtk3-classic.css\");")
 
-        orig = os.path.join("./templates/gtk3-classic.css")
+        orig = os.path.join(prop.templates, "gtk3-classic.css")
         dest = os.path.join(prop.target_dir_theme, "gtk-3.0", "gtk3-classic.css")
         shutil.copy(orig, dest)
 
