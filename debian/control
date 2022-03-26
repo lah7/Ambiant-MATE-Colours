@@ -1,7 +1,7 @@
 Source: ambiant-mate-colours
 Section: x11
 Priority: optional
-Maintainer: Luke Horwell <luke@ubuntu-mate.org>
+Maintainer: Luke Horwell <code@horwell.me>
 Standards-Version: 4.1.3
 Build-Depends: debhelper (>= 11),
                python3 (>= 3.4.0),
