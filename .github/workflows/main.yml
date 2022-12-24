@@ -13,7 +13,7 @@ jobs:
     - name: Install Dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install python3 pylint3 librsvg2-bin imagemagick
+        sudo apt-get install python3 pylint librsvg2-bin imagemagick
 
     - name: Check Python script for errors
       run: ./scripts/lint.sh
