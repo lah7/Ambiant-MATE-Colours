@@ -6,11 +6,18 @@
 
 ![Screenshot of the 3 themes using custom colours](.github/readme/screenshot@2x.jpg)
 
-This project generates colour variants for:
+This project generates colour variants for the [Ambiant-MATE] family, including:
 
-* Ambiant-MATE
 * Ambiant-MATE-Dark
 * Radiant-MATE
+
+
+## Status
+
+Like [Ambiant-MATE], this theme is not actively maintained and relies on
+community contributions.
+
+The theme will be continued to be packaged for new Ubuntu releases.
 
 
 ## Colours
@@ -48,11 +55,12 @@ After installing, themes/icons will be available from **Appearance** (Look & Fee
 
 To keep the size of the colour themes down, these colours depend on the original
 theme packages: `ambiant-mate-gtk-themes` and `ambiant-mate-icon-themes`
+(included in the PPA)
 
 
 ## Via Ubuntu MATE Welcome
 
-The project was [previously known as `ubuntu-mate-colours`](https://github.com/lah7/Ambiant-MATE-Colours/tree/49199e9b07d172608bfef83b70e242ff3657109f),
+Previously, this project was [known as `ubuntu-mate-colours`](https://github.com/lah7/Ambiant-MATE-Colours/tree/49199e9b07d172608bfef83b70e242ff3657109f),
 which included recoloured wallpapers and a Plank theme.
 
 Users running a release of Ubuntu MATE between 18.04 and 21.10 can conveniently
@@ -71,6 +79,8 @@ In order for the theme to work in snapped applications, you will need to
 install the snap in addition:
 
     sudo snap install ubuntu-mate-colours
+
+**Please note: The snap is no longer updated.**
 
 Then, "plug" this snap to all the other snaps:
 
