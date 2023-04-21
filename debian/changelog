@@ -1,3 +1,9 @@
+ambiant-mate-colours (22.04.2) jammy; urgency=low
+
+  * Rebuild for Ambiant-MATE 22.04.2
+
+ -- Luke Horwell <code@horwell.me>  Fri, 21 Apr 2023 19:35:46 +0100
+
 ambiant-mate-colours (22.04.0) jammy; urgency=low
 
   * Drop support for Yaru-MATE
