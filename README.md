@@ -120,6 +120,9 @@ be selected as the theme in MATE's **Appearance** settings.
 
        ./generate-ambiant-mate-colour.py --help
 
+    To use the system's copy of Ambiant-MATE, use `--src-dir /`, otherwise,
+    use `--src-dir Ambiant-MATE/` that was created with `git clone` earlier.
+
     By default, the new theme will be created in `~/.themes` and `~/.icons`.
     If you use Compiz, this needs to be copied (as root) to `/usr/share/`
     in order for window borders to work.

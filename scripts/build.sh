@@ -30,7 +30,7 @@ function generate_ambiant() {
         --ignore-existing \
         --install-icon-dir=usr/share/icons \
         --install-theme-dir=usr/share/themes \
-        --src-dir=src/ \
+        --src-dir=Ambiant-MATE/ \
         --theme="$theme" \
         --hex="$hex" \
         --name="$name" \

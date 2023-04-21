@@ -10,10 +10,10 @@ cd "$(dirname $0)/../"
 dch
 
 # Get source code for Ambiant-MATE
-if [ ! -d src/ ]; then
+if [ ! -d Ambiant-MATE/ ]; then
     git clone https://github.com/lah7/Ambiant-MATE.git --depth 1
-    rm -rf src/*.git
-    rm -rf src/debian
+    rm -rf Ambiant-MATE/*.git
+    rm -rf Ambiant-MATE/debian
 fi
 
 # Ensure dependencies are installed
