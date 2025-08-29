@@ -108,7 +108,7 @@ def parse_arguments():
     if args.list_tweaks:
         print("Available Tweaks")
         print("-----------------------  -----------------------------------------------------")
-        for tweak in tweaks.tweaks.keys():
+        for tweak in tweaks.tweaks.keys(): # pylint: disable=used-before-assignment
             description = tweaks.tweaks[tweak][1]
             print("                         " + description, end="")
             print("\r" + tweak)
@@ -120,7 +120,7 @@ def parse_arguments():
         exit(1)
 
     if args.theme:
-        prop.base_theme = args.theme
+        prop.base_theme = args.theme # pylint: disable=used-before-assignment
 
         if prop.base_theme not in SUPPORTED_THEMES:
             print("Unsupported theme: " + prop.base_theme)
@@ -510,7 +510,7 @@ class Tweaks(object):
         replace_string("*.css", "selected_fg_color #EBEBEB", "selected_fg_color #000000")
 
         # Remove shadow when hovering over menus - escaped for regex
-        replace_string("*.css", "text-shadow: 0 -1px shade \(\@selected_bg_color, 0\.7\)", "text-shadow: none")
+        replace_string("*.css", r"text-shadow: 0 -1px shade \(\@selected_bg_color, 0\.7\)", "text-shadow: none")
 
     def gtk3_classic_extras(self):
         """
